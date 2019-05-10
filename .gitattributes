@@ -1,1 +1,9 @@
+*.js linguist-language=JavaScript
+*.h linguist-language=JavaScript
+*.m linguist-language=JavaScript
+*.html linguist-language=JavaScript
+*.xml linguist-language=JavaScript
 *.css linguist-language=JavaScript
+*.java linguist-language=JavaScript
+*.md linguist-language=JavaScript
+*.cmd linguist-language=JavaScript
