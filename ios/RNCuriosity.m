@@ -1,0 +1,137 @@
+#import "RNCuriosity.h"
+
+@implementation RNCuriosity
+
+- (dispatch_queue_t)methodQueue
+{
+    return dispatch_get_main_queue();
+}
+
+//Log
++ (void)LogInfo:(id)info{
+    [NativeTools logInfo:info];
+}
+//显示隐藏启动屏
++ (void)showSplashScreen {
+    [NativeTools showSplashScreen];
+}
+
+//判断是否有index.bundle文件
++ (BOOL)isBundle {
+    return [NativeTools isBundle];
+}
+
+//判断version是否匹配当前版本
++ (BOOL) matchingVersion {
+    return [NativeTools matchingVersion];
+}
+
+//index.bundle文件路径
++ (NSURL *)urlBundle {
+    return [NativeTools urlBundle];
+}
+//native 发送消息给 js
+-(NSArray<NSString *> *)supportedEvents{
+    return nil;
+}
+
+- (void)sendMessageToJS:(NSString *)eventName body:(id)body{
+    [self.bridge enqueueJSCall:@"RCTDeviceEventEmitter"
+                        method:@"emit"
+                          args:body ? @[eventName, body] : @[eventName]
+                    completion:NULL];
+}
+
+RCT_EXPORT_MODULE(RNCuriosity)
+
+// promise例子
+RCT_REMAP_METHOD(promiseCallback, options:(NSString *)options resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter){
+    if(options){
+        resolver(@[@"第一个参数",@"第二个参数"]);
+    } else {
+        rejecter(@"0",@"取消操作",nil);
+    }
+}
+//从native发消息到JS
+RCT_EXPORT_METHOD(sendMessageNativeToJS:(NSString *)props) {
+    [self sendMessageToJS:@"sendMessageNativeToJS" body:props];
+}
+//设置cookie
+RCT_EXPORT_METHOD(setCookie:(NSDictionary *)props) {
+    [NativeTools setCookie:props];
+}
+//清楚cookie
+RCT_EXPORT_METHOD(clearAllCookie) {
+    [NativeTools clearAllCookie];
+}
+//获取cookie
+RCT_EXPORT_METHOD(getAllCookie:(RCTResponseSenderBlock)callback) {
+    callback(@[[NativeTools getAllCookie]]);
+}
+
+//获取版本VersionName
+RCT_EXPORT_METHOD(getVersionName:(RCTResponseSenderBlock)callback) {
+    callback(@[[NativeTools getVersionName]]);
+}
+//获取版本VersionCode
+RCT_EXPORT_METHOD(getVersionCode:(RCTResponseSenderBlock)callback) {
+    callback(@[[NativeTools getVersionCode]]);
+}
+//解压文件
+RCT_EXPORT_METHOD(unZipFile:(NSString *)filePath callback:(RCTResponseSenderBlock)callback) {
+    callback(@[[NativeTools unZipFile:filePath]]);
+}
+//获取目录文件或文件夹大小
+RCT_EXPORT_METHOD(getFilePathSize:(NSString *)filePath callback:(RCTResponseSenderBlock)callback) {
+    callback(@[[NativeTools getFilePathSize:filePath]]);
+}
+// 获取沙盒主目录路径
+RCT_EXPORT_METHOD(getHomeDirectory:(RCTResponseSenderBlock)callback) {
+    callback(@[[NativeTools getHomeDirectory]]);
+}
+// 获取Documents目录路径
+RCT_EXPORT_METHOD(getDocuments:(RCTResponseSenderBlock)callback) {
+    callback(@[[NativeTools getDocuments]]);
+}
+// 获取Library的目录路径
+RCT_EXPORT_METHOD(getLibraryDirectory:(RCTResponseSenderBlock)callback) {
+    callback(@[[NativeTools getLibraryDirectory]]);
+}
+// 获取Caches目录路径
+RCT_EXPORT_METHOD(getCachesDirectory:(RCTResponseSenderBlock)callback) {
+    callback(@[[NativeTools getCachesDirectory]]);
+}
+// 获取tmp目录路径
+RCT_EXPORT_METHOD(getTemporaryDirectory:(RCTResponseSenderBlock)callback) {
+    callback(@[[NativeTools getTemporaryDirectory]]);
+}
+// 删除沙盒指定文件夹或文件 （删除文件夹）
+RCT_EXPORT_METHOD(deleteFile:(NSString *)props) {
+    [NativeTools deleteFile:props];
+}
+// 删除沙盒指定文件夹内容 （不删除文件夹）
+RCT_EXPORT_METHOD(deleteFolder:(NSString *)props) {
+    [NativeTools deleteFolder:props];
+}
+// 沙盒是否有指定文件夹
+RCT_EXPORT_METHOD(isFolderExists:(NSString *)props callback:(RCTResponseSenderBlock)callback) {
+    [NativeTools isFolderExists:props]?callback(@[@"true"]):callback(@[@"false"]);
+}
+//显示隐藏启动屏
+RCT_EXPORT_METHOD(showSplashScreen) {
+    [NativeTools showSplashScreen];
+}
+//隐藏启动屏
+RCT_EXPORT_METHOD(hideSplashScreen) {
+    [NativeTools hideSplashScreen];
+}
+//退出app
+RCT_EXPORT_METHOD(exitApp) {
+    exit(0);
+}
+
+//跳转到AppStore
+RCT_EXPORT_METHOD(goToMarket) {
+    [NativeTools goToAppStore];
+}
+@end
