@@ -34,229 +34,300 @@ export default class Utils {
         NativeUtils.sendMessageNativeToJS(message)
     }
 
-
-    /*
+    /**
      * 显示第一屏 （不常用）
      * android
      * ios
-     * */
+     * @constructor
+     */
     static SplashScreenHide() {
         NativeUtils.SplashScreenHide()
     }
 
-    /*
+    /**
      * 隐藏第一屏
      * android
      * ios
-     * */
+     * @constructor
+     */
     static SplashScreenShow() {
         NativeUtils.showSplashScreen()
     }
 
 
-    /*
+    /**
      * 安装apk only android
      * apkFile apk路径
-     * */
+     * @param apkFilePath
+     */
     static installApp(apkFilePath) {
         NativeUtils.installApp(apkFilePath)
 
     }
 
-
-    /*
-    * 退出app
-    * android
-    * ios
-    * */
+    /**
+     * 退出app
+     * android
+     * ios
+     * @constructor
+     */
     static ExitApp() {
         NativeUtils.ExitApp()
     }
 
-    /*
+    /**
      * url获取cookie
      * android
      * ios
-     * */
+     * @param url
+     * @param callback
+     */
     static getCookie(url, callback) {
         NativeUtils.getCookie(url, callback);
     }
 
-
-    /*
+    /**
      * 获取android 外部 files目录
      * only android
-     * */
+     * @param callback
+     */
     static getExternalFilesDir(callback) {
         NativeUtils.getExternalFilesDir(callback)
     }
 
-    /*
+    /**
      * 获取android 外部 cache目录
      * only android
-     * */
+     * @param callback
+     */
     static getExternalCacheDir(callback) {
         NativeUtils.getExternalCacheDir(callback);
     }
 
-    /*
+    /**
      * 获取android 内部 files目录
      * only android
-     * */
+     * @param callback
+     */
     static getFilesDir(callback) {
         NativeUtils.getFilesDir(callback);
     }
 
-    /*
+    /**
      * 获取android 内部 cache目录
      * only android
-     * */
+     * @param callback
+     */
     static getCacheDir(callback) {
         NativeUtils.getCacheDir(callback);
     }
 
-
-    /*
+    /**
      * 获取ios HomeDirectory 目录
      * only ios
-     * */
+     * @param callback
+     */
     static getHomeDirectory(callback) {
         NativeUtils.getHomeDirectory(callback);
     }
 
-    /*
+    /**
      * 获取ios Documents 目录
      * only ios
-     * */
+     * @param callback
+     */
     static getDocuments(callback) {
         NativeUtils.getDocuments(callback);
     }
 
-    /*
+    /**
      * 获取ios LibraryDirectory 目录
      * only ios
-     * */
+     * @param callback
+     */
     static getLibraryDirectory(callback) {
         NativeUtils.getLibraryDirectory(callback);
     }
 
-    /*
+    /**
      * 获取ios CachesDirectory 目录
      * only ios
-     * */
+     * @param callback
+     */
     static getCachesDirectory(callback) {
         NativeUtils.getCachesDirectory(callback);
     }
 
-    /*
+    /**
      * 获取ios TemporaryDirectory 目录
      * only ios
-     * */
+     * @param callback
+     */
     static getTemporaryDirectory(callback) {
         NativeUtils.getTemporaryDirectory(callback);
     }
 
-    /*
-    * 获取app版本名字 => '1.0.1
-    * android
-    * ios
-    * */
+    /**
+     * 获取app版本名字 => '1.0.1
+     * android
+     * ios
+     * @param callback
+     */
     static getVersionName(callback) {
         NativeUtils.getVersionName(callback);
     }
 
-    /*
-    * 获取版本号  => 1
-    * android
-    * ios
-    * */
+    /**
+     * 获取版本号  => 1
+     * android
+     * ios
+     * @param callback
+     */
     static getVersionCode(callback) {
         NativeUtils.getVersionCode(callback);
     }
 
-    /*
-    * 解压文件至压缩文件目录
-    * data=> Success 解压完成  NotFile文件不存在
-    * android
-    * ios
-    * */
+    /**
+     * 解压文件至压缩文件目录
+     * data=> Success 解压完成  NotFile文件不存在
+     * android
+     * ios
+     * @param filePath
+     * @param callback
+     */
     static unZipFile(filePath, callback) {
         NativeUtils.unZipFile(filePath, callback);
     }
 
-    /*
+    /**
      * 删除文件或目录
      * android
      * ios
+     * @param filePath
      */
     static deleteFile(filePath) {
         NativeUtils.deleteFile(filePath);
     }
 
-    /*
+    /**
      * 删除目录内容 （不删除目录）
      * android
      * ios
+     * @param foldrPath
      */
     static deleteFolder(foldrPath) {
         NativeUtils.deleteFolder(foldrPath);
     }
 
-    /*
+    /**
      * 获取文件或目录大小
      * android
      * ios
+     * @param filePath
+     * @param callback
      */
     static getFilePathSize(filePath, callback) {
         NativeUtils.getFilePathSize(filePath, callback);
     }
 
-    /*是否有该路径
+    /**
+     * 是否有该路径
      * android
      * ios
+     * @param filePath
+     * @param callback
      */
     static isFolderExists(filePath, callback) {
         NativeUtils.isFolderExists(filePath, callback);
     }
 
-    /*
+    /**
      * 创建目录
      * android
      * 暂时不支持ios
+     * @param filePath
+     * @param callback
      */
     static createDirectory(filePath, callback) {
         NativeUtils.createDirectory(filePath, callback);
     }
 
-
+    /**
+     * log信息打印
+     * @param content
+     */
     static log(content) {
         if (!content) return Utils.logError('content')
         console.warn("LogInfo=> ", content)
     }
 
+    /**
+     * 检验传入参数是否正确
+     * @param content
+     */
     static logError(content) {
         console.error("LogError=> Please the incoming " + content)
     }
 
-    /*
-    * react-navigation组件
-    * */
-    static navigationDidFocus(self, callback) {//页面已获取到焦点
+    /**** react-navigation组件 ****/
+
+    /**
+     * 屏幕聚焦
+     * @param self =>页面 this
+     * @param callback
+     */
+    static navigationDidFocus(self, callback) {
         return self.props.navigation.addListener('didFocus', callback)
     }
 
-    static navigationWillBlur(self, callback) {//页面已获取到焦点
+    /**
+     * 屏幕未聚焦
+     * @param self
+     * @param callback
+     */
+    static navigationDidBlur(self, callback) {
+        return self.props.navigation.addListener('didBlur', callback)
+    }
+
+    /**
+     * 屏幕将聚焦
+     * @param self
+     * @param callback
+     */
+    static navigationWillFocus(self, callback) {
+        return self.props.navigation.addListener('willFocus', callback)
+    }
+
+    /**
+     * 屏幕将没有聚焦
+     * @param self
+     * @param callback
+     */
+    static navigationWillBlur(self, callback) {
         return self.props.navigation.addListener('willBlur', callback)
     }
 
-    static navigationRemoveListener(navigation) {//去除页面焦点监听
+    /**
+     * 去除页面焦点监听
+     * @param navigation  ==> this.props.navigation
+     */
+    static navigationFocusRemoveListener(navigation) {
         navigation.remove()
     }
 
+    /**
+     * 返回上一页
+     * @param self
+     */
     static goBack(self) {
         self.props.navigation.goBack(null)
     }
 
+    /**
+     * 返回至指定页面
+     * @param self
+     * @param routeName
+     */
     static goBackRouteName(self, routeName) {
         const backAction = NavigationActions.back({
             key: routeName,
@@ -264,16 +335,40 @@ export default class Utils {
         self.props.navigation.dispatch(backAction);
     }
 
-    static pop(self, n) {//返回路由数量
+    /**
+     * 返回路由数量
+     * @param self
+     * @param n  n表示在堆栈内返回几层
+     */
+    static pop(self, n) {
         self.props.navigation.pop(n)
     }
 
+
+    /**
+     * 返回到栈顶
+     * @param self
+     */
+    static popToTop(self) {
+        self.props.navigation.popToTop()
+    }
+
+    /**
+     * 返回上一页带参数 data
+     * @param self
+     * @param data
+     */
     static goBackCallback(self, data) {
         const {goBack, state} = self.props.navigation;
         state.params.callback(data);
         goBack();
     }
 
+    /**
+     * 重置堆栈，并初始化到指定页面
+     * @param self
+     * @param routeName
+     */
     static goToResetView(self, routeName) {
         const resetAction = StackActions.reset({
             index: 0,
@@ -284,14 +379,31 @@ export default class Utils {
         self.props.navigation.dispatch(resetAction)
     }
 
+    /**
+     * 跳转至指定页面
+     * @param self
+     * @param routeName
+     */
     static jumpView(self, routeName) {
         self.props.navigation.navigate(routeName)
     }
 
+    /**
+     * 跳转至指定页面 带参数 data
+     * @param self
+     * @param routeName
+     * @param data
+     */
     static jumpDataView(self, routeName, data) {
         self.props.navigation.navigate(routeName, {data})
     }
 
+    /**
+     * 跳转至指定页面 并监听下一页回调
+     * @param self
+     * @param routeName
+     * @param callback
+     */
     static jumpCallbackView(self, routeName, callback) {
         self.props.navigation.navigate(routeName, {
             callback: (data) => {
@@ -300,6 +412,13 @@ export default class Utils {
         })
     }
 
+    /**
+     * 跳转至指定页面 带参数 data 并监听下一页回调
+     * @param self
+     * @param routeName
+     * @param data
+     * @param callback
+     */
     static jumpDataCallbackView(self, routeName, data, callback) {
         self.props.navigation.navigate(routeName, {
             data,
@@ -310,9 +429,81 @@ export default class Utils {
     }
 
 
-    /*
-  * loading弹窗
-  * */
+    /**
+     * 类似于navigate, push将跳转到堆栈中的新的路由 与navigate的区别在于，如果有已经加载的页面，navigate方法将跳转到已经加载的页面，
+     * 而不会重新创建一个新的页面。 push 总是会创建一个新的页面，所以一个页面可以被多次创建
+     * 注意：与navigate相比较，push的使用范围无疑是更广的，它可以在相同的screen页面间跳转（只是页面routeName相同，而参数params不同），
+     */
+
+    /**
+     * 创建一个新的路由
+     * @param self
+     * @param routeName
+     */
+    static pushView(self, routeName) {
+        self.props.navigation.push(routeName)
+    }
+
+    /**
+     * 创建一个新的路由 带参数 data
+     * @param self
+     * @param routeName
+     * @param data
+     */
+    static pushDataView(self, routeName, data) {
+        self.props.navigation.push(routeName, {data})
+    }
+
+    /**
+     * 创建一个新的路由  并监听下一页回调
+     * @param self
+     * @param routeName
+     * @param callback
+     */
+    static pushCallbackView(self, routeName, callback) {
+        self.props.navigation.push(routeName, {
+            callback: (data) => {
+                return callback(data)
+            }
+        })
+    }
+
+    /**
+     * 创建一个新的路由 带参数 data 并监听下一页回调
+     * @param self
+     * @param routeName
+     * @param data
+     * @param callback
+     */
+    static pushDataCallbackView(self, routeName, data, callback) {
+        self.props.navigation.push(routeName, {
+            data,
+            callback: (data) => {
+                return callback(data)
+            }
+        })
+    }
+
+
+    // DrawerNavigator
+
+    static openDrawer() {
+
+    }
+
+    static closeDrawer() {
+
+    }
+
+    static toggleDrawer() {
+
+    }
+
+
+    /**
+     * loading
+     * @param content
+     */
     static loadingShow(content) {
         ModalIndicator.show(content ? content : '加载中...')
         setTimeout(() => {
@@ -320,19 +511,28 @@ export default class Utils {
         }, 30000)
     }
 
+    /**
+     * 隐藏loading
+     */
     static loadingHide() {
         ModalIndicator.hide()
     }
 
-    //确保输入的全部是数字
+    /**
+     * 确保输入的全部是数字
+     * @param number
+     * @returns { string}
+     */
     static allAreNum(number) {
         number = number.replace(/[^\d]/g, '' + '');
         return number;
     }
 
-    /*
+
+    /**
      * 全面屏适配
-     * */
+     * @returns {boolean}
+     */
     static phoneFit() {
         const y = scale * height
         if (Platform.OS === 'android') {
@@ -364,6 +564,10 @@ export default class Utils {
         }
     }
 
+    /**
+     * 全面屏适配
+     * @returns {number} 返回全面屏对应的16：9 屏幕高度
+     */
     static phoneFitHeight() {
         const s = scale, h = height, y = scale * height
         if (Platform.OS === 'android') {
@@ -397,54 +601,81 @@ export default class Utils {
         }
     }
 
-    /*
-      * 获取等比例 设备宽度
-      * */
+
+    /**
+     * 获取等比例 设备宽度
+     * @param w
+     * @returns {number}
+     */
     static getWidth(w) {
         return (w / 750) * width
     }
 
-    /*
-    * 获取等比例 设备高度//18:9高度转换16:9屏幕高度
-    * */
+    /**
+     * 获取等比例 设备高度//18:9高度转换16:9屏幕高度
+     * @param h
+     * @returns {number}
+     */
     static getHeight(h) {
         return (h / 1334) * this.phoneFitHeight()
     }
 
-    /*
+    /**
      * 获取等比例 设备高度//真实高度=>包含18:9
-     * */
+     * @param h
+     * @returns {number}
+     */
     static getActualHeight(h) {
         return (h / 1334) * height
     }
 
-
-    /*
-      * 消息   发送  接收  注销监听
-      * */
+    /**
+     * 发送消息
+     * @param eventType
+     * @param data
+     */
     static sendMessage(eventType, data) {
         DeviceEventEmitter.emit(eventType, data || '')
     }
 
+    /**
+     * 监听消息
+     * @param eventType
+     * @param callback  处理监听消息 返回消息内容
+     */
     static receivesMessage(eventType, callback) {
         return DeviceEventEmitter.addListener(eventType, callback)
     }
 
+    /**
+     * 注销监听
+     * @param receivesMessage
+     */
     static removeReceivesMessage(receivesMessage) {
         receivesMessage.remove();
     }
 
-    /*
+    /**
      * 设备网络变化监听
-     * */
+     * @param listener
+     */
     static netInfoAddEventListener(listener) {
         NetInfo.addEventListener("connectionChange", listener)
     }
 
+    /**
+     * 移出设备网络变化监听
+     * @param listener
+     */
     static netInfoRemoveEventListener(listener) {
         NetInfo.removeEventListener("connectionChange", listener)
     }
 
+    /**
+     * 获取当前网络状态
+     * @param callback
+     * @param errorCallback
+     */
     static getNetInfo(callback, errorCallback) {
         NetInfo.getConnectionInfo().then(({type, effectiveType}) => {
             return callback(type, effectiveType)
@@ -453,24 +684,36 @@ export default class Utils {
         })
     }
 
-    /*
-      * android 返回键监听
-      * */
+
+    /**
+     * android 返回键监听
+     * @param listener
+     */
     static backHandlerAddEventListener(listener) {
         if (Platform.OS === 'android') BackHandler.addEventListener("hardwareBackPress", listener)
     }
 
+    /**
+     * 移出 android 返回键监听
+     * @param listener
+     */
     static backHandlerRemoveEventListener(listener) {
         if (Platform.OS === 'android') BackHandler.removeEventListener("hardwareBackPress", listener)
     }
 
+    /**
+     * android Toast
+     * @param text
+     */
     static toastAndroid(text) {
         if (Platform.OS === 'android') ToastAndroid.show(text, ToastAndroid.SHORT);
     }
 
-    /*
-      * 自定义弹窗
-      * */
+    /**
+     * 自定义弹窗
+     * @param view
+     * @param style
+     */
     static alertPopView(view, style) {
         return Overlay.show(
             <Overlay.PopView
@@ -479,6 +722,11 @@ export default class Utils {
                 style={[alertStyle, style && style]}>{view}</Overlay.PopView>)
     }
 
+    /**
+     * 自定义弹窗
+     * @param view
+     * @param style
+     */
     static alertPullView(view, style) {
         return Overlay.show(
             <Overlay.PullView
@@ -488,6 +736,11 @@ export default class Utils {
                 style={[alertStyle, {justifyContent: 'flex-end'}, style && style]}>{view}</Overlay.PullView>)
     }
 
+    /**
+     * 自定义气泡
+     * @param view
+     * @param style
+     */
     static alertPopoverView(view, style) {
         return Overlay.show(
             <Overlay.PopoverView
@@ -502,6 +755,15 @@ export default class Utils {
                 style={[alertStyle, {justifyContent: 'flex-end'}, style && style]}>{view}</Overlay.PopoverView>)
     }
 
+    /**
+     * 时间选择器
+     * @param pickerType    date=>年月日选择     dateTime=>年月日时分秒选择     time=>时分秒选择
+     * @param sureText
+     * @param title
+     * @param cancelText
+     * @param onSureCallback
+     * @param onCancelCallback
+     */
     static alertPicker(pickerType, sureText, title, cancelText, onSureCallback, onCancelCallback) {
         let pickerView = Utils.alertPullView(
             <DatePicker
@@ -520,6 +782,10 @@ export default class Utils {
         )
     }
 
+    /**
+     * 本地持久化储存信息
+     * @returns {Storage}
+     */
     static getStorage() {
         if (storage === undefined) {
             storage = new Storage({
@@ -535,9 +801,11 @@ export default class Utils {
         return storage;
     }
 
-    /*
-     *保存数据
-     * */
+    /**
+     * 保存数据
+     * @param key
+     * @param object
+     */
     static saveData(key, object) {
         Utils.isInit();
         storage.save({
@@ -547,9 +815,10 @@ export default class Utils {
         });
     }
 
-    /*
-     *删除单个数据
-     * */
+    /**
+     * 删除单个数据
+     * @param key
+     */
     static removeData(key) {
         Utils.isInit();
         storage.remove({
@@ -557,25 +826,29 @@ export default class Utils {
         });
     }
 
-    /*
-     *移除所有"key-id"数据（但会保留只有key的数据）
-     * */
+    /**
+     * 移除所有"key-id"数据（但会保留只有key的数据）
+     */
     static removeAll() {
         Utils.isInit();
         storage.clearMap();
     }
 
-    /*
-     *清除某个key下的所有数据
-     * */
+    /**
+     * 清除某个key下的所有数据
+     * @param key
+     */
     static clearDataByKey(key) {
         Utils.isInit();
         storage.clearMapForKey(key);
     }
 
-    /*
-     *查找某个key下的所有数据
-     * */
+    /**
+     * 查找某个key下的所有数据
+     * @param key
+     * @param successCallBack
+     * @param errorCallback
+     */
     static findData(key, successCallBack, errorCallback) {
         Utils.isInit();
         storage.load({
@@ -595,6 +868,8 @@ export default class Utils {
 
     /**
      * Toast
+     * @param content
+     * @constructor
      */
     static Toast = (content) => {
         Toast.show({text: content, position: 'center', duration: 1500})
@@ -620,6 +895,7 @@ export default class Utils {
 
 
     /**
+     *
      * netVersion={
      *     androidBundleVersion:0,
      *     androidVersion:1,
@@ -661,6 +937,9 @@ export default class Utils {
      *     }
      *
      * }
+     *
+     * @param netVersion
+     * @param OSSUrl
      */
     static uploadBundle(netVersion, OSSUrl) {
         this.getVersionCode((localVersionCode) => {
@@ -712,13 +991,18 @@ export default class Utils {
         )
     }
 
-    /*
-     *
+    /**
      * 下载文件
-     * */
-    static downloadFile(url, path, fileNmae, callbackPercent, callbackFinish, callbackFail) {
+     * @param url
+     * @param path
+     * @param fileName
+     * @param callbackPercent
+     * @param callbackFinish
+     * @param callbackFail
+     */
+    static downloadFile(url, path, fileName, callbackPercent, callbackFinish, callbackFail) {
         RNFetchBlob.config({
-            path: path + fileNmae,
+            path: path + fileName,
             fileCache: false,
         }).fetch('GET', url,).progress((received, total) => {
             return callbackPercent(received / total)
@@ -729,10 +1013,9 @@ export default class Utils {
         })
     }
 
-
-    /*
-    * 清除本地缓存
-    * */
+    /**
+     * 清除本地缓存
+     */
     static cleanCache() {
         if (Constant.IOS) {
             NativeUtils.getCachesDirectory((cache) => {
@@ -744,12 +1027,16 @@ export default class Utils {
     }
 
 
-    /*
-    * 解压bundle文件
-    * 固定位置
-    * android:/data/user/0/{packageName}/files/
-    * ios:/var/mobile/Containers/Data/Application/{186EE408-3B95-4A09-B8E2-E1C14B333E2B}/Library/
-    * */
+    /**
+     * 解压bundle文件
+     * 固定位置
+     * android:/data/user/0/{packageName}/files/
+     * ios:/var/mobile/Containers/Data/Application/{186EE408-3B95-4A09-B8E2-E1C14B333E2B}/Library/
+     *
+     * @param url
+     * @param callbackPercent
+     * @param callbackUnzip
+     */
     static downloadBundleZipWithUnZip(url, callbackPercent, callbackUnzip) {
         if (Constant.IOS) {
             NativeUtils.getLibraryDirectory((path) => {
@@ -777,12 +1064,12 @@ export default class Utils {
     }
 
 
-    /*
-   * 删除Bundle文件或目录
-   * android
-   * ios 固定路径 /var/mobile/Containers/Data/Application/{570EAD8E-C3F9-4A8D-9A17-ACD3355AC501}/Library/bundle.zip
-   *     固定路径 /var/mobile/Containers/Data/Application/{570EAD8E-C3F9-4A8D-9A17-ACD3355AC501}/Library/bundle/
-   */
+    /**
+     * 删除Bundle文件或目录
+     * android
+     * ios 固定路径 /var/mobile/Containers/Data/Application/{570EAD8E-C3F9-4A8D-9A17-ACD3355AC501}/Library/bundle.zip
+     *     固定路径 /var/mobile/Containers/Data/Application/{570EAD8E-C3F9-4A8D-9A17-ACD3355AC501}/Library/bundle/
+     */
     static deleteBundle() {
         if (Constant.IOS) {
             NativeUtils.getLibraryDirectory((library) => {
