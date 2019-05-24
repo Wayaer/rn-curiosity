@@ -1,41 +1,31 @@
 
 # rn-curiosity
 
+### rn-curiosity 致力于快速搭建app，封装多个常用 组件 方法，统一管理。同时会慢慢加入更多功能和组件，如问题 可及时提issues , 
+
+
 ## 必须加入的库
+`$  npm install rn-curiosity --save`
+
+`$  npm install react-native-fast-image --save`  //大图片优化
+
+`$  npm install rn-fetch-blob --save`       //网络框架
+
+`$  npm install @react-native-community/async-storage --save`
+
+`$  npm install @react-native-community/netinfo --save`
+
+`$ react-native link`
+
+##推荐使用的库
 ```
- npm install rn-curiosity --save
-
- npm install react-native-fast-image --save`//大图片优化
-
- npm install rn-fetch-blob --save   //网络框架
-
- npm install @react-native-community/async-storage --save
-
- npm install @react-native-community/netinfo --save
- 
-```
-###推荐使用的库
-```
- 
  react-native-syan-image-picker --save//图片选择
  
  lottie-react-native 动画库
 ```
-### Mostly automatic installation
-
-`$ react-native link `
-
-
-如果使用 bar请在xcode中加入ARTlib库
-
-Add the ART subspec like so:
-````
-pod 'React', path: '../node_modules/react-native', subspecs: [
-  'ART',
-]
-````
 
 ##所有组件方法导入方式
+rn-curiosity 继承 react-native 、react-native-snap-carousel、@react-native-community/netinfo、@react-native-community/async-storage 全部组件和方法
 ```
 
 import {TouchView, Utils, View, React, Component} from "rn-curiosity";
@@ -106,9 +96,8 @@ import {TouchView, Utils, View, React, Component} from "rn-curiosity";
         color: Colors.blueStart,
     }}/>}
     
-    #时间选择器 
-   <DatePicker/>
-  
+    # 时间选择器 
+    <DatePicker/>
 
 ```
  时间选择器 参考[rn-selector](https://github.com/Wayaer/rn-selector)
