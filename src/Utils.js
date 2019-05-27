@@ -617,7 +617,7 @@ export default class Utils {
      * @returns {number}
      */
     static getHeight(h) {
-        return (h / 1334) * this.phoneFitHeight()
+        return (h / 1334) * Utils.phoneFitHeight()
     }
 
     /**
