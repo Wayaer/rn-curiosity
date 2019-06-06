@@ -253,6 +253,23 @@ export default class Utils {
     }
 
     /**
+     * 跳转到android应用市场
+     * 多个应用市场展示应用市场列表
+     */
+    static goToAndroidMarket() {
+        NativeUtils.goToAndroidMarket();
+    }
+
+
+    /**
+     * 跳转至指定应用市场
+     * @param marketPackageName  应用市场包名
+     */
+    static goToAndroidAppointMarket(marketPackageName) {
+        NativeUtils.goToAndroidAppointMarket(marketPackageName);
+    }
+
+    /**
      * log信息打印
      * @param content
      */

@@ -47,85 +47,91 @@ public class CuriosityModule extends ReactContextBaseJavaModule {
         }
     }
 
-    /*
+    /**
      * 退出app
-     * */
+     */
     @ReactMethod
     public void exitApp() {
         NativeTools.exitApp();
     }
 
-    /*
+
+    /**
      * 获取cookie
-     * */
+     *
+     * @param url
+     * @param callback
+     */
     @ReactMethod
     public void getAllCookie(String url, Callback callback) {
         callback.invoke(NativeTools.getAllCookie(url));
     }
 
-    /*
+    /**
      * 清除cookie
-     * */
+     */
     @ReactMethod
     public void clearAllCookie() {
         NativeTools.clearAllCookie();
     }
 
-    /*
-     * 获取VersionCode
-     * */
+
+    /**
+     * 获取app包名
+     *
+     * @param callback
+     */
     @ReactMethod
-    public void getVersionCode(Callback callback) {
-        callback.invoke(NativeTools.getAppVersionCode(getReactApplicationContext()));
+    public void getAppInfo(Callback callback) {
+        callback.invoke(NativeTools.getAppInfo(getReactApplicationContext()));
     }
 
-    /*
-     * 获取VersionName
-     * */
-    @ReactMethod
-    public void getVersionName(Callback callback) {
-        callback.invoke(NativeTools.getAppVersionName(getReactApplicationContext()));
-    }
 
-    /*
+    /**
      * 安装apk
-     * */
+     *
+     * @param apkFile
+     */
     @ReactMethod
     public void installApp(String apkFile) {
         NativeTools.installApp(getReactApplicationContext(), apkFile);
     }
 
-    /*
+    /**
      * 获取android 外部 Files文件
-     * getExternalFilesDir
-     * */
+     *
+     * @param callback
+     */
     @ReactMethod
     public void getExternalFilesDir(Callback callback) {
         callback.invoke(NativeTools.getExternalFilesDir(getReactApplicationContext()));
     }
 
-    /*
+    /**
      * 获取android 外部 Cache文件
-     * getExternalCacheDir
-     * */
+     *
+     * @param callback
+     */
     @ReactMethod
     public void getExternalCacheDir(Callback callback) {
         callback.invoke(NativeTools.getExternalCacheDir(getReactApplicationContext()));
     }
 
-    /*
+    /**
      * 获取android 内部 Files文件
-     * getFilesDir
-     * */
+     *
+     * @param callback
+     */
     @ReactMethod
     public void getFilesDir(Callback callback) {
         callback.invoke(NativeTools.getFilesDir(getReactApplicationContext()));
     }
 
-    /*
+    /**
      * 获取android 内部 Cache文件
-     * getCacheDir
-     * */
+     *
+     * @param callback
+     */
     @ReactMethod
     public void getCacheDir(Callback callback) {
         callback.invoke(NativeTools.getCacheDir(getReactApplicationContext()));
@@ -133,6 +139,10 @@ public class CuriosityModule extends ReactContextBaseJavaModule {
 
     /**
      * 解压文件
+     *
+     * @param path
+     * @param callback
+     * @throws IOException
      */
     @ReactMethod
     public void unZipFile(String path, Callback callback) throws IOException {
@@ -140,42 +150,56 @@ public class CuriosityModule extends ReactContextBaseJavaModule {
         callback.invoke(NativeTools.unZipFile(path));
     }
 
-    /*
+    /**
      * 删除文件
-     * */
+     *
+     * @param path
+     */
     @ReactMethod
     public void deleteFile(String path) {
         NativeTools.deleteFile(path);
     }
 
-    /*
+    /**
      * 删除文件夹内容 （不删除文件夹）
-     * */
+     *
+     * @param path
+     */
     @ReactMethod
     public void deleteFolder(String path) {
         NativeTools.deleteFolder(path);
     }
 
 
-    /*
+    /**
      * 判断路径是否存在
-     * */
+     *
+     * @param path
+     * @param callback
+     */
     @ReactMethod
     public void isFolderExists(String path, Callback callback) {
         callback.invoke(NativeTools.isFolderExists(path));
     }
 
-    /*
+    /**
      * 创建目录
-     * */
+     *
+     * @param path
+     * @param callback
+     */
     @ReactMethod
     public void createFolder(String path, Callback callback) {
         callback.invoke(NativeTools.createFolder(path));
     }
 
-    /*
-     * 创建目录
-     * */
+
+    /**
+     * 获取路径文件和文件夹大小
+     *
+     * @param path
+     * @param callback
+     */
     @ReactMethod
     public void getFilePathSize(String path, Callback callback) {
         callback.invoke(NativeTools.getFilePathSize(path));
@@ -186,9 +210,17 @@ public class CuriosityModule extends ReactContextBaseJavaModule {
      * 跳转到应用商店
      * */
     @ReactMethod
-    public void goToMarket() {
-        NativeTools.goToMarket(getReactApplicationContext());
+    public void goToAndroidMarket() {
+        NativeTools.goToAndroidMarket(getReactApplicationContext(), null);
     }
 
-
+    /**
+     * 跳转到指定应用商店
+     *
+     * @param marketPackageName
+     */
+    @ReactMethod
+    public void goToAndroidAppointMarket(String marketPackageName) {
+        NativeTools.goToAndroidMarket(getReactApplicationContext(), marketPackageName);
+    }
 }

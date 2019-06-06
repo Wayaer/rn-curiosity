@@ -1,5 +1,6 @@
 package com.curiosity;
 
+import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +18,8 @@ import android.webkit.ValueCallback;
 
 import com.curiosity.utils.FileUtils;
 import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.WritableNativeMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 
 
@@ -41,10 +44,11 @@ import java.util.zip.ZipFile;
 import javax.annotation.Nullable;
 
 /**
- * Created by dev on 2017/9/15.
+ * Created by Wayaer on 2017/9/15.
  */
 
 public class NativeTools {
+
     /**
      * @param content
      */
@@ -86,10 +90,9 @@ public class NativeTools {
         return true;
     }
 
-    /*
+    /**
      * 退出app
-     * restartApplication
-     * */
+     */
     public static void exitApp() {
         //杀死进程，否则就算退出App，App处于空进程并未销毁，再次打开也不会初始化Application
         //从而也不会执行getJSBundleFile去更换bundle的加载路径 !!!
@@ -97,16 +100,19 @@ public class NativeTools {
         System.exit(0);
     }
 
-    /*
+    /**
      * 获取cookie
-     * */
+     *
+     * @param url
+     * @return
+     */
     public static String getAllCookie(String url) {
         return CookieManager.getInstance().getCookie(url);
     }
 
-    /*
+    /**
      * 清除cookie
-     * */
+     */
     public static void clearAllCookie() {
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
             CookieManager.getInstance().removeAllCookies(new ValueCallback<Boolean>() {
@@ -119,39 +125,54 @@ public class NativeTools {
         }
     }
 
-    /*
-     * 获取VersionCode
-     * */
-    public static int getAppVersionCode(Context context) {
-        int appVersionCode = 0;
-        PackageManager manager = context.getPackageManager();
+
+    @SuppressLint("MissingPermission")
+    public static WritableMap getAppInfo(Context context) {
+        PackageManager appInfo = context.getPackageManager();
+        WritableMap map = new WritableNativeMap();
+
+        String filesDir = context.getCacheDir().getPath();
+        String cacheDir = context.getCacheDir().getPath();
+
+        //获取android 外部 Files文件
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) || !Environment.isExternalStorageRemovable()) {
+            map.putString("externalFilesDir", android.os.Build.MODEL);
+        } else {
+            map.putString("externalFilesDir", filesDir);
+        }
+        //获取android 外部 Cache文件
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) || !Environment.isExternalStorageRemovable()) {
+            map.putString("externalCacheDir", android.os.Build.MODEL);
+        } else {
+            map.putString("externalCacheDir", cacheDir);
+        }
+        map.putString("filesDir", filesDir);
+        map.putString("cacheDir", filesDir);
+
+        map.putString("phoneModel", android.os.Build.MODEL);
+        map.putString("phoneBrand", android.os.Build.BRAND);
+        map.putString("systemVersion", android.os.Build.VERSION.RELEASE);
+        map.putString("SDKVersion", Build.VERSION.SDK);
         try {
-            PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
-            appVersionCode = info.versionCode; // 版本号
+            PackageInfo info = appInfo.getPackageInfo(context.getPackageName(), 0);
+            map.putString("packageName", info.packageName);
+            map.putInt("versionCode", info.versionCode);
+            map.putString("versionName", info.versionName);
+            map.putString("firstInstallTime", String.valueOf(info.firstInstallTime));
+            map.putString("lastUpdateTime", String.valueOf(info.lastUpdateTime));
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        return appVersionCode;
+        return map;
     }
 
-    /*
-     * 获取VersionName
-     * */
-    public static String getAppVersionName(Context context) {
-        String appVersionName = null;
-        PackageManager manager = context.getPackageManager();
-        try {
-            PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
-            appVersionName = info.versionName; // 版本名
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return appVersionName;
-    }
 
-    /*
+    /**
      * 安装apk
-     * */
+     *
+     * @param context
+     * @param apkFile
+     */
     public static void installApp(Context context, String apkFile) {
         File file = new File(apkFile);
         Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -171,10 +192,12 @@ public class NativeTools {
         context.startActivity(intent);
     }
 
-    /*
+    /**
      * 获取android 外部 Files文件
-     * getExternalFilesDir
-     * */
+     *
+     * @param context
+     * @return
+     */
     public static String getExternalFilesDir(Context context) {
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) || !Environment.isExternalStorageRemovable()) {
             return context.getExternalFilesDir(null).getPath();
@@ -183,10 +206,13 @@ public class NativeTools {
         }
     }
 
-    /*
+
+    /**
      * 获取android 外部 Cache文件
-     * getExternalCacheDir
-     * */
+     *
+     * @param context
+     * @return
+     */
     public static String getExternalCacheDir(Context context) {
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) || !Environment.isExternalStorageRemovable()) {
             return context.getExternalCacheDir().getPath();
@@ -195,25 +221,34 @@ public class NativeTools {
         }
     }
 
-    /*
+    /**
      * 获取android 内部 Cache文件
-     * getCacheDir
-     * */
+     *
+     * @param context
+     * @return
+     */
     public static String getCacheDir(Context context) {
         return context.getCacheDir().getPath();
     }
 
-    /*
+
+    /**
      * 获取android 内部 Files文件
-     * getFilesDir
-     * */
+     *
+     * @param context
+     * @return
+     */
     public static String getFilesDir(Context context) {
         return context.getFilesDir().getPath();
     }
 
-    /*
+
+    /**
      * 解压文件
-     * */
+     *
+     * @param zipPath
+     * @return
+     */
     public static String unZipFile(String zipPath) {
         if (isFolderExists(zipPath)) {
             try {
@@ -298,11 +333,12 @@ public class NativeTools {
         }
     }
 
-
-    /*
+    /**
+     * 判断是否存在bundle文件
      *
-     *判断是否存在bundle文件
-     * */
+     * @param context
+     * @return
+     */
     public static boolean isBundle(Context context) {
         String filePath = getFilesDir(context) + "/bundle/index.bundle";
         File file = new File(filePath);
@@ -310,10 +346,20 @@ public class NativeTools {
         return false;
     }
 
-    /*
-     *判断bundle版本是否匹配当前app版本
-     * */
+
+    /**
+     * 判断bundle版本是否匹配当前app版本
+     *
+     * @param context
+     * @return
+     */
     public static boolean matchingVersion(Context context) {
+        int localVersionCode = 0;
+        try {
+            localVersionCode = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
         String versionPath = NativeTools.getFilesDir(context) + "/bundle/version.json";
         if (isFolderExists(versionPath)) {
             int versionCode = 0;
@@ -322,7 +368,7 @@ public class NativeTools {
                 BufferedReader v = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
                 versionCode = Integer.parseInt(new JSONObject(v.readLine()).getString("version"));
                 v.close();
-                if (versionCode == NativeTools.getAppVersionCode(context)) {
+                if (versionCode == localVersionCode) {
                     return true;
                 } else {
                     NativeTools.deleteFile(NativeTools.getFilesDir(context) + "/bundle");
@@ -345,8 +391,7 @@ public class NativeTools {
      * @return true：安装，false：未安装
      */
     public static boolean isInstallApp(Context context, String packageName) {
-        PackageManager packageManager = context.getPackageManager();// 获取packagemanager
-        List<PackageInfo> packages = packageManager.getInstalledPackages(0);// 获取所有已安装程序的包信息
+        List<PackageInfo> packages = context.getPackageManager().getInstalledPackages(0);// 获取所有已安装程序的包信息
         if (packages != null) {
             for (int i = 0; i < packages.size(); i++) {
                 String pn = packages.get(i).packageName;
@@ -358,46 +403,36 @@ public class NativeTools {
         return false;
     }
 
-
     /**
-     * 启动到app详情界面
+     * 跳转至应用商店
      *
-     * @param appPkg    App的包名
-     * @param marketPkg 应用商店包名 ,如果为""则由系统弹出应用商店列表供用户选择,否则调转到目标市场的应用详情界面，某些应用商店可能会失败
+     * @param context
      */
-    public static void launchAppDetail(Context context, String appPkg, String marketPkg) {
-        try {
-            if (TextUtils.isEmpty(appPkg))
-                return;
-            Uri uri = Uri.parse("market://details?id=" + appPkg);
-            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-            if (!TextUtils.isEmpty(marketPkg))
-                intent.setPackage(marketPkg);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
-        } catch (Exception e) {
-            e.printStackTrace();
+    public static void goToAndroidMarket(Context context, String marketPackageName) {
+        // Uri uri = Uri.parse("market://details?id=" + context.getPackageName());
+        Uri uri = Uri.parse("market://details?id=com.tencent.mobileqq");
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (marketPackageName != null) {// 如果没给市场的包名，则系统会弹出市场的列表让你进行选择。
+            intent.setPackage(marketPackageName);
         }
-    }
-
-    /*
-     * 跳转到应用宝
-     * */
-    public static void goToMarket(Context context) {
-        Uri uri = Uri.parse("market://details?id=" + context.getPackageName());
-        Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
         try {
-            goToMarket.setClassName("com.tencent.android.qqdownloader", "com.tencent.pangu.link.LinkProxyActivity");
-            context.startActivity(goToMarket);
+            context.startActivity(intent);
         } catch (ActivityNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    // 判断市场是否存在的方法
-    public static boolean isAppStore(Context context, String packageName) {
-        final PackageManager packageManager = context.getPackageManager();// 获取packageManager
-        List<PackageInfo> pInfo = packageManager.getInstalledPackages(0);// 获取所有已安装程序的包信息
+
+    /**
+     * 判断应用是否存在的方法
+     *
+     * @param context
+     * @param packageName
+     * @return
+     */
+    public static boolean isAndroidMarket(Context context, String packageName) {
+        List<PackageInfo> pInfo = context.getPackageManager().getInstalledPackages(0);// 获取所有已安装程序的包信息
         List<String> pName = new ArrayList<String>();// 用于存储所有已安装程序的包名
         // 从pInfo中将包名字逐一取出，压入pName list中
         if (pInfo != null) {
@@ -409,7 +444,13 @@ public class NativeTools {
         return pName.contains(packageName);// 判断pName中是否有目标程序的包名，有TRUE，没有FALSE
     }
 
-
+    /**
+     * 发送消息至js
+     *
+     * @param reactContext
+     * @param eventName
+     * @param params
+     */
     public static void sendMessageToJS(ReactContext reactContext, String eventName, @Nullable String params) {
         reactContext
                 .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)

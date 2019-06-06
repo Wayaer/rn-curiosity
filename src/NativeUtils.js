@@ -205,6 +205,18 @@ export default class NativeUtils {
         });
     }
 
+
+    /**
+     * android
+     * ios
+     * @param callback
+     */
+    static getAppInfo(callback) {
+        if (callback) RNCuriosity.getAppInfo((data) => {
+            return callback(data)
+        });
+    }
+
     /**
      * 获取app版本名字 => '1.0.1
      * android
@@ -212,9 +224,9 @@ export default class NativeUtils {
      * @param callback
      */
     static getVersionName(callback) {
-        if (callback) RNCuriosity.getVersionName((data) => {
-            return callback(data)
-        });
+        // if (callback) RNCuriosity.getVersionName((data) => {
+        //     return callback(data)
+        // });
     }
 
     /**
@@ -224,9 +236,9 @@ export default class NativeUtils {
      * @param callback
      */
     static getVersionCode(callback) {
-        if (callback) RNCuriosity.getVersionCode((data) => {
-            return callback(data)
-        });
+        // if (callback) RNCuriosity.getVersionCode((data) => {
+        //     return callback(data)
+        // });
     }
 
     /**
@@ -323,5 +335,22 @@ export default class NativeUtils {
         }
     }
 
+    /**
+     * 跳转到android应用市场
+     * 多个应用市场展示应用市场列表
+     */
+    static goToAndroidMarket() {
+        RNCuriosity.goToAndroidMarket()
+    }
+
+    /**
+     * 跳转至指定应用市场
+     * @param marketPackageName  应用市场包名
+     * @param marketClassName    应用市场app详情类名
+     */
+    static goToAndroidAppointMarket(marketPackageName) {
+        if (!marketPackageName) return Utils.logError('marketPackageName')
+        RNCuriosity.goToAndroidAppointMarket(marketPackageName)
+    }
 
 }
