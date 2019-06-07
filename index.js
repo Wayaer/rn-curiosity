@@ -1,7 +1,7 @@
 'use strict';
 import React, {Component} from 'react';
 import Utils from "./src/Utils"
-import NativeUtils, {RNCuriosity} from "./src/NativeUtils"
+const  Curiosity=Utils;
 //第三方
 import RNFetchBlob from 'rn-fetch-blob'
 import SnapCarousel from 'react-native-snap-carousel'
@@ -103,7 +103,6 @@ export {
     Component,
     SnapCarousel,
     NetInfo, AsyncStorage,
-    Utils, NativeUtils,
+    Utils,Curiosity,
     RNFetchBlob,
-    RNCuriosity,
 }

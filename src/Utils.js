@@ -72,7 +72,7 @@ export default class Utils {
      * @constructor
      */
     static ExitApp() {
-        NativeUtils.ExitApp()
+        NativeUtils.exitApp()
     }
 
     /**
@@ -87,103 +87,13 @@ export default class Utils {
     }
 
     /**
-     * 获取android 外部 files目录
-     * only android
+     * 获取app多个信息，android && ios 自行打印参数查看
      * @param callback
      */
-    static getExternalFilesDir(callback) {
-        if (Constant.Android && callback) NativeUtils.getAppInfo((data) => {
-            return callback(data.externalFilesDir)
-        });
-    }
-
-    /**
-     * 获取android 外部 cache目录
-     * only android
-     * @param callback
-     */
-    static getExternalCacheDir(callback) {
-        if (Constant.Android && callback) NativeUtils.getAppInfo((data) => {
-            return callback(data.externalCacheDir)
-        });
-    }
-
-    /**
-     * 获取android 内部 files目录
-     * only android
-     * @param callback
-     */
-    static getFilesDir(callback) {
-        if (Constant.Android && callback) NativeUtils.getAppInfo((data) => {
-            return callback(data.filesDir)
-        });
-    }
-
-    /**
-     * 获取android 内部 cache目录
-     * only android
-     * @param callback
-     */
-    static getCacheDir(callback) {
-        if (Constant.Android && callback) NativeUtils.getAppInfo((data) => {
-            return callback(data.cacheDir)
-        });
-    }
-
-
-    /**
-     * 获取ios HomeDirectory 目录
-     * only ios
-     * @param callback
-     */
-    static getHomeDirectory(callback) {
-        if (Constant.IOS && callback) NativeUtils.getAppInfo((data) => {
-            return callback(data.cacheDir)
-        });
-    }
-
-    /**
-     * 获取ios Documents 目录
-     * only ios
-     * @param callback
-     */
-    static getDocuments(callback) {
-        if (Constant.IOS && callback) NativeUtils.getAppInfo((data) => {
-            return callback(data.Documents)
-        });
-    }
-
-    /**
-     * 获取ios LibraryDirectory 目录
-     * only ios
-     * @param callback
-     */
-    static getLibraryDirectory(callback) {
-        if (Constant.IOS && callback) NativeUtils.getAppInfo((data) => {
-            return callback(data.LibraryDirectory)
-        });
-    }
-
-    /**
-     * 获取ios CachesDirectory 目录
-     * only ios
-     * @param callback
-     */
-    static getCachesDirectory(callback) {
-        if (Constant.IOS && callback) NativeUtils.getAppInfo((data) => {
-            return callback(data.CachesDirectory)
-        });
-    }
-
-    /**
-     * 获取ios TemporaryDirectory 目录
-     * only ios
-     * @param callback
-     */
-    static getTemporaryDirectory(callback) {
-        if (Constant.IOS && callback) NativeUtils.getAppInfo((data) => {
-            return callback(data.TemporaryDirectory)
-        });
+    static getAppInfo(callback) {
+        NativeUtils.getAppInfo((data) => {
+            return callback(data)
+        })
     }
 
     /**
@@ -193,14 +103,8 @@ export default class Utils {
      * @param callback
      */
     static getVersionName(callback) {
-        let versionName
         NativeUtils.getAppInfo((data) => {
-            if (Constant.Android) {
-                versionName = data.versionName
-            } else if (Constant.IOS) {
-                versionName = data.Version
-            }
-            return callback(versionName)
+            return callback(data.versionName)
         })
     }
 
@@ -211,14 +115,8 @@ export default class Utils {
      * @param callback
      */
     static getVersionCode(callback) {
-        let versionCode
         NativeUtils.getAppInfo((data) => {
-            if (Constant.Android) {
-                versionCode = data.versionCode
-            } else if (Constant.IOS) {
-                versionCode = data.Build
-            }
-            return callback(versionCode)
+            return callback(data.versionCode)
         })
     }
 

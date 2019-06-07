@@ -79,7 +79,7 @@ export default class NativeUtils {
      * ios
      * @constructor
      */
-    static ExitApp() {
+    static exitApp() {
         RNCuriosity.exitApp()
     }
 
