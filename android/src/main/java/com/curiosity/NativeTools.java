@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.support.v4.content.FileProvider;
-import android.text.TextUtils;
 import android.util.Log;
 import android.webkit.CookieManager;
 import android.webkit.ValueCallback;
@@ -134,20 +133,28 @@ public class NativeTools {
         String filesDir = context.getCacheDir().getPath();
         String cacheDir = context.getCacheDir().getPath();
 
-        //获取android 外部 Files文件
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) || !Environment.isExternalStorageRemovable()) {
-            map.putString("externalFilesDir", android.os.Build.MODEL);
+            map.putString("externalFilesDir", context.getExternalCacheDir().getPath() + "/");
+            map.putString("externalCacheDir", context.getExternalFilesDir(null).getPath() + "/");
+            map.putString("ExternalStorageDirectory", Environment.getExternalStorageDirectory() + "/");
+            map.putString("DIRECTORY_DCIM", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/");
+            map.putString("DIRECTORY_DOWNLOADS", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/");
+            map.putString("DIRECTORY_MOVIES", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES) + "/");
+            map.putString("DIRECTORY_MUSIC", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC) + "/");
+            map.putString("DIRECTORY_PICTURES", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + "/");
+            map.putString("DIRECTORY_ALARMS", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_ALARMS) + "/");
+            map.putString("DIRECTORY_DOCUMENTS", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + "/");
+            map.putString("DIRECTORY_NOTIFICATIONS", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_NOTIFICATIONS) + "/");
+            map.putString("DIRECTORY_RINGTONES", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_RINGTONES) + "/");
+            map.putString("DIRECTORY_PODCASTS", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PODCASTS) + "/");
+            // map.putString("downloadCacheDirectory", Environment.getDownloadCacheDirectory() + "/");
+            // map.putString("dataDirectory", Environment.getDataDirectory() + "/");
         } else {
-            map.putString("externalFilesDir", filesDir);
+            map.putString("externalFilesDir", filesDir + "/");
+            map.putString("externalCacheDir", cacheDir + "/");
         }
-        //获取android 外部 Cache文件
-        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) || !Environment.isExternalStorageRemovable()) {
-            map.putString("externalCacheDir", android.os.Build.MODEL);
-        } else {
-            map.putString("externalCacheDir", cacheDir);
-        }
-        map.putString("filesDir", filesDir);
-        map.putString("cacheDir", filesDir);
+        map.putString("filesDir", filesDir + "/");
+        map.putString("cacheDir", filesDir + "/");
 
         map.putString("phoneModel", android.os.Build.MODEL);
         map.putString("phoneBrand", android.os.Build.BRAND);
@@ -190,45 +197,6 @@ public class NativeTools {
                     "application/vnd.android.package-archive");
         }
         context.startActivity(intent);
-    }
-
-    /**
-     * 获取android 外部 Files文件
-     *
-     * @param context
-     * @return
-     */
-    public static String getExternalFilesDir(Context context) {
-        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) || !Environment.isExternalStorageRemovable()) {
-            return context.getExternalFilesDir(null).getPath();
-        } else {
-            return NativeTools.getFilesDir(context);
-        }
-    }
-
-
-    /**
-     * 获取android 外部 Cache文件
-     *
-     * @param context
-     * @return
-     */
-    public static String getExternalCacheDir(Context context) {
-        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) || !Environment.isExternalStorageRemovable()) {
-            return context.getExternalCacheDir().getPath();
-        } else {
-            return NativeTools.getCacheDir(context);
-        }
-    }
-
-    /**
-     * 获取android 内部 Cache文件
-     *
-     * @param context
-     * @return
-     */
-    public static String getCacheDir(Context context) {
-        return context.getCacheDir().getPath();
     }
 
 

@@ -3,7 +3,7 @@ import {
     RNFetchBlob,
     DatePicker, React, Component,
     Constant, height, scale, width, ModalIndicator, Overlay, Toast,
-    AsyncStorage, NetInfo, NativeUtils
+    AsyncStorage, NetInfo, NativeUtils, RNCuriosity
 } from "../index";
 import Storage from "./component/Storage";
 import {NavigationActions, StackActions} from "react-navigation";
@@ -25,7 +25,7 @@ export default class Utils {
     }
 
     /**
-     * Native发消息到JS
+     * Native发消息到J
      * android
      * ios
      * @param message
@@ -92,7 +92,9 @@ export default class Utils {
      * @param callback
      */
     static getExternalFilesDir(callback) {
-        NativeUtils.getExternalFilesDir(callback)
+        if (Constant.Android && callback) NativeUtils.getAppInfo((data) => {
+            return callback(data.externalFilesDir)
+        });
     }
 
     /**
@@ -101,7 +103,9 @@ export default class Utils {
      * @param callback
      */
     static getExternalCacheDir(callback) {
-        NativeUtils.getExternalCacheDir(callback);
+        if (Constant.Android && callback) NativeUtils.getAppInfo((data) => {
+            return callback(data.externalCacheDir)
+        });
     }
 
     /**
@@ -110,7 +114,9 @@ export default class Utils {
      * @param callback
      */
     static getFilesDir(callback) {
-        NativeUtils.getFilesDir(callback);
+        if (Constant.Android && callback) NativeUtils.getAppInfo((data) => {
+            return callback(data.filesDir)
+        });
     }
 
     /**
@@ -119,8 +125,11 @@ export default class Utils {
      * @param callback
      */
     static getCacheDir(callback) {
-        NativeUtils.getCacheDir(callback);
+        if (Constant.Android && callback) NativeUtils.getAppInfo((data) => {
+            return callback(data.cacheDir)
+        });
     }
+
 
     /**
      * 获取ios HomeDirectory 目录
@@ -174,6 +183,11 @@ export default class Utils {
      * @param callback
      */
     static getVersionName(callback) {
+        if (Constant.Android){
+            NativeUtils.getAppInfo((data)=>{
+                return callback(data.versionName)
+            })
+        }
         NativeUtils.getVersionName(callback);
     }
 
@@ -184,6 +198,11 @@ export default class Utils {
      * @param callback
      */
     static getVersionCode(callback) {
+        if (Constant.Android){
+            NativeUtils.getAppInfo((data)=>{
+                return callback(data.versionCode)
+            })
+        }
         NativeUtils.getVersionCode(callback);
     }
 

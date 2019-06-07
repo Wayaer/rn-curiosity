@@ -106,51 +106,6 @@ export default class NativeUtils {
 
 
     /**
-     * 获取android 外部 files目录
-     * only android
-     * @param callback
-     */
-    static getExternalFilesDir(callback) {
-        if (Constant.Android && callback) RNCuriosity.getExternalFilesDir((data) => {
-            return callback(data + '/')
-        });
-    }
-
-    /**
-     * 获取android 外部 cache目录
-     * only android
-     * @param callback
-     */
-    static getExternalCacheDir(callback) {
-        if (Constant.Android && callback) RNCuriosity.getExternalCacheDir((data) => {
-            return callback(data + '/')
-        });
-    }
-
-    /**
-     * 获取android 内部 files目录
-     * only android
-     * @param callback
-     */
-    static getFilesDir(callback) {
-        if (Constant.Android && callback) RNCuriosity.getFilesDir((data) => {
-            return callback(data + '/')
-        });
-    }
-
-    /**
-     * 获取android 内部 cache目录
-     * only android
-     * @param callback
-     */
-    static getCacheDir(callback) {
-        if (Constant.Android && callback) RNCuriosity.getCacheDir((data) => {
-            return callback(data + '/')
-        });
-    }
-
-
-    /**
      * 获取ios HomeDirectory 目录
      * only ios
      * @param callback

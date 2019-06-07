@@ -97,45 +97,6 @@ public class CuriosityModule extends ReactContextBaseJavaModule {
         NativeTools.installApp(getReactApplicationContext(), apkFile);
     }
 
-    /**
-     * 获取android 外部 Files文件
-     *
-     * @param callback
-     */
-    @ReactMethod
-    public void getExternalFilesDir(Callback callback) {
-        callback.invoke(NativeTools.getExternalFilesDir(getReactApplicationContext()));
-    }
-
-    /**
-     * 获取android 外部 Cache文件
-     *
-     * @param callback
-     */
-    @ReactMethod
-    public void getExternalCacheDir(Callback callback) {
-        callback.invoke(NativeTools.getExternalCacheDir(getReactApplicationContext()));
-    }
-
-    /**
-     * 获取android 内部 Files文件
-     *
-     * @param callback
-     */
-    @ReactMethod
-    public void getFilesDir(Callback callback) {
-        callback.invoke(NativeTools.getFilesDir(getReactApplicationContext()));
-    }
-
-    /**
-     * 获取android 内部 Cache文件
-     *
-     * @param callback
-     */
-    @ReactMethod
-    public void getCacheDir(Callback callback) {
-        callback.invoke(NativeTools.getCacheDir(getReactApplicationContext()));
-    }
 
     /**
      * 解压文件
