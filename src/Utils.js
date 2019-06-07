@@ -63,7 +63,6 @@ export default class Utils {
      */
     static installApp(apkFilePath) {
         NativeUtils.installApp(apkFilePath)
-
     }
 
     /**
@@ -88,7 +87,8 @@ export default class Utils {
     }
 
     /**
-     * 获取app多个信息，android && ios 自行打印参数查看
+     * 获取app多个信息，
+     * android && ios 自行打印参数查看
      * @param callback
      */
     static getAppInfo(callback) {
@@ -189,6 +189,7 @@ export default class Utils {
     /**
      * 跳转到android应用市场
      * 多个应用市场展示应用市场列表
+     * appID => ios传入appId  android无需传入参数
      */
     static goToMarket(appID) {
         if (Constant.Android) {
@@ -196,6 +197,7 @@ export default class Utils {
                 NativeUtils.goToMarket(data.packageName, null);
             })
         } else if (Constant.IOS) {
+            if (!appID) return Utils.logError('appID')
             NativeUtils.goToMarket(appID);
         }
     }
@@ -891,13 +893,15 @@ export default class Utils {
      * @param OSSUrl
      */
     static uploadBundle(netVersion, OSSUrl) {
-        this.getVersionCode((localVersionCode) => {
+        this.getAppInfo((appInfo) => {
+                const localVersionCode = appInfo.versionCode
                 if (Constant.Android) {
+                    const fileDir = appInfo.fileDir + '/'
                     Utils.findData('androidBundleVersion', (bundleVersion) => {
                         if ((Number(netVersion.androidVersion)) === localVersionCode && (Number(netVersion.androidBundleVersion)) > bundleVersion) {
-                            this.downloadFile(OSSUrl + 'android/bundle/' + Number(netVersion.androidBundleVersion) + '/bundle.zip', 'bundle.zip', (progress) => {
+                            this.downloadFile(OSSUrl + 'android/bundle/' + Number(netVersion.androidBundleVersion) + '/bundle.zip', fileDir, 'bundle.zip', (progress) => {
                             }, (finish) => {
-                                Utils.unZipJsBundle((data) => {
+                                Utils.unZipFile(fileDir + 'bundle.zip', (data) => {
                                     if (data === 0) {
                                         Utils.saveData('androidBundleVersion', (Number(netVersion.androidBundleVersion)))
                                     }
@@ -914,11 +918,12 @@ export default class Utils {
                     })
 
                 } else if (Constant.IOS) {
+                    const libraryDirectory = appInfo.LibraryDirectory + '/'
                     Utils.findData('iosBundleVersion', (bundleVersion) => {
                         if ((Number(netVersion.iosVersion)) === localVersionCode && (Number(netVersion.iosBundleVersion)) > bundleVersion) {
-                            this.downloadFile(OSSUrl + 'ios/bundle/' + Number(localVersionCode) + '/bundle.zip', '/bundle.zip', (progress) => {
+                            this.downloadFile(OSSUrl + 'ios/bundle/' + Number(localVersionCode) + '/bundle.zip', libraryDirectory, 'bundle.zip', (progress) => {
                                 }, (finish) => {
-                                    this.unZipJsBundle((data) => {
+                                    this.unZipFile(libraryDirectory + 'bundle.zip', (data) => {
                                         if (data === 0) {
                                             Utils.saveData('iosBundleVersion', (Number(netVersion.androidBundleVersion)))
                                         }
@@ -966,13 +971,14 @@ export default class Utils {
      * 清除本地缓存
      */
     static cleanCache() {
-        if (Constant.IOS) {
-            NativeUtils.getCachesDirectory((cache) => {
+        Utils.getAppInfo((appInfo) => {
+            const cache = appInfo.CachesDirectory + '/'
+            if (Constant.IOS) {
                 NativeUtils.deleteFolder(cache)
-            })
-        } else if (Constant.Android) {
+            } else if (Constant.Android) {
 
-        }
+            }
+        })
     }
 
 
@@ -987,8 +993,9 @@ export default class Utils {
      * @param callbackUnzip
      */
     static downloadBundleZipWithUnZip(url, callbackPercent, callbackUnzip) {
-        if (Constant.IOS) {
-            NativeUtils.getLibraryDirectory((path) => {
+        Utils.getAppInfo((appInfo) => {
+            if (Constant.IOS) {
+                const path = appInfo.LibraryDirectory + '/'
                 Utils.downloadFile(url, path, 'bundle.zip', (percent) => {
                     return callbackPercent(percent)
                 }, () => {
@@ -996,20 +1003,17 @@ export default class Utils {
                         return callbackUnzip(zip)
                     })
                 })
-            })
-        } else if (Constant.Android) {
-            NativeUtils.getFilesDir((path) => {
-                console.log(path)
+            } else if (Constant.Android) {
+                const path = appInfo.filesDir + '/'
                 Utils.downloadFile(url, path, 'bundle.zip', (percent) => {
                     return callbackPercent(percent)
                 }, () => {
-                    console.log(path + 'bundle.zip')
                     NativeUtils.unZipFile(path + 'bundle.zip', (zip) => {
                         return callbackUnzip(zip)
                     })
                 })
-            })
-        }
+            }
+        })
     }
 
 
@@ -1020,14 +1024,15 @@ export default class Utils {
      *     固定路径 /var/mobile/Containers/Data/Application/{570EAD8E-C3F9-4A8D-9A17-ACD3355AC501}/Library/bundle/
      */
     static deleteBundle() {
-        if (Constant.IOS) {
-            NativeUtils.getLibraryDirectory((library) => {
+        Utils.getAppInfo((appInfo) => {
+            if (Constant.IOS) {
+                const library = appInfo.LibraryDirectory + '/'
                 NativeUtils.deleteFile(library + 'bundle')
                 NativeUtils.deleteFile(library + 'bundle.zip')
-            })
-        } else if (Constant.Android) {
+            } else if (Constant.Android) {
 
-        }
+            }
+        })
     }
 
 

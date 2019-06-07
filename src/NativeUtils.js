@@ -215,13 +215,12 @@ export default class NativeUtils {
      *
      */
     static goToMarket(packageName, marketPackageName) {
-        if (!packageName) return Utils.logError('packageName')
         if (Constant.Android) {
+            if (!packageName) return Utils.logError('packageName')
             RNCuriosity.goToMarket(packageName, marketPackageName)
         } else {
             RNCuriosity.goToMarket(packageName)
         }
-
     }
 
 

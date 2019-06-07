@@ -1,6 +1,6 @@
 {
   "name": "rn-curiosity",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "adbTcpip": "adb tcpip 5555",
     "adbDevices": "adb devices",
     "npmPublish": "npm publish",
-    "npmUnPublish": "npm unpublish rn-curiosity@2.0.0"
+    "npmUnPublish": "npm unpublish rn-curiosity@2.0.1"
   },
   "keywords": [
     "react-native"
