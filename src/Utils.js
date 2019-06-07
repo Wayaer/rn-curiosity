@@ -3,9 +3,10 @@ import {
     RNFetchBlob,
     DatePicker, React, Component,
     Constant, height, scale, width, ModalIndicator, Overlay, Toast,
-    AsyncStorage, NetInfo, NativeUtils, RNCuriosity
+    AsyncStorage, NetInfo,
 } from "../index";
 import Storage from "./component/Storage";
+import NativeUtils from "./NativeUtils";
 import {NavigationActions, StackActions} from "react-navigation";
 import {Platform, DeviceEventEmitter, BackHandler, ToastAndroid,} from "react-native";
 
@@ -192,7 +193,7 @@ export default class Utils {
     static goToMarket(appID) {
         if (Constant.Android) {
             NativeUtils.getAppInfo((data) => {
-                NativeUtils.goToMarket(data.packageName, '');
+                NativeUtils.goToMarket(data.packageName, null);
             })
         } else if (Constant.IOS) {
             NativeUtils.goToMarket(appID);

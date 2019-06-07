@@ -116,7 +116,6 @@ export default class NativeUtils {
     }
 
 
-
     /**
      * 解压文件至压缩文件目录
      * data=> Success 解压完成  NotFile文件不存在
@@ -218,7 +217,6 @@ export default class NativeUtils {
     static goToMarket(packageName, marketPackageName) {
         if (!packageName) return Utils.logError('packageName')
         if (Constant.Android) {
-            if (!marketPackageName) return Utils.logError('marketPackageName')
             RNCuriosity.goToMarket(packageName, marketPackageName)
         } else {
             RNCuriosity.goToMarket(packageName)
