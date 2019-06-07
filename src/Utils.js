@@ -137,7 +137,9 @@ export default class Utils {
      * @param callback
      */
     static getHomeDirectory(callback) {
-        NativeUtils.getHomeDirectory(callback);
+        if (Constant.IOS && callback) NativeUtils.getAppInfo((data) => {
+            return callback(data.cacheDir)
+        });
     }
 
     /**
@@ -146,7 +148,9 @@ export default class Utils {
      * @param callback
      */
     static getDocuments(callback) {
-        NativeUtils.getDocuments(callback);
+        if (Constant.IOS && callback) NativeUtils.getAppInfo((data) => {
+            return callback(data.Documents)
+        });
     }
 
     /**
@@ -155,7 +159,9 @@ export default class Utils {
      * @param callback
      */
     static getLibraryDirectory(callback) {
-        NativeUtils.getLibraryDirectory(callback);
+        if (Constant.IOS && callback) NativeUtils.getAppInfo((data) => {
+            return callback(data.LibraryDirectory)
+        });
     }
 
     /**
@@ -164,7 +170,9 @@ export default class Utils {
      * @param callback
      */
     static getCachesDirectory(callback) {
-        NativeUtils.getCachesDirectory(callback);
+        if (Constant.IOS && callback) NativeUtils.getAppInfo((data) => {
+            return callback(data.CachesDirectory)
+        });
     }
 
     /**
@@ -173,7 +181,9 @@ export default class Utils {
      * @param callback
      */
     static getTemporaryDirectory(callback) {
-        NativeUtils.getTemporaryDirectory(callback);
+        if (Constant.IOS && callback) NativeUtils.getAppInfo((data) => {
+            return callback(data.TemporaryDirectory)
+        });
     }
 
     /**
@@ -183,12 +193,15 @@ export default class Utils {
      * @param callback
      */
     static getVersionName(callback) {
-        if (Constant.Android){
-            NativeUtils.getAppInfo((data)=>{
-                return callback(data.versionName)
-            })
-        }
-        NativeUtils.getVersionName(callback);
+        let versionName
+        NativeUtils.getAppInfo((data) => {
+            if (Constant.Android) {
+                versionName = data.versionName
+            } else if (Constant.IOS) {
+                versionName = data.Version
+            }
+            return callback(versionName)
+        })
     }
 
     /**
@@ -198,12 +211,15 @@ export default class Utils {
      * @param callback
      */
     static getVersionCode(callback) {
-        if (Constant.Android){
-            NativeUtils.getAppInfo((data)=>{
-                return callback(data.versionCode)
-            })
-        }
-        NativeUtils.getVersionCode(callback);
+        let versionCode
+        NativeUtils.getAppInfo((data) => {
+            if (Constant.Android) {
+                versionCode = data.versionCode
+            } else if (Constant.IOS) {
+                versionCode = data.Build
+            }
+            return callback(versionCode)
+        })
     }
 
     /**
@@ -275,18 +291,16 @@ export default class Utils {
      * 跳转到android应用市场
      * 多个应用市场展示应用市场列表
      */
-    static goToAndroidMarket() {
-        NativeUtils.goToAndroidMarket();
+    static goToMarket(appID) {
+        if (Constant.Android) {
+            NativeUtils.getAppInfo((data) => {
+                NativeUtils.goToMarket(data.packageName, '');
+            })
+        } else if (Constant.IOS) {
+            NativeUtils.goToMarket(appID);
+        }
     }
 
-
-    /**
-     * 跳转至指定应用市场
-     * @param marketPackageName  应用市场包名
-     */
-    static goToAndroidAppointMarket(marketPackageName) {
-        NativeUtils.goToAndroidAppointMarket(marketPackageName);
-    }
 
     /**
      * log信息打印

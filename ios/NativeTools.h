@@ -10,26 +10,15 @@
 + (void)clearAllCookie;
 + (NSMutableDictionary *)getAllCookie;
 
-//获取名字
-+ (NSString *)getVersionName;
-//获取版本号
-+ (NSString *)getVersionCode;
+//获取app信息
++ (NSMutableDictionary *)getAppInfo;
 
 //显示启动屏
 + (void)showSplashScreen;
 //隐藏启动屏
 + (void)hideSplashScreen;
 
-// 获取沙盒主目录路径
-+ (NSString *)getHomeDirectory;
-// 获取Documents目录路径
-+ (NSString *)getDocuments;
-// 获取Library的目录路径
 + (NSString *)getLibraryDirectory;
-// 获取Caches目录路径
-+ (NSString *)getCachesDirectory;
-// 获取tmp目录路径
-+ (NSString *)getTemporaryDirectory;
 
 // 删除沙盒指定文件夹和文件（删除文件夹）
 + (void)deleteFile:(NSString *)props;
@@ -54,6 +43,4 @@
 //bundle文件路径
 + (NSURL *)urlBundle;
 
-//跳转到应用商店
-+ (void)goToAppStore;
 @end

@@ -125,7 +125,7 @@ public class NativeTools {
     }
 
 
-    @SuppressLint("MissingPermission")
+    @SuppressLint({"MissingPermission", "NewApi"})
     public static WritableMap getAppInfo(Context context) {
         PackageManager appInfo = context.getPackageManager();
         WritableMap map = new WritableNativeMap();
@@ -376,12 +376,11 @@ public class NativeTools {
      *
      * @param context
      */
-    public static void goToAndroidMarket(Context context, String marketPackageName) {
-        // Uri uri = Uri.parse("market://details?id=" + context.getPackageName());
-        Uri uri = Uri.parse("market://details?id=com.tencent.mobileqq");
+    public static void goToMarket(Context context, String packageName, String marketPackageName) {
+        Uri uri = Uri.parse("market://details?id=" + packageName);
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        if (marketPackageName != null) {// 如果没给市场的包名，则系统会弹出市场的列表让你进行选择。
+        if (marketPackageName != null && marketPackageName != "") {// 如果没给市场的包名，则系统会弹出市场的列表让你进行选择。
             intent.setPackage(marketPackageName);
         }
         try {

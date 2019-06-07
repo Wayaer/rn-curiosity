@@ -171,17 +171,9 @@ public class CuriosityModule extends ReactContextBaseJavaModule {
      * 跳转到应用商店
      * */
     @ReactMethod
-    public void goToAndroidMarket() {
-        NativeTools.goToAndroidMarket(getReactApplicationContext(), null);
+    public void goToAndroidMarket(String packageName, String marketPackageName) {
+        NativeTools.goToMarket(getReactApplicationContext(), packageName, marketPackageName);
     }
 
-    /**
-     * 跳转到指定应用商店
-     *
-     * @param marketPackageName
-     */
-    @ReactMethod
-    public void goToAndroidAppointMarket(String marketPackageName) {
-        NativeTools.goToAndroidMarket(getReactApplicationContext(), marketPackageName);
-    }
+
 }
