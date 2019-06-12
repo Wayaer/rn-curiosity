@@ -12,6 +12,7 @@
 //#import "RNCuriosity.h"
 //
 //@implementation AppDelegate
+
 ////拷贝以下为注释的代码至自己的对应文件
 //- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 //{
@@ -25,7 +26,7 @@
 //  }
 
 
-// 自定义热更新 react-nativ 0.55>&&<0.59
+// 自定义热更新 react-native 0.55>&&<0.59
 //
 //  NSURL *jsCodeLocation;
 //#ifdef DEBUG
@@ -38,7 +39,7 @@
 //    }else{
 //        jsCodeLocation =[[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"/index" fallbackResource:nil];
 //    }
-
+//#endif
 
 //   [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryAmbient error:nil];  // allow
 //  RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
@@ -57,7 +58,7 @@
 //}
 
 
-// 自定义热更新 react-nativ >0.59
+// 自定义热更新 react-native >0.59
 //- (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 //{
 //#if DEBUG

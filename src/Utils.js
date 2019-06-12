@@ -855,39 +855,44 @@ export default class Utils {
      *   }
      * OSS目录文件
      *
-     * OSS{
-     *     android{
-     *         bundle{
-     *            版本号{
-     *             bundle.zip
-     *            }
-     *         }
-     *         apk{
-     *            版本号{
-     *               版本号.apk
-     *           }
-     *         }
-     *     }
-     *
-     *     ios{
-     *        bundle{
-     *            版本号{
-     *                bundle.zip
-     *            }
-     *        }
-     *        ipa{  //分发平台版本号
-     *            版本号{
-     *                版本号.ipa
-     *            }
-     *        }
-     *        store_ipa{ //官方版本号
-     *            版本号{
-     *                版本号.ipa
-     *            }
-     *        }
-     *     }
-     *
-     * }
+     * ├── OSS
+     *      ├──android
+     *            ├──bundle
+     *                 ├── 0  (版本号)
+     *                     └──bundle.zip
+     *                 ├── 1  (版本号)
+     *                     └──bundle.zip
+     *                 ├── 2  (版本号)
+     *                     └──bundle.zip
+     *            ├──apk
+     *                 ├── 0  (版本号)
+     *                     └──0.apk
+     *                 ├── 1  (版本号)
+     *                     └──1.apk
+     *                 ├── 2  (版本号)
+     *                     └──2.apk
+     *       ├──ios
+     *            ├──bundle
+     *                 ├── 0  (版本号)
+     *                     └──bundle.zip
+     *                 ├── 1  (版本号)
+     *                     └──bundle.zip
+     *                 ├── 2  (版本号)
+     *                     └──bundle.zip
+     *            ├──ipa     //分发平台版本号
+     *                 ├── 0  (版本号)
+     *                     └──0.apk
+     *                 ├── 1  (版本号)
+     *                     └──1.apk
+     *                 ├── 2  (版本号)
+     *                     └──2.apk
+     *            ├──store_ipa  //官方版本号
+     *                 ├── 0  (版本号)
+     *                     └──0.apk
+     *                 ├── 1  (版本号)
+     *                     └──1.apk
+     *                 ├── 2  (版本号)
+     *                     └──2.apk
      *
      * @param netVersion
      * @param OSSUrl
@@ -914,9 +919,8 @@ export default class Utils {
                         }
                     }, (error) => {
                         Utils.saveData('androidBundleVersion', 0)
-                        Utils.uploadBundle(netVersion)
+                        Utils.uploadBundle(netVersion,OSSUrl)
                     })
-
                 } else if (Constant.IOS) {
                     const libraryDirectory = appInfo.LibraryDirectory + '/'
                     Utils.findData('iosBundleVersion', (bundleVersion) => {
@@ -938,7 +942,7 @@ export default class Utils {
                         }
                     }, (error) => {
                         this.saveData('iosBundleVersion', 0)
-                        this.uploadBundle(netVersion)
+                        this.uploadBundle(netVersion,OSSUrl)
                     })
                 }
             }
