@@ -212,6 +212,7 @@ android/src/main/AndroidManiTest.xml  中加入代码
 ```
 
 ###IOS[参考AppDelegateTest](ios/AppDelegateTest.m)
+[ios 运行http请求文件配置信息](ios/ioshttp.png)
 
 ```
 

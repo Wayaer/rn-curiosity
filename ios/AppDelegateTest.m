@@ -65,7 +65,6 @@
 //    return [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 //#else
 //    if([RNCuriosity isBundle]&&[RNCuriosity matchingVersion]){
-//
 //        return [RNCuriosity urlBundle];
 //    }else{
 //        return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
