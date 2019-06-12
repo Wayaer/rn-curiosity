@@ -61,18 +61,36 @@ static bool addedJsLoadErrorObserver = false;
     return cookies;
     
 }
-//获取getVersionName
-+ (NSString *)getVersionName;
+
+//获取app信息
++ (NSMutableDictionary *)getAppInfo;
 {
-    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-    return  [infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    NSMutableDictionary *info = [NSMutableDictionary dictionary];
+    NSDictionary *app = [[NSBundle mainBundle] infoDictionary];
+    
+    [info setObject:NSHomeDirectory() forKey:@"HomeDirectory"];
+    [info setObject:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] forKey:@"DocumentDirectory"];
+    [info setObject:[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject] forKey:@"LibraryDirectory"];
+    [info setObject:[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject] forKey:@"CachesDirectory"];
+    [info setObject:NSTemporaryDirectory() forKey:@"TemporaryDirectory"];
+    
+    [info setObject:[app objectForKey:@"CFBundleShortVersionString"] forKey:@"versionName"];
+    [info setObject:@"Apple" forKey:@"phoneBrand"];
+    [info setObject:[NSNumber numberWithInt:[[app objectForKey:@"CFBundleVersion"] intValue]] forKey:@"versionCode"];
+    
+    [info setObject:[app objectForKey:@"CFBundleIdentifier"] forKey:@"packageName"];
+    [info setObject:[app objectForKey:@"CFBundleName"] forKey:@"AppName"];
+    [info setObject:[app objectForKey:@"DTSDKBuild"] forKey:@"SDKBuild"];
+    [info setObject:[app objectForKey:@"DTPlatformName"] forKey:@"PlatformName"];
+    [info setObject:[app objectForKey:@"MinimumOSVersion"] forKey:@"MinimumOSVersion"];
+    [info setObject:[app objectForKey:@"DTPlatformVersion"] forKey:@"PlatformVersion"];
+    UIDevice *device = [UIDevice currentDevice];
+    [info setObject:device.systemName forKey:@"systemName"];
+    [info setObject:device.systemVersion forKey:@"systemVersion"];
+    
+    return  info;
 }
-//获取getVersionCode
-+ (NSString *)getVersionCode;
-{
-    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-    return  [infoDictionary objectForKey:@"CFBundleVersion"];
-}
+
 //显示启动屏
 + (void)showSplashScreen {
     if (!addedJsLoadErrorObserver) {
@@ -92,26 +110,13 @@ static bool addedJsLoadErrorObserver = false;
                        waiting = false;
                    });
 }
-//获取沙盒主目录路径
-+ (NSString *)getHomeDirectory {
-    return NSHomeDirectory();
-}
-// 获取Documents目录路径
-+ (NSString *)getDocuments {
-    return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];;
-}
+
 // 获取Library的目录路径
 + (NSString *)getLibraryDirectory {
     return [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject];;
 }
-// 获取Caches目录路径
-+ (NSString *)getCachesDirectory {
-    return [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject];;
-}
-// 获取tmp目录路径
-+ (NSString *)getTemporaryDirectory {
-    return NSTemporaryDirectory();
-}
+
+
 // 删除沙盒指定文件或文件夹
 + (void)deleteFile:(NSString *)path{
     if ([self isFolderExists:path]) {
@@ -171,7 +176,7 @@ static bool addedJsLoadErrorObserver = false;
         NSData *data = [[NSData alloc] initWithContentsOfFile:versionPath];
         // 对数据进行JSON格式化并返回字典形式
         NSDictionary *version= [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-        if (version[@"version"]==[self getVersionCode]) {
+        if (version[@"version"]== [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]) {
             return YES;
         }else{
             //本地bundle与app版本不符合 删除本地bundle文件夹
@@ -236,12 +241,6 @@ static bool addedJsLoadErrorObserver = false;
     return totleStr;
 }
 
-
-//跳转到应用商店
-+ (void)goToAppStore
-{
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"itms-apps://itunes.apple.com/us/app/id1273088416?mt=8"]];
-}
 
 
 @end

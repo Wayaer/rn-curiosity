@@ -3,9 +3,10 @@ import {
     RNFetchBlob,
     DatePicker, React, Component,
     Constant, height, scale, width, ModalIndicator, Overlay, Toast,
-    AsyncStorage, NetInfo, NativeUtils
+    AsyncStorage, NetInfo,
 } from "../index";
 import Storage from "./component/Storage";
+import NativeUtils from "./NativeUtils";
 import {NavigationActions, StackActions} from "react-navigation";
 import {Platform, DeviceEventEmitter, BackHandler, ToastAndroid,} from "react-native";
 
@@ -25,7 +26,7 @@ export default class Utils {
     }
 
     /**
-     * Native发消息到JS
+     * Native发消息到J
      * android
      * ios
      * @param message
@@ -62,7 +63,6 @@ export default class Utils {
      */
     static installApp(apkFilePath) {
         NativeUtils.installApp(apkFilePath)
-
     }
 
     /**
@@ -72,7 +72,7 @@ export default class Utils {
      * @constructor
      */
     static ExitApp() {
-        NativeUtils.ExitApp()
+        NativeUtils.exitApp()
     }
 
     /**
@@ -87,84 +87,14 @@ export default class Utils {
     }
 
     /**
-     * 获取android 外部 files目录
-     * only android
+     * 获取app多个信息，
+     * android && ios 自行打印参数查看
      * @param callback
      */
-    static getExternalFilesDir(callback) {
-        NativeUtils.getExternalFilesDir(callback)
-    }
-
-    /**
-     * 获取android 外部 cache目录
-     * only android
-     * @param callback
-     */
-    static getExternalCacheDir(callback) {
-        NativeUtils.getExternalCacheDir(callback);
-    }
-
-    /**
-     * 获取android 内部 files目录
-     * only android
-     * @param callback
-     */
-    static getFilesDir(callback) {
-        NativeUtils.getFilesDir(callback);
-    }
-
-    /**
-     * 获取android 内部 cache目录
-     * only android
-     * @param callback
-     */
-    static getCacheDir(callback) {
-        NativeUtils.getCacheDir(callback);
-    }
-
-    /**
-     * 获取ios HomeDirectory 目录
-     * only ios
-     * @param callback
-     */
-    static getHomeDirectory(callback) {
-        NativeUtils.getHomeDirectory(callback);
-    }
-
-    /**
-     * 获取ios Documents 目录
-     * only ios
-     * @param callback
-     */
-    static getDocuments(callback) {
-        NativeUtils.getDocuments(callback);
-    }
-
-    /**
-     * 获取ios LibraryDirectory 目录
-     * only ios
-     * @param callback
-     */
-    static getLibraryDirectory(callback) {
-        NativeUtils.getLibraryDirectory(callback);
-    }
-
-    /**
-     * 获取ios CachesDirectory 目录
-     * only ios
-     * @param callback
-     */
-    static getCachesDirectory(callback) {
-        NativeUtils.getCachesDirectory(callback);
-    }
-
-    /**
-     * 获取ios TemporaryDirectory 目录
-     * only ios
-     * @param callback
-     */
-    static getTemporaryDirectory(callback) {
-        NativeUtils.getTemporaryDirectory(callback);
+    static getAppInfo(callback) {
+        NativeUtils.getAppInfo((data) => {
+            return callback(data)
+        })
     }
 
     /**
@@ -174,7 +104,9 @@ export default class Utils {
      * @param callback
      */
     static getVersionName(callback) {
-        NativeUtils.getVersionName(callback);
+        NativeUtils.getAppInfo((data) => {
+            return callback(data.versionName)
+        })
     }
 
     /**
@@ -184,7 +116,9 @@ export default class Utils {
      * @param callback
      */
     static getVersionCode(callback) {
-        NativeUtils.getVersionCode(callback);
+        NativeUtils.getAppInfo((data) => {
+            return callback(data.versionCode)
+        })
     }
 
     /**
@@ -255,19 +189,19 @@ export default class Utils {
     /**
      * 跳转到android应用市场
      * 多个应用市场展示应用市场列表
+     * appID => ios传入appId  android无需传入参数
      */
-    static goToAndroidMarket() {
-        NativeUtils.goToAndroidMarket();
+    static goToMarket(appID) {
+        if (Constant.Android) {
+            NativeUtils.getAppInfo((data) => {
+                NativeUtils.goToMarket(data.packageName, null);
+            })
+        } else if (Constant.IOS) {
+            if (!appID) return Utils.logError('appID')
+            NativeUtils.goToMarket(appID);
+        }
     }
 
-
-    /**
-     * 跳转至指定应用市场
-     * @param marketPackageName  应用市场包名
-     */
-    static goToAndroidAppointMarket(marketPackageName) {
-        NativeUtils.goToAndroidAppointMarket(marketPackageName);
-    }
 
     /**
      * log信息打印
@@ -959,13 +893,15 @@ export default class Utils {
      * @param OSSUrl
      */
     static uploadBundle(netVersion, OSSUrl) {
-        this.getVersionCode((localVersionCode) => {
+        this.getAppInfo((appInfo) => {
+                const localVersionCode = appInfo.versionCode
                 if (Constant.Android) {
+                    const fileDir = appInfo.fileDir + '/'
                     Utils.findData('androidBundleVersion', (bundleVersion) => {
                         if ((Number(netVersion.androidVersion)) === localVersionCode && (Number(netVersion.androidBundleVersion)) > bundleVersion) {
-                            this.downloadFile(OSSUrl + 'android/bundle/' + Number(netVersion.androidBundleVersion) + '/bundle.zip', 'bundle.zip', (progress) => {
+                            this.downloadFile(OSSUrl + 'android/bundle/' + Number(netVersion.androidBundleVersion) + '/bundle.zip', fileDir, 'bundle.zip', (progress) => {
                             }, (finish) => {
-                                Utils.unZipJsBundle((data) => {
+                                Utils.unZipFile(fileDir + 'bundle.zip', (data) => {
                                     if (data === 0) {
                                         Utils.saveData('androidBundleVersion', (Number(netVersion.androidBundleVersion)))
                                     }
@@ -982,11 +918,12 @@ export default class Utils {
                     })
 
                 } else if (Constant.IOS) {
+                    const libraryDirectory = appInfo.LibraryDirectory + '/'
                     Utils.findData('iosBundleVersion', (bundleVersion) => {
                         if ((Number(netVersion.iosVersion)) === localVersionCode && (Number(netVersion.iosBundleVersion)) > bundleVersion) {
-                            this.downloadFile(OSSUrl + 'ios/bundle/' + Number(localVersionCode) + '/bundle.zip', '/bundle.zip', (progress) => {
+                            this.downloadFile(OSSUrl + 'ios/bundle/' + Number(localVersionCode) + '/bundle.zip', libraryDirectory, 'bundle.zip', (progress) => {
                                 }, (finish) => {
-                                    this.unZipJsBundle((data) => {
+                                    this.unZipFile(libraryDirectory + 'bundle.zip', (data) => {
                                         if (data === 0) {
                                             Utils.saveData('iosBundleVersion', (Number(netVersion.androidBundleVersion)))
                                         }
@@ -1034,13 +971,14 @@ export default class Utils {
      * 清除本地缓存
      */
     static cleanCache() {
-        if (Constant.IOS) {
-            NativeUtils.getCachesDirectory((cache) => {
+        Utils.getAppInfo((appInfo) => {
+            const cache = appInfo.CachesDirectory + '/'
+            if (Constant.IOS) {
                 NativeUtils.deleteFolder(cache)
-            })
-        } else if (Constant.Android) {
+            } else if (Constant.Android) {
 
-        }
+            }
+        })
     }
 
 
@@ -1055,8 +993,9 @@ export default class Utils {
      * @param callbackUnzip
      */
     static downloadBundleZipWithUnZip(url, callbackPercent, callbackUnzip) {
-        if (Constant.IOS) {
-            NativeUtils.getLibraryDirectory((path) => {
+        Utils.getAppInfo((appInfo) => {
+            if (Constant.IOS) {
+                const path = appInfo.LibraryDirectory + '/'
                 Utils.downloadFile(url, path, 'bundle.zip', (percent) => {
                     return callbackPercent(percent)
                 }, () => {
@@ -1064,20 +1003,17 @@ export default class Utils {
                         return callbackUnzip(zip)
                     })
                 })
-            })
-        } else if (Constant.Android) {
-            NativeUtils.getFilesDir((path) => {
-                console.log(path)
+            } else if (Constant.Android) {
+                const path = appInfo.filesDir + '/'
                 Utils.downloadFile(url, path, 'bundle.zip', (percent) => {
                     return callbackPercent(percent)
                 }, () => {
-                    console.log(path + 'bundle.zip')
                     NativeUtils.unZipFile(path + 'bundle.zip', (zip) => {
                         return callbackUnzip(zip)
                     })
                 })
-            })
-        }
+            }
+        })
     }
 
 
@@ -1088,14 +1024,15 @@ export default class Utils {
      *     固定路径 /var/mobile/Containers/Data/Application/{570EAD8E-C3F9-4A8D-9A17-ACD3355AC501}/Library/bundle/
      */
     static deleteBundle() {
-        if (Constant.IOS) {
-            NativeUtils.getLibraryDirectory((library) => {
+        Utils.getAppInfo((appInfo) => {
+            if (Constant.IOS) {
+                const library = appInfo.LibraryDirectory + '/'
                 NativeUtils.deleteFile(library + 'bundle')
                 NativeUtils.deleteFile(library + 'bundle.zip')
-            })
-        } else if (Constant.Android) {
+            } else if (Constant.Android) {
 
-        }
+            }
+        })
     }
 
 

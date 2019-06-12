@@ -7,9 +7,7 @@
 ## 必须加入的库
 `$  npm install rn-curiosity --save`
 
-`$  npm install react-native-fast-image --save`  //大图片优化
-
-`$  npm install rn-fetch-blob --save`       //网络框架
+`$  npm install rn-fetch-blob --save`      
 
 `$  npm install @react-native-community/async-storage --save`
 
@@ -19,6 +17,9 @@
 
 ##推荐使用的库
 ```
+
+ npm install react-native-fast-image --save`  //大图片优化
+
  react-native-syan-image-picker --save//图片选择
  
  lottie-react-native 动画库

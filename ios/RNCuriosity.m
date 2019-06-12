@@ -69,14 +69,11 @@ RCT_EXPORT_METHOD(getAllCookie:(RCTResponseSenderBlock)callback) {
     callback(@[[NativeTools getAllCookie]]);
 }
 
-//获取版本VersionName
-RCT_EXPORT_METHOD(getVersionName:(RCTResponseSenderBlock)callback) {
-    callback(@[[NativeTools getVersionName]]);
+//获取app信息
+RCT_EXPORT_METHOD(getAppInfo:(RCTResponseSenderBlock)callback) {
+    callback(@[[NativeTools getAppInfo]]);
 }
-//获取版本VersionCode
-RCT_EXPORT_METHOD(getVersionCode:(RCTResponseSenderBlock)callback) {
-    callback(@[[NativeTools getVersionCode]]);
-}
+
 //解压文件
 RCT_EXPORT_METHOD(unZipFile:(NSString *)filePath callback:(RCTResponseSenderBlock)callback) {
     callback(@[[NativeTools unZipFile:filePath]]);
@@ -85,26 +82,7 @@ RCT_EXPORT_METHOD(unZipFile:(NSString *)filePath callback:(RCTResponseSenderBloc
 RCT_EXPORT_METHOD(getFilePathSize:(NSString *)filePath callback:(RCTResponseSenderBlock)callback) {
     callback(@[[NativeTools getFilePathSize:filePath]]);
 }
-// 获取沙盒主目录路径
-RCT_EXPORT_METHOD(getHomeDirectory:(RCTResponseSenderBlock)callback) {
-    callback(@[[NativeTools getHomeDirectory]]);
-}
-// 获取Documents目录路径
-RCT_EXPORT_METHOD(getDocuments:(RCTResponseSenderBlock)callback) {
-    callback(@[[NativeTools getDocuments]]);
-}
-// 获取Library的目录路径
-RCT_EXPORT_METHOD(getLibraryDirectory:(RCTResponseSenderBlock)callback) {
-    callback(@[[NativeTools getLibraryDirectory]]);
-}
-// 获取Caches目录路径
-RCT_EXPORT_METHOD(getCachesDirectory:(RCTResponseSenderBlock)callback) {
-    callback(@[[NativeTools getCachesDirectory]]);
-}
-// 获取tmp目录路径
-RCT_EXPORT_METHOD(getTemporaryDirectory:(RCTResponseSenderBlock)callback) {
-    callback(@[[NativeTools getTemporaryDirectory]]);
-}
+
 // 删除沙盒指定文件夹或文件 （删除文件夹）
 RCT_EXPORT_METHOD(deleteFile:(NSString *)props) {
     [NativeTools deleteFile:props];
@@ -131,7 +109,9 @@ RCT_EXPORT_METHOD(exitApp) {
 }
 
 //跳转到AppStore
-RCT_EXPORT_METHOD(goToMarket) {
-    [NativeTools goToAppStore];
+RCT_EXPORT_METHOD(goToMarket:(NSString *)idStr) {
+    NSString* url=@"itms-apps://itunes.apple.com/us/app/id";
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[url stringByAppendingString:idStr]]];
+    
 }
 @end

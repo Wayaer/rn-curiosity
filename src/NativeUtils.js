@@ -79,7 +79,7 @@ export default class NativeUtils {
      * ios
      * @constructor
      */
-    static ExitApp() {
+    static exitApp() {
         RNCuriosity.exitApp()
     }
 
@@ -104,108 +104,6 @@ export default class NativeUtils {
 
     }
 
-
-    /**
-     * 获取android 外部 files目录
-     * only android
-     * @param callback
-     */
-    static getExternalFilesDir(callback) {
-        if (Constant.Android && callback) RNCuriosity.getExternalFilesDir((data) => {
-            return callback(data + '/')
-        });
-    }
-
-    /**
-     * 获取android 外部 cache目录
-     * only android
-     * @param callback
-     */
-    static getExternalCacheDir(callback) {
-        if (Constant.Android && callback) RNCuriosity.getExternalCacheDir((data) => {
-            return callback(data + '/')
-        });
-    }
-
-    /**
-     * 获取android 内部 files目录
-     * only android
-     * @param callback
-     */
-    static getFilesDir(callback) {
-        if (Constant.Android && callback) RNCuriosity.getFilesDir((data) => {
-            return callback(data + '/')
-        });
-    }
-
-    /**
-     * 获取android 内部 cache目录
-     * only android
-     * @param callback
-     */
-    static getCacheDir(callback) {
-        if (Constant.Android && callback) RNCuriosity.getCacheDir((data) => {
-            return callback(data + '/')
-        });
-    }
-
-
-    /**
-     * 获取ios HomeDirectory 目录
-     * only ios
-     * @param callback
-     */
-    static getHomeDirectory(callback) {
-        if (Constant.IOS && callback) RNCuriosity.getHomeDirectory((data) => {
-            return callback(data + '/')
-        });
-    }
-
-    /**
-     * 获取ios Documents 目录
-     * only ios
-     * @param callback
-     */
-    static getDocuments(callback) {
-        if (Constant.IOS && callback) RNCuriosity.getDocuments((data) => {
-            return callback(data + '/')
-        });
-    }
-
-    /**
-     * 获取ios LibraryDirectory 目录
-     * only ios
-     * @param callback
-     */
-    static getLibraryDirectory(callback) {
-        if (Constant.IOS && callback) RNCuriosity.getLibraryDirectory((data) => {
-            return callback(data + '/')
-        });
-    }
-
-    /**
-     * 获取ios CachesDirectory 目录
-     * only ios
-     * @param callback
-     */
-    static getCachesDirectory(callback) {
-        if (Constant.IOS && callback) RNCuriosity.getCachesDirectory((data) => {
-            return callback(data + '/')
-        });
-    }
-
-    /**
-     * 获取ios TemporaryDirectory 目录
-     * only ios
-     * @param callback
-     */
-    static getTemporaryDirectory(callback) {
-        if (Constant.IOS && callback) RNCuriosity.getTemporaryDirectory((data) => {
-            return callback(data)
-        });
-    }
-
-
     /**
      * android
      * ios
@@ -217,29 +115,6 @@ export default class NativeUtils {
         });
     }
 
-    /**
-     * 获取app版本名字 => '1.0.1
-     * android
-     * ios
-     * @param callback
-     */
-    static getVersionName(callback) {
-        // if (callback) RNCuriosity.getVersionName((data) => {
-        //     return callback(data)
-        // });
-    }
-
-    /**
-     * 获取版本号  => 1
-     * android
-     * ios
-     * @param callback
-     */
-    static getVersionCode(callback) {
-        // if (callback) RNCuriosity.getVersionCode((data) => {
-        //     return callback(data)
-        // });
-    }
 
     /**
      * 解压文件至压缩文件目录
@@ -271,7 +146,6 @@ export default class NativeUtils {
      * ios
      * @param foldrPath
      */
-    stati
 
     static deleteFolder(foldrPath) {
         if (!foldrPath) return Utils.logError('foldrPath')
@@ -336,21 +210,18 @@ export default class NativeUtils {
     }
 
     /**
-     * 跳转到android应用市场
+     * 跳转到应用市场
      * 多个应用市场展示应用市场列表
+     *
      */
-    static goToAndroidMarket() {
-        RNCuriosity.goToAndroidMarket()
+    static goToMarket(packageName, marketPackageName) {
+        if (Constant.Android) {
+            if (!packageName) return Utils.logError('packageName')
+            RNCuriosity.goToMarket(packageName, marketPackageName)
+        } else {
+            RNCuriosity.goToMarket(packageName)
+        }
     }
 
-    /**
-     * 跳转至指定应用市场
-     * @param marketPackageName  应用市场包名
-     * @param marketClassName    应用市场app详情类名
-     */
-    static goToAndroidAppointMarket(marketPackageName) {
-        if (!marketPackageName) return Utils.logError('marketPackageName')
-        RNCuriosity.goToAndroidAppointMarket(marketPackageName)
-    }
 
 }
