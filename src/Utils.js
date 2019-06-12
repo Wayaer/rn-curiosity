@@ -26,7 +26,7 @@ export default class Utils {
     }
 
     /**
-     * Native发消息到J
+     * Native发消息到JS
      * android
      * ios
      * @param message

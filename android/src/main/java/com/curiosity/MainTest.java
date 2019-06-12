@@ -22,7 +22,7 @@ public class MainTest extends Application implements ReactApplication {
 
         /*
          * bundle加载判断
-         * */
+         */
         @Override
         protected String getJSBundleFile() {
             if (NativeTools.isBundle(getApplicationContext()) && NativeTools.matchingVersion(getApplicationContext())) {
@@ -60,7 +60,7 @@ public class MainTest extends Application implements ReactApplication {
     }
 
 
-   // MainActivity
+// MainActivity
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        SplashScreen.show(this, true);  // 添加这一句

@@ -77,7 +77,7 @@ public class CuriosityModule extends ReactContextBaseJavaModule {
 
 
     /**
-     * 获取app包名
+     * 获取app信息
      *
      * @param callback
      */
