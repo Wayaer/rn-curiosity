@@ -1,6 +1,5 @@
 package com.curiosity;
 
-
 import android.support.annotation.Nullable;
 
 import com.facebook.react.bridge.Callback;
@@ -9,15 +8,20 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.WritableArray;
+import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeArray;
+import com.facebook.react.common.MapBuilder;
+import com.facebook.react.uimanager.PixelUtil;
+
 
 import java.io.IOException;
+import java.util.Map;
 
 
 public class CuriosityModule extends ReactContextBaseJavaModule {
 
-    private final ReactApplicationContext reactContext;
 
+    private final ReactApplicationContext reactContext;
 
     public CuriosityModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -27,6 +31,23 @@ public class CuriosityModule extends ReactContextBaseJavaModule {
     @Override
     public String getName() {
         return "RNCuriosity";
+    }
+
+    @Override
+    public @javax.annotation.Nullable
+    Map<String, Object> getConstants() {
+        WritableMap map = NativeTools.getAppInfo(getReactApplicationContext());
+        map.putDouble("StatusBarHeight", getResourcesPixel("status_bar_height"));
+        map.putDouble("NavigationBarHeight", getResourcesPixel("navigation_bar_height"));
+        return MapBuilder.<String, Object>of("constants", map);
+    }
+
+    public float getResourcesPixel(String name) {
+        final int id = getReactApplicationContext().getResources()
+                .getIdentifier(name, "dimen", "android");
+        final float pixel = id > 0 ?
+                PixelUtil.toDIPFromPixel(getReactApplicationContext().getResources().getDimensionPixelSize(id)) : 0;
+        return pixel;
     }
 
     /**
@@ -167,13 +188,27 @@ public class CuriosityModule extends ReactContextBaseJavaModule {
     }
 
 
-    /*
+    /**
      * 跳转到应用商店
-     * */
+     *
+     * @param packageName
+     * @param marketPackageName
+     */
     @ReactMethod
     public void goToMarket(String packageName, String marketPackageName) {
         NativeTools.goToMarket(getReactApplicationContext(), packageName, marketPackageName);
     }
 
+    /**
+     * 修改状态栏背景颜色和字体颜色
+     *
+     * @param fontIconDark
+     * @param statusBarColor
+     */
+
+    @ReactMethod
+    public void setStatusBarColor(Boolean fontIconDark, String statusBarColor) {
+        NativeTools.setStatusBarColor(getCurrentActivity(), getReactApplicationContext(), fontIconDark, statusBarColor);
+    }
 
 }

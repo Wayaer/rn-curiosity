@@ -67,6 +67,9 @@ static bool addedJsLoadErrorObserver = false;
 {
     NSMutableDictionary *info = [NSMutableDictionary dictionary];
     NSDictionary *app = [[NSBundle mainBundle] infoDictionary];
+    CGRect rectStatus = [[UIApplication sharedApplication] statusBarFrame];
+    [info setObject:@(rectStatus.size.height) forKey:@"StatusBarHeight"];
+    [info setObject:@(rectStatus.size.width) forKey:@"StatusBarWidth"];
     
     [info setObject:NSHomeDirectory() forKey:@"HomeDirectory"];
     [info setObject:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] forKey:@"DocumentDirectory"];
@@ -192,6 +195,7 @@ static bool addedJsLoadErrorObserver = false;
 
 //index.bundle文件路径
 // 固定路径 /var/mobile/Containers/Data/Application/{570EAD8E-C3F9-4A8D-9A17-ACD3355AC501}/Library/bundle/index.bundle
+
 + (NSURL *)urlBundle {
     NSString *bundle = [[self getLibraryDirectory] stringByAppendingString:@"/bundle/index.bundle"];
     return [NSURL  fileURLWithPath:bundle];
@@ -241,6 +245,51 @@ static bool addedJsLoadErrorObserver = false;
     return totleStr;
 }
 
+/**
+ 16进制颜色转换为UIColor
+ @param hexColor 16进制字符串（可以以0x开头，可以以#开头，也可以就是6位的16进制）
+ @param opacity 透明度
+ @return 16进制字符串对应的颜色
+ */
 
++(UIColor *)colorWithHexString:(NSString *)hexColor{
+    NSString * cString = [[hexColor stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
+    
+    // String should be 6 or 8 characters
+    if ([cString length] < 6) return [UIColor blackColor];
+    
+    // strip 0X if it appears
+    if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
+    if ([cString hasPrefix:@"#"]) cString = [cString substringFromIndex:1];
+    if ([cString length] != 6&[cString length] != 8) return [UIColor blackColor];
+    
+    // Separate into r, g, b substrings
+    NSRange range;
+    range.location = 0;
+    range.length = 2;
+    NSString * rString = [cString substringWithRange:range];
+    
+    range.location = 2;
+    NSString * gString = [cString substringWithRange:range];
+    
+    range.location = 4;
+    NSString * bString = [cString substringWithRange:range];
+    
+    NSString * aString=@"10";
+    if ([cString length]==8) {
+        range.location = 6;
+        aString = [cString substringWithRange:range];
+    }
+    // Scan values
+    unsigned int r, g, b, a;
+    [[NSScanner scannerWithString:rString] scanHexInt:&r];
+    [[NSScanner scannerWithString:gString] scanHexInt:&g];
+    [[NSScanner scannerWithString:bString] scanHexInt:&b];
+    a=[aString intValue];
+    return [UIColor colorWithRed:((float)r / 255.0f)
+                           green:((float)g / 255.0f)
+                            blue:((float)b / 255.0f)
+                           alpha:(((float)a/10)/ 1.0f)];
+}
 
 @end

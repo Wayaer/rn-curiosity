@@ -41,7 +41,10 @@
                           args:body ? @[eventName, body] : @[eventName]
                     completion:NULL];
 }
-
+- (NSDictionary *)constantsToExport
+{
+    return @{@"constants":[NativeTools getAppInfo]};
+}
 RCT_EXPORT_MODULE(RNCuriosity)
 
 // promise例子
@@ -106,6 +109,18 @@ RCT_EXPORT_METHOD(hideSplashScreen) {
 //退出app
 RCT_EXPORT_METHOD(exitApp) {
     exit(0);
+}
+//设置状态栏背景色和字体颜色
+RCT_EXPORT_METHOD(setStatusBarColor:(BOOL *)fontIconDark :(NSString *)statusBarColor) {
+    UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
+    if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
+        statusBar.backgroundColor = [NativeTools colorWithHexString:statusBarColor];
+    }
+    if(fontIconDark){
+        [UIApplication sharedApplication].statusBarStyle =  UIStatusBarStyleDefault;
+    }else{
+        [UIApplication sharedApplication].statusBarStyle =  UIStatusBarStyleLightContent;
+    }
 }
 
 //跳转到AppStore

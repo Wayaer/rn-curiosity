@@ -43,4 +43,7 @@
 //bundle文件路径
 + (NSURL *)urlBundle;
 
+//十六进制颜色值转换UIColor
++ (UIColor *)colorWithHexString:(NSString *)hexColor;
+
 @end

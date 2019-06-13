@@ -1,22 +1,34 @@
 package com.curiosity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.support.v4.content.FileProvider;
+import android.support.v4.view.ViewCompat;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.CookieManager;
 import android.webkit.ValueCallback;
 
 
+import com.curiosity.statusbarutil.StatusBarUtil;
 import com.curiosity.utils.FileUtils;
+import com.facebook.react.ReactActivity;
+import com.facebook.react.bridge.GuardedRunnable;
+import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContext;
+import com.facebook.react.bridge.UiThreadUtil;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
@@ -129,10 +141,8 @@ public class NativeTools {
     public static WritableMap getAppInfo(Context context) {
         PackageManager appInfo = context.getPackageManager();
         WritableMap map = new WritableNativeMap();
-
         String filesDir = context.getCacheDir().getPath();
         String cacheDir = context.getCacheDir().getPath();
-
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) || !Environment.isExternalStorageRemovable()) {
             map.putString("externalFilesDir", context.getExternalCacheDir().getPath() + "");
             map.putString("externalCacheDir", context.getExternalFilesDir(null).getPath() + "");
@@ -147,8 +157,6 @@ public class NativeTools {
             map.putString("DIRECTORY_NOTIFICATIONS", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_NOTIFICATIONS) + "");
             map.putString("DIRECTORY_RINGTONES", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_RINGTONES) + "");
             map.putString("DIRECTORY_PODCASTS", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PODCASTS) + "");
-            // map.putString("downloadCacheDirectory", Environment.getDownloadCacheDirectory() + "/");
-            // map.putString("dataDirectory", Environment.getDataDirectory() + "/");
         } else {
             map.putString("externalFilesDir", filesDir + "");
             map.putString("externalCacheDir", cacheDir + "");
@@ -424,5 +432,23 @@ public class NativeTools {
                 .emit(eventName, params);
 
     }
+
+    /**
+     * 修改状态栏背景颜色和字体颜色
+     *
+     * @param activity
+     * @param reactApplicationContext
+     * @param fontIconDark
+     * @param statusBarColor
+     */
+    public static void setStatusBarColor(final Activity activity, ReactApplicationContext reactApplicationContext, final Boolean fontIconDark, final String statusBarColor) {
+        UiThreadUtil.runOnUiThread(new GuardedRunnable(reactApplicationContext) {
+            @Override
+            public void runGuarded() {
+                StatusBarUtil.setImmersiveStatusBar(activity, fontIconDark, statusBarColor);
+            }
+        });
+    }
+
 
 }

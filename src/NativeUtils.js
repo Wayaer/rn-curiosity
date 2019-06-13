@@ -4,8 +4,8 @@ import Utils from "./Utils";
 
 const RNCuriosity = NativeModules.RNCuriosity;
 const SplashScreen = NativeModules.SplashScreen;
-export {RNCuriosity}
 export default class NativeUtils {
+
 
     /**
      * promise例子
@@ -221,6 +221,15 @@ export default class NativeUtils {
         } else {
             RNCuriosity.goToMarket(packageName)
         }
+    }
+
+    /**
+     * 设置状态栏背景颜色和字体颜色
+     * @param fontIconDark     //Bool 状态栏字体是否为黑色
+     * @param statusBarColor  //String  状态栏背景色 仅支持六进制颜色值 #000000 rgb  #00000000 rgba
+     */
+    static setStatusBarColor(fontIconDark, statusBarColor) {
+        RNCuriosity.setStatusBarColor(fontIconDark, statusBarColor || "#00000000")
     }
 
 

@@ -124,6 +124,7 @@ Checkbox
       
 
 ###常量
+加入多个原生app信息[详见Constant](src/BaseConstant.js)
 ```
 import {FontSize, Colors, Constant,} from "rn-curiosity";
 
