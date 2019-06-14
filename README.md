@@ -1,7 +1,7 @@
 
 # rn-curiosity
 
-### rn-curiosity 致力于快速搭建app，封装多个常用 组件 方法，统一管理。同时会慢慢加入更多功能和组件，如问题 可及时提issues , 
+### rn-curiosity 快速搭建app，封装多个常用 组件 方法，统一管理。 
 
 
 ## 必须加入的库
@@ -120,7 +120,7 @@ Checkbox
 ```html
  <DatePicker/>
 ```
-<img  src="src/res/android.png" width="350"><img  src="src/res/ios.png" width="350">
+<img  src="src/res/ios.png" width="421.6" height = "750"><img  src="src/res/android.png" width="404.7" height = "809">
 
 
 #属性
