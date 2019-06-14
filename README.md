@@ -120,7 +120,7 @@ Checkbox
 ```html
  <DatePicker/>
 ```
-![Image text](src/res/android.png)![Image text](src/res/ios.png)
+![Image text](src/res/android.png/w/240)![Image text](src/res/ios.png/w/240)
 
 
 
