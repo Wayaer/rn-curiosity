@@ -120,8 +120,8 @@ Checkbox
 ```html
  <DatePicker/>
 ```
-[<img  src="src/res/android.png" width="240">]
-![Image text](src/res/ios.png/w/240)
+<img  src="src/res/android.png" width="300">
+<img  src="src/res/ios.png" width="300">
 
 #属性
 
