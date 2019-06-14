@@ -120,7 +120,7 @@ Checkbox
 ```html
  <DatePicker/>
 ```
-<img  src="src/res/android.png" width="350"> <img  src="src/res/ios.png" width="350">
+<img  src="src/res/android.png" width="350"><img  src="src/res/ios.png" width="350">
 
 
 #属性
