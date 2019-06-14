@@ -120,8 +120,60 @@ Checkbox
 ```html
  <DatePicker/>
 ```
-时间选择器 参考[rn-selector](https://github.com/Wayaer/rn-selector)
-      
+![Image text](src/res/android.png)![Image text](src/res/ios.png)
+
+
+
+
+#属性
+
+```pickerType || 'dateTime'  类型  
+
+   
+    /* pickerType:
+     *       date        =>年月日选择
+     *       dateTime    =>年月日时分秒选择
+     *       time        =>时分秒选择
+     */
+     
+ itemHeight         单层item高度
+ 
+ title || 'Select'  头部文字
+ 
+ cancelTextStyle    取消文字样式
+ 
+ cancelTouchStyle   取消触摸区域样式
+ 
+ sureTextStyle      确定文字样式
+ 
+ sureTouchStyle     确定触摸区域样式
+ 
+ titleTextStyle     头部文字样式
+ 
+ showUnit || true  是否显示文字（年月日）
+ 
+ pickerTimeInterval || ['2019-01-01', '2029-01-01']   选择时间区间
+ ```
+
+ 
+ 
+#事件
+```
+onSure     确定 回调
+
+onCancel   取消 回调
+```
+
+
+#例
+
+```
+ Utils.alertPicker('date', '确定', '时间选择器', '取消', (time) => {
+                            //确定 返回（time）
+                        }, () => {
+                            //取消
+                        })
+```    
 
 ###常量
 加入多个原生app信息[详见Constant](src/BaseConstant.js)
