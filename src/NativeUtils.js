@@ -232,5 +232,11 @@ export default class NativeUtils {
         RNCuriosity.setStatusBarColor(fontIconDark, statusBarColor || "#00000000")
     }
 
-
+    /**
+     * 单次振动时常，时常不同 震感不同，可搭配for循环 循环振动
+     * @param time
+     */
+    static singleVibration(time) {
+        RNCuriosity.singleVibration(time)
+    }
 }

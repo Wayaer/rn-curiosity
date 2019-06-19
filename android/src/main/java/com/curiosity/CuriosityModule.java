@@ -1,5 +1,6 @@
 package com.curiosity;
 
+import android.os.Vibrator;
 import android.support.annotation.Nullable;
 
 import com.facebook.react.bridge.Callback;
@@ -210,5 +211,17 @@ public class CuriosityModule extends ReactContextBaseJavaModule {
     public void setStatusBarColor(Boolean fontIconDark, String statusBarColor) {
         NativeTools.setStatusBarColor(getCurrentActivity(), getReactApplicationContext(), fontIconDark, statusBarColor);
     }
+
+    /**
+     * 单次振动
+     *
+     * @param time
+     */
+    @ReactMethod
+    public void singleVibration(int time) {
+        Vibrator vibrator = (Vibrator) getCurrentActivity().getSystemService(getCurrentActivity().VIBRATOR_SERVICE);
+        vibrator.vibrate(time);
+    }
+
 
 }

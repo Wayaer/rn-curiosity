@@ -150,7 +150,9 @@ Checkbox
  
  showUnit || true  是否显示文字（年月日）
  
- pickerTimeInterval || ['2019-01-01', '2029-01-01']   选择时间区间
+ pickerTimeInterval || ['2019-01-01', '2029-01-01']   选择时间区间  //不支持time类型
+ 
+  defaultSelectTime: '2019-02-28 03:04:05',  默认选中时间  //不支持time类型
  ```
 
  
@@ -166,11 +168,19 @@ onCancel   取消 回调
 #例
 
 ```
- Utils.alertPicker('date', '确定', '时间选择器', '取消', (time) => {
-                            //确定 返回（time）
-                        }, () => {
-                            //取消
-                        })
+   Utils.alertPicker({
+            showUnit: true, itemHeight: 30,
+            showUnit={pickerValue.showUnit}//是否显示年月日时分秒 文字
+            pickerType: 'dateTime', //time date dateTime
+            defaultSelectTime: '2019-02-28 03:04:05',    //不支持time类型
+            pickerTimeInterval: ['2018-01-12 23:34:45', '2026-01-07 23:34:45'],  //不支持time类型
+            sureText: '确定', title: '时间选择器', cancelText: '取消',
+        }, (time) => {
+            Utils.Toast(time)
+
+        }, () => {
+
+        })
 ```    
 
 ###常量

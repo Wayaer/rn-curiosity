@@ -110,6 +110,16 @@ RCT_EXPORT_METHOD(hideSplashScreen) {
 RCT_EXPORT_METHOD(exitApp) {
     exit(0);
 }
+//调用振动
+RCT_EXPORT_METHOD(singleVibration:(NSString *)time) {
+    //    unsigned t;
+    //    [[NSScanner scannerWithString:time] scanHexInt:&t];
+    //    AudioServicesPlaySystemSound(1520);
+    //
+    UIImpactFeedbackGenerator *generator = [[UIImpactFeedbackGenerator alloc] initWithStyle: UIImpactFeedbackStyleLight];
+    [generator prepare];
+    [generator impactOccurred];
+}
 //设置状态栏背景色和字体颜色
 RCT_EXPORT_METHOD(setStatusBarColor:(BOOL *)fontIconDark :(NSString *)statusBarColor) {
     UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
