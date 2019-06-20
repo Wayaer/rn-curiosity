@@ -16,7 +16,7 @@ export class DatePicker extends Component {
     constructor(props) {
         super(props);
         this.itemHeight = props.itemHeight || Utils.getHeight(35)
-        this.pickerType = props.pickerType || 'dateTime'
+        this.pickerType = this.returnPickerType(props)//props.pickerType || 'dateTime'
         this.title = props.title || 'Select'
         this.cancelText = props.cancelText || 'cancel'
         this.sureText = props.sureText || 'sure'
@@ -34,30 +34,70 @@ export class DatePicker extends Component {
         }
         this.onSure = props.onSure
         this.onCancel = props.onCancel
-        this.pickerTimeInterval = (this.pickerType !== 'time' && props.pickerTimeInterval && props.pickerTimeInterval) || this.checkPickerTimeInterval()
-        this.startDateTime = this.checkDate(this.pickerTimeInterval[0])
-        this.endDateTime = this.checkDate(this.pickerTimeInterval[1])
-        this.defaultSelectTime = this.pickerType !== 'time' && this.checkDefaultSelectTime(props.defaultSelectTime || this.pickerTimeInterval[0])
+        this.pickerTimeInterval = this.returnPickerTimeInterval(props)
+        this.startDateTime = this.returnStartDateTime(props)//this.checkDate(this.pickerTimeInterval[0])
+        this.endDateTime = this.returnEndDateTime(props)//this.checkDate(this.pickerTimeInterval[1])
+        this.defaultSelectTime = this.returnDefaultSelectTime(props)
         this.showUnit = props.showUnit ? true : false
         this.state = {
-            years: this.returnYears(),
+            years: this.returnYears(props),
             months: this.returnNum(12, 1),
-            days: this.returnDays(this.defaultSelectTime.split('-')[0], this.defaultSelectTime.split('-')[1]),
+            days: this.returnDays(new Date(this.returnDefaultSelectTime(props)).getFullYear(), new Date(this.returnDefaultSelectTime(props)).getMonth()),
             hours: this.returnNum(23, 0),
             minutes: this.returnNum(59, 0),
             seconds: this.returnNum(59, 0),
-            selectYearIndex: this.pickerType === 'time' ? 0 : new Date(this.defaultSelectTime).getFullYear() - new Date(this.startDateTime).getFullYear(),
-            selectMonthsIndex: this.pickerType === 'time' ? 0 : new Date(this.defaultSelectTime).getMonth(),
-            selectDayIndex: this.pickerType === 'time' ? 0 : new Date(this.defaultSelectTime).getDate() - 1,
-            selectHoursIndex: this.pickerType === 'time' || this.pickerType === 'date' ? 0 : new Date(this.defaultSelectTime).getHours(),
-            selectMinutesIndex: this.pickerType === 'time' || this.pickerType === 'date' ? 0 : new Date(this.defaultSelectTime).getMinutes(),
-            selectSecondsIndex: this.pickerType === 'time' || this.pickerType === 'date' ? 0 : new Date(this.defaultSelectTime).getSeconds(),
+            selectYearIndex: this.returnPickerType(props) === 'time' ? 0 : new Date(this.returnDefaultSelectTime(props)).getFullYear() - new Date(this.returnStartDateTime(props)).getFullYear(),
+            selectMonthsIndex: this.returnPickerType(props) === 'time' ? 0 : new Date(this.returnDefaultSelectTime(props)).getMonth(),
+            selectDayIndex: this.returnPickerType(props) === 'time' ? 0 : new Date(this.returnDefaultSelectTime(props)).getDate() - 1,
+            selectHoursIndex: this.returnPickerType(props) === 'time' || this.returnPickerType(props) === 'date' ? 0 : new Date(this.returnDefaultSelectTime(props)).getHours(),
+            selectMinutesIndex: this.returnPickerType(props) === 'time' || this.returnPickerType(props) === 'date' ? 0 : new Date(this.returnDefaultSelectTime(props)).getMinutes(),
+            selectSecondsIndex: this.returnPickerType(props) === 'time' || this.returnPickerType(props) === 'date' ? 0 : new Date(this.returnDefaultSelectTime(props)).getSeconds(),
         };
     }
 
-    returnYears = () => {
-        const startYear = Number(this.startDateTime.split('-')[0])
-        const endYear = Number(this.endDateTime.split('-')[0])
+    returnPickerType = (props) => {
+        return props.pickerType || 'dateTime'
+    }
+    returnDefaultSelectTime = (props) => {
+        if (this.returnPickerType(props) !== 'time') {
+            const defaultSelectTime = props.defaultSelectTime || this.pickerTimeInterval[0]
+            const startDateTime = this.returnStartDateTime(props)
+            const endDateTime = this.returnEndDateTime(props)
+            this.checkDate(defaultSelectTime)
+            if (new Date(startDateTime) > new Date(defaultSelectTime)) {
+                return startDateTime
+            } else if (new Date(defaultSelectTime) < new Date(defaultSelectTime)) {
+                return endDateTime
+            }
+            return defaultSelectTime
+        }
+    }
+    returnStartDateTime = (props) => {
+        if (this.returnPickerType(props) !== 'time') {
+            return this.checkDate(this.returnPickerTimeInterval(props)[0])
+        }
+    }
+    returnEndDateTime = (props) => {
+        if (this.returnPickerType(props) !== 'time') {
+            return this.checkDate(this.returnPickerTimeInterval(props)[1])
+        }
+    }
+    returnPickerTimeInterval = (props) => {
+        return (this.returnPickerType(props) !== 'time' && props.pickerTimeInterval && props.pickerTimeInterval) || this.checkPickerTimeInterval(props)
+    }
+
+    returnDays = (selectYear, selectMonth) => {
+        selectYear = Number(selectYear)
+        selectMonth = Number(selectMonth)
+        if (selectYear && selectMonth) {
+            return this.returnNum(this.monthSize(selectMonth, this.isLeapYearMethod(selectYear)), 1)
+        } else {
+            return this.returnNum(30, 1)
+        }
+    }
+    returnYears = (props) => {
+        const startYear = new Date(this.returnStartDateTime(props)).getFullYear()// Number(this.startDateTime.split('-')[0])
+        const endYear = new Date(this.returnEndDateTime(props)).getFullYear() //Number(this.endDateTime.split('-')[0])
         let yearsList = []
         for (let i = 0; i < (endYear - startYear) + 1; i++) {
             yearsList.push(Number(startYear) + i)
@@ -98,15 +138,7 @@ export class DatePicker extends Component {
             selectSecondsIndex: indexData.secondsIndex !== undefined ? indexData.secondsIndex : this.state.selectSecondsIndex,
         })
     }
-    checkDefaultSelectTime = (defaultSelectTime) => {
-        this.checkDate(defaultSelectTime)
-        if (new Date(this.startDateTime) > new Date(defaultSelectTime)) {
-            return this.startDateTime
-        } else if (new Date(this.endDateTime) < new Date(defaultSelectTime)) {
-            return this.endDateTime
-        }
-        return defaultSelectTime
-    }
+
     monthSize = (month, isLeapYearMethod) => {
         month = Number(month)
         if (month === 4 || month === 6 || month === 9 || month === 11) {
@@ -117,29 +149,20 @@ export class DatePicker extends Component {
             return 31
         }
     }
-    returnDays = (selectYear, selectMonth) => {
-        if (selectYear && selectMonth) {
-            return this.returnNum(this.monthSize(selectMonth, this.isLeapYearMethod(selectYear)), 1)
-        }
-        return []
-    }
 
 
-    checkPickerTimeInterval = () => {
-        if (this.pickerType === 'data') {
+    checkPickerTimeInterval = (props) => {
+        if (this.returnPickerType(props) === 'date') {
             return ['2019-01-01', '2020-01-01']
         }
         return ['2019-01-01 00:00:00', '2020-01-01 00:00:00']
     }
     checkDate = (dateTime) => {
-        if (this.pickerType !== 'time') {
-            if (!(Utils.regularStr(/^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\s+(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d$/, dateTime) ||
-                Utils.regularStr(/^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/, dateTime))) {
-                return console.error('日期格式错误 正确格式 2019-01-01 00:00:00 或 2019-01-01')
-            }
-            return Utils.checkLegalDate(dateTime.split(' ')[0]) && dateTime
+        if (!(Utils.regularStr(/^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\s+(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d$/, dateTime) ||
+            Utils.regularStr(/^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/, dateTime))) {
+            return console.error('日期格式错误 正确格式 2019-01-01 00:00:00 或 2019-01-01')
         }
-        return dateTime
+        return Utils.checkLegalDate(dateTime.split(' ')[0]) && dateTime
     }
 
     returnSelect = () => {

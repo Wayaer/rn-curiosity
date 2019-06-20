@@ -152,7 +152,8 @@ Checkbox
  
  pickerTimeInterval || ['2019-01-01', '2029-01-01']   选择时间区间  //不支持time类型
  
-  defaultSelectTime: '2019-02-28 03:04:05',  默认选中时间  //不支持time类型
+ defaultSelectTime: '2019-02-28 03:04:05',  默认选中时间  //不支持time类型
+ 
  ```
 
  
