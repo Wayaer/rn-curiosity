@@ -16,7 +16,7 @@ export class DatePicker extends Component {
     constructor(props) {
         super(props);
         this.itemHeight = props.itemHeight || Utils.getHeight(35)
-        this.pickerType = this.returnPickerType(props)//props.pickerType || 'dateTime'
+        this.pickerType = this.returnPickerType(props)
         this.title = props.title || 'Select'
         this.cancelText = props.cancelText || 'cancel'
         this.sureText = props.sureText || 'sure'
@@ -35,14 +35,14 @@ export class DatePicker extends Component {
         this.onSure = props.onSure
         this.onCancel = props.onCancel
         this.pickerTimeInterval = this.returnPickerTimeInterval(props)
-        this.startDateTime = this.returnStartDateTime(props)//this.checkDate(this.pickerTimeInterval[0])
-        this.endDateTime = this.returnEndDateTime(props)//this.checkDate(this.pickerTimeInterval[1])
+        this.startDateTime = this.returnStartDateTime(props)
+        this.endDateTime = this.returnEndDateTime(props)
         this.defaultSelectTime = this.returnDefaultSelectTime(props)
         this.showUnit = props.showUnit ? true : false
         this.state = {
             years: this.returnYears(props),
             months: this.returnNum(12, 1),
-            days: this.returnDays(new Date(this.returnDefaultSelectTime(props)).getFullYear(), new Date(this.returnDefaultSelectTime(props)).getMonth()),
+            days: this.returnDays(new Date(this.returnDefaultSelectTime(props)).getFullYear(), new Date(this.returnDefaultSelectTime(props)).getMonth() + 1),
             hours: this.returnNum(23, 0),
             minutes: this.returnNum(59, 0),
             seconds: this.returnNum(59, 0),
@@ -60,10 +60,12 @@ export class DatePicker extends Component {
     }
     returnDefaultSelectTime = (props) => {
         if (this.returnPickerType(props) !== 'time') {
-            const defaultSelectTime = props.defaultSelectTime || this.pickerTimeInterval[0]
-            const startDateTime = this.returnStartDateTime(props)
-            const endDateTime = this.returnEndDateTime(props)
-            this.checkDate(defaultSelectTime)
+            const selectTime = props.defaultSelectTime || this.pickerTimeInterval[0]
+            this.checkDate(selectTime)
+            const defaultSelectTime = this.replaceDate(selectTime)
+            const startDateTime = this.replaceDate(this.returnStartDateTime(props))
+            const endDateTime = this.replaceDate(this.returnEndDateTime(props))
+
             if (new Date(startDateTime) > new Date(defaultSelectTime)) {
                 return startDateTime
             } else if (new Date(defaultSelectTime) < new Date(defaultSelectTime)) {
@@ -72,14 +74,19 @@ export class DatePicker extends Component {
             return defaultSelectTime
         }
     }
+    replaceDate = (date) => {
+        return date.replace(/-/g, "/")
+    }
+
+
     returnStartDateTime = (props) => {
         if (this.returnPickerType(props) !== 'time') {
-            return this.checkDate(this.returnPickerTimeInterval(props)[0])
+            return this.replaceDate(this.checkDate(this.returnPickerTimeInterval(props)[0]))
         }
     }
     returnEndDateTime = (props) => {
         if (this.returnPickerType(props) !== 'time') {
-            return this.checkDate(this.returnPickerTimeInterval(props)[1])
+            return this.replaceDate(this.checkDate(this.returnPickerTimeInterval(props)[1]))
         }
     }
     returnPickerTimeInterval = (props) => {
@@ -96,8 +103,8 @@ export class DatePicker extends Component {
         }
     }
     returnYears = (props) => {
-        const startYear = new Date(this.returnStartDateTime(props)).getFullYear()// Number(this.startDateTime.split('-')[0])
-        const endYear = new Date(this.returnEndDateTime(props)).getFullYear() //Number(this.endDateTime.split('-')[0])
+        const startYear = new Date(this.returnStartDateTime(props)).getFullYear()
+        const endYear = new Date(this.returnEndDateTime(props)).getFullYear()
         let yearsList = []
         for (let i = 0; i < (endYear - startYear) + 1; i++) {
             yearsList.push(Number(startYear) + i)
@@ -111,7 +118,7 @@ export class DatePicker extends Component {
             + this.state.hours[indexData.hoursIndex !== undefined ? indexData.hoursIndex : this.state.selectHoursIndex] + ':'
             + this.state.minutes[indexData.minutesIndex !== undefined ? indexData.minutesIndex : this.state.selectMinutesIndex] + ':'
             + this.state.seconds[indexData.secondsIndex !== undefined ? indexData.secondsIndex : this.state.selectSecondsIndex]
-        const time = new Date(timeStr)
+        const time = new Date(this.replaceDate(timeStr))
         const days = this.returnDays(this.state.years[indexData.yearIndex !== undefined ? indexData.yearIndex : this.state.selectYearIndex], this.state.months[indexData.monthsIndex !== undefined ? indexData.monthsIndex : this.state.selectMonthsIndex])
         let dayIndex = new Date(time).getDate()
         if (days.length <= this.state.selectDayIndex) {
