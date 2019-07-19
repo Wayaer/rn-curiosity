@@ -1,6 +1,6 @@
 {
   "name": "rn-curiosity",
-  "version": "2.1.12",
+  "version": "2.1.14",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "adbTcpip": "adb tcpip 5555",
     "adbDevices": "adb devices",
     "npmPublish": "npm publish",
-    "npmUnPublish": "npm unpublish rn-curiosity@2.1.11",
+    "npmUnPublish": "npm unpublish rn-curiosity@2.1.13",
     "npmDeprecate": "npm deprecate rn-curiosity@1.1.19"
   },
   "keywords": [
@@ -24,8 +24,6 @@
   "author": "Wayaer",
   "license": "",
   "dependencies": {
-    "axios": "^0.19.0",
-    "prop-types": "^15.7.2",
     "react-native-progress": "~3.5.0",
     "react-native-snap-carousel": "^3.7.5",
     "rn-fetch-blob": "^0.10.15",

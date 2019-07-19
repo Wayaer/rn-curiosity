@@ -1,5 +1,5 @@
 #import "RNCuriosity.h"
-
+#import <AudioToolbox/AudioToolbox.h>
 @implementation RNCuriosity
 
 - (dispatch_queue_t)methodQueue
@@ -56,8 +56,8 @@ RCT_REMAP_METHOD(promiseCallback, options:(NSString *)options resolver:(RCTPromi
     }
 }
 //从native发消息到JS
-RCT_EXPORT_METHOD(sendMessageNativeToJS:(NSString *)props) {
-    [self sendMessageToJS:@"sendMessageNativeToJS" body:props];
+RCT_EXPORT_METHOD(sendMessageNativeToJS:(NSString *)eventName props:(NSDictionary *)props) {
+    [self sendMessageToJS:eventName body:props];
 }
 //设置cookie
 RCT_EXPORT_METHOD(setCookie:(NSDictionary *)props) {
@@ -112,13 +112,22 @@ RCT_EXPORT_METHOD(exitApp) {
 }
 //调用振动
 RCT_EXPORT_METHOD(singleVibration:(NSString *)time) {
-    //    unsigned t;
-    //    [[NSScanner scannerWithString:time] scanHexInt:&t];
-    //    AudioServicesPlaySystemSound(1520);
-    //
-    UIImpactFeedbackGenerator *generator = [[UIImpactFeedbackGenerator alloc] initWithStyle: UIImpactFeedbackStyleLight];
-    [generator prepare];
-    [generator impactOccurred];
+   
+    //短震  3D Touch中的peek震动反馈
+    AudioServicesPlaySystemSound(1519);
+    //短震  3D Touch中的pop震动反馈
+    //AudioServicesPlaySystemSound(1520);
+    //连续三次短震动
+    // AudioServicesPlaySystemSound(1521);
+    
+//    typedef NS_ENUM(NSInteger, UIImpactFeedbackStyle) {
+//    UIImpactFeedbackStyleLight,
+//    UIImpactFeedbackStyleMedium,
+//    UIImpactFeedbackStyleHeavy
+//    };
+//    UIImpactFeedbackGenerator *generator = [[UIImpactFeedbackGenerator alloc] initWithStyle: UIImpactFeedbackStyleLight];
+//    [generator prepare];
+//    [generator impactOccurred];
 }
 //设置状态栏背景色和字体颜色
 RCT_EXPORT_METHOD(setStatusBarColor:(BOOL *)fontIconDark :(NSString *)statusBarColor) {

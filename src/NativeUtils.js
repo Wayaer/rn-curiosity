@@ -26,10 +26,11 @@ export default class NativeUtils {
      * Native发消息到JS
      * android
      * ios
-     * @param message
+     * @param eventName
+     * @param map
      */
-    static sendMessageNativeToJS(message) {
-        RNCuriosity.sendMessageNativeToJS(message)
+    static sendMessageNativeToJS(eventName, map) {
+        RNCuriosity.sendMessageNativeToJS(eventName, map)
     }
 
 

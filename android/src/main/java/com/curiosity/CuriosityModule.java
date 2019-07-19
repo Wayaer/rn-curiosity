@@ -1,5 +1,6 @@
 package com.curiosity;
 
+import android.content.Context;
 import android.os.Vibrator;
 import android.support.annotation.Nullable;
 
@@ -22,11 +23,11 @@ import java.util.Map;
 public class CuriosityModule extends ReactContextBaseJavaModule {
 
 
-    private final ReactApplicationContext reactContext;
+    public static ReactApplicationContext reactApplicationContext;
 
     public CuriosityModule(ReactApplicationContext reactContext) {
         super(reactContext);
-        this.reactContext = reactContext;
+        reactApplicationContext = reactContext;
     }
 
     @Override
@@ -37,17 +38,17 @@ public class CuriosityModule extends ReactContextBaseJavaModule {
     @Override
     public @javax.annotation.Nullable
     Map<String, Object> getConstants() {
-        WritableMap map = NativeTools.getAppInfo(getReactApplicationContext());
+        WritableMap map = NativeTools.getAppInfo();
         map.putDouble("StatusBarHeight", getResourcesPixel("status_bar_height"));
         map.putDouble("NavigationBarHeight", getResourcesPixel("navigation_bar_height"));
         return MapBuilder.<String, Object>of("constants", map);
     }
 
     public float getResourcesPixel(String name) {
-        final int id = getReactApplicationContext().getResources()
+        final int id = reactApplicationContext.getResources()
                 .getIdentifier(name, "dimen", "android");
         final float pixel = id > 0 ?
-                PixelUtil.toDIPFromPixel(getReactApplicationContext().getResources().getDimensionPixelSize(id)) : 0;
+                PixelUtil.toDIPFromPixel(reactApplicationContext.getResources().getDimensionPixelSize(id)) : 0;
         return pixel;
     }
 
@@ -75,6 +76,11 @@ public class CuriosityModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void exitApp() {
         NativeTools.exitApp();
+    }
+
+    @ReactMethod
+    public void sendMessageNativeToJS(String eventName, WritableMap map) {
+        NativeTools.sendMessageToJS(eventName, map);
     }
 
 
@@ -105,7 +111,7 @@ public class CuriosityModule extends ReactContextBaseJavaModule {
      */
     @ReactMethod
     public void getAppInfo(Callback callback) {
-        callback.invoke(NativeTools.getAppInfo(getReactApplicationContext()));
+        callback.invoke(NativeTools.getAppInfo());
     }
 
 
@@ -116,7 +122,7 @@ public class CuriosityModule extends ReactContextBaseJavaModule {
      */
     @ReactMethod
     public void installApp(String apkFile) {
-        NativeTools.installApp(getReactApplicationContext(), apkFile);
+        NativeTools.installApp(apkFile);
     }
 
 
@@ -129,7 +135,6 @@ public class CuriosityModule extends ReactContextBaseJavaModule {
      */
     @ReactMethod
     public void unZipFile(String path, Callback callback) throws IOException {
-        //callback.invoke(NativeTools.unZipFile(path,getReactApplicationContext()));
         callback.invoke(NativeTools.unZipFile(path));
     }
 
@@ -197,7 +202,7 @@ public class CuriosityModule extends ReactContextBaseJavaModule {
      */
     @ReactMethod
     public void goToMarket(String packageName, String marketPackageName) {
-        NativeTools.goToMarket(getReactApplicationContext(), packageName, marketPackageName);
+        NativeTools.goToMarket(packageName, marketPackageName);
     }
 
     /**
@@ -209,7 +214,7 @@ public class CuriosityModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void setStatusBarColor(Boolean fontIconDark, String statusBarColor) {
-        NativeTools.setStatusBarColor(getCurrentActivity(), getReactApplicationContext(), fontIconDark, statusBarColor);
+        NativeTools.setStatusBarColor(getCurrentActivity(), fontIconDark, statusBarColor);
     }
 
     /**

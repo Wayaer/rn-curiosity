@@ -138,7 +138,8 @@ public class NativeTools {
 
 
     @SuppressLint({"MissingPermission", "NewApi"})
-    public static WritableMap getAppInfo(Context context) {
+    public static WritableMap getAppInfo() {
+        Context context = CuriosityModule.reactApplicationContext;
         PackageManager appInfo = context.getPackageManager();
         WritableMap map = new WritableNativeMap();
         String filesDir = context.getCacheDir().getPath();
@@ -185,10 +186,10 @@ public class NativeTools {
     /**
      * 安装apk
      *
-     * @param context
      * @param apkFile
      */
-    public static void installApp(Context context, String apkFile) {
+    public static void installApp(String apkFile) {
+        Context context = CuriosityModule.reactApplicationContext;
         File file = new File(apkFile);
         Intent intent = new Intent(Intent.ACTION_VIEW);
         // 由于没有在Activity环境下启动Activity,设置下面的标签
@@ -211,7 +212,6 @@ public class NativeTools {
     /**
      * 获取android 内部 Files文件
      *
-     * @param context
      * @return
      */
     public static String getFilesDir(Context context) {
@@ -312,7 +312,6 @@ public class NativeTools {
     /**
      * 判断是否存在bundle文件
      *
-     * @param context
      * @return
      */
     public static boolean isBundle(Context context) {
@@ -326,7 +325,6 @@ public class NativeTools {
     /**
      * 判断bundle版本是否匹配当前app版本
      *
-     * @param context
      * @return
      */
     public static boolean matchingVersion(Context context) {
@@ -363,11 +361,10 @@ public class NativeTools {
     /**
      * 判断手机是否安装某个应用
      *
-     * @param context
      * @return true：安装，false：未安装
      */
-    public static boolean isInstallApp(Context context, String packageName) {
-        List<PackageInfo> packages = context.getPackageManager().getInstalledPackages(0);// 获取所有已安装程序的包信息
+    public static boolean isInstallApp(String packageName) {
+        List<PackageInfo> packages = CuriosityModule.reactApplicationContext.getPackageManager().getInstalledPackages(0);// 获取所有已安装程序的包信息
         if (packages != null) {
             for (int i = 0; i < packages.size(); i++) {
                 String pn = packages.get(i).packageName;
@@ -381,10 +378,8 @@ public class NativeTools {
 
     /**
      * 跳转至应用商店
-     *
-     * @param context
      */
-    public static void goToMarket(Context context, String packageName, String marketPackageName) {
+    public static void goToMarket(String packageName, String marketPackageName) {
         Uri uri = Uri.parse("market://details?id=" + packageName);
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -392,7 +387,7 @@ public class NativeTools {
             intent.setPackage(marketPackageName);
         }
         try {
-            context.startActivity(intent);
+            CuriosityModule.reactApplicationContext.startActivity(intent);
         } catch (ActivityNotFoundException e) {
             e.printStackTrace();
         }
@@ -402,12 +397,11 @@ public class NativeTools {
     /**
      * 判断应用是否存在的方法
      *
-     * @param context
      * @param packageName
      * @return
      */
-    public static boolean isAndroidMarket(Context context, String packageName) {
-        List<PackageInfo> pInfo = context.getPackageManager().getInstalledPackages(0);// 获取所有已安装程序的包信息
+    public static boolean isAndroidMarket(String packageName) {
+        List<PackageInfo> pInfo = CuriosityModule.reactApplicationContext.getPackageManager().getInstalledPackages(0);// 获取所有已安装程序的包信息
         List<String> pName = new ArrayList<String>();// 用于存储所有已安装程序的包名
         // 从pInfo中将包名字逐一取出，压入pName list中
         if (pInfo != null) {
@@ -422,13 +416,11 @@ public class NativeTools {
     /**
      * 发送消息至js
      *
-     * @param reactContext
      * @param eventName
      * @param params
      */
-    public static void sendMessageToJS(ReactContext reactContext, String eventName, @Nullable String params) {
-        reactContext
-                .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
+    public static void sendMessageToJS(String eventName, WritableMap params) {
+        CuriosityModule.reactApplicationContext.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
                 .emit(eventName, params);
 
     }
@@ -437,12 +429,11 @@ public class NativeTools {
      * 修改状态栏背景颜色和字体颜色
      *
      * @param activity
-     * @param reactApplicationContext
      * @param fontIconDark
      * @param statusBarColor
      */
-    public static void setStatusBarColor(final Activity activity, ReactApplicationContext reactApplicationContext, final Boolean fontIconDark, final String statusBarColor) {
-        UiThreadUtil.runOnUiThread(new GuardedRunnable(reactApplicationContext) {
+    public static void setStatusBarColor(final Activity activity, final Boolean fontIconDark, final String statusBarColor) {
+        UiThreadUtil.runOnUiThread(new GuardedRunnable(CuriosityModule.reactApplicationContext) {
             @Override
             public void runGuarded() {
                 StatusBarUtil.setImmersiveStatusBar(activity, fontIconDark, statusBarColor);
