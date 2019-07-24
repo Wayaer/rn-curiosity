@@ -1,9 +1,9 @@
 'use strict';
 import React, {PureComponent} from 'react';
-import {Wheel} from "teaset";
-import {CustomButton, CenterView, TouchView} from "../BaseComponent";
-import {Colors, Constant, FontSize} from "../BaseConstant"
-import Utils from "../Utils";
+import {Wheel} from 'teaset';
+import {CustomButton, CenterView, TouchView} from '../BaseComponent';
+import {Colors, Constant, FontSize} from '../BaseConstant';
+import Utils from '../Utils';
 
 export class DatePicker extends PureComponent {
     /*
@@ -15,30 +15,30 @@ export class DatePicker extends PureComponent {
 
     constructor(props) {
         super(props);
-        this.itemHeight = props.itemHeight || Utils.getHeight(35)
-        this.pickerType = this.returnPickerType(props)
-        this.title = props.title || 'Select'
-        this.cancelText = props.cancelText || 'cancel'
-        this.sureText = props.sureText || 'sure'
-        this.cancelTextStyle = props.cancelTextStyle || {}
-        this.cancelTouchStyle = props.cancelTouchStyle || {}
-        this.sureTouchStyle = props.sureTouchStyle || {}
-        this.sureTextStyle = props.sureTextStyle || {}
-        this.titleTextStyle = props.titleTextStyle || {}
-        this.textStyle = props.textStyle || {color: Colors.gray153153}
+        this.itemHeight = props.itemHeight || Utils.getHeight(35);
+        this.pickerType = this.returnPickerType(props);
+        this.title = props.title || 'Select';
+        this.cancelText = props.cancelText || 'cancel';
+        this.sureText = props.sureText || 'sure';
+        this.cancelTextStyle = props.cancelTextStyle || {};
+        this.cancelTouchStyle = props.cancelTouchStyle || {};
+        this.sureTouchStyle = props.sureTouchStyle || {};
+        this.sureTextStyle = props.sureTextStyle || {};
+        this.titleTextStyle = props.titleTextStyle || {};
+        this.textStyle = props.textStyle || {color: Colors.gray153153};
         this.textViewStyle = this.props.textViewStyle || {
             marginTop: this.itemHeight * 2,
             height: this.itemHeight,
             justifyContent: 'center',
-            alignItems: 'center'
-        }
-        this.onSure = props.onSure
-        this.onCancel = props.onCancel
-        this.pickerTimeInterval = this.returnPickerTimeInterval(props)
-        this.startDateTime = this.returnStartDateTime(props)
-        this.endDateTime = this.returnEndDateTime(props)
-        this.defaultSelectTime = this.returnDefaultSelectTime(props)
-        this.showUnit = props.showUnit ? true : false
+            alignItems: 'center',
+        };
+        this.onSure = props.onSure;
+        this.onCancel = props.onCancel;
+        this.pickerTimeInterval = this.returnPickerTimeInterval(props);
+        this.startDateTime = this.returnStartDateTime(props);
+        this.endDateTime = this.returnEndDateTime(props);
+        this.defaultSelectTime = this.returnDefaultSelectTime(props);
+        this.showUnit = props.showUnit;
         this.state = {
             years: this.returnYears(props),
             months: this.returnNum(12, 1),
@@ -56,60 +56,60 @@ export class DatePicker extends PureComponent {
     }
 
     returnPickerType = (props) => {
-        return props.pickerType || 'dateTime'
+        return props.pickerType || 'dateTime';
     }
     returnDefaultSelectTime = (props) => {
         if (this.returnPickerType(props) !== 'time') {
-            const selectTime = props.defaultSelectTime || this.pickerTimeInterval[0]
-            this.checkDate(selectTime)
-            const defaultSelectTime = this.replaceDate(selectTime)
-            const startDateTime = this.replaceDate(this.returnStartDateTime(props))
-            const endDateTime = this.replaceDate(this.returnEndDateTime(props))
+            const selectTime = props.defaultSelectTime || this.pickerTimeInterval[0];
+            this.checkDate(selectTime);
+            const defaultSelectTime = this.replaceDate(selectTime);
+            const startDateTime = this.replaceDate(this.returnStartDateTime(props));
+            const endDateTime = this.replaceDate(this.returnEndDateTime(props));
 
             if (new Date(startDateTime) > new Date(defaultSelectTime)) {
-                return startDateTime
+                return startDateTime;
             } else if (new Date(defaultSelectTime) < new Date(defaultSelectTime)) {
-                return endDateTime
+                return endDateTime;
             }
-            return defaultSelectTime
+            return defaultSelectTime;
         }
     }
     replaceDate = (date) => {
-        return date.replace(/-/g, "/")
+        return date.replace(/-/g, '/');
     }
 
 
     returnStartDateTime = (props) => {
         if (this.returnPickerType(props) !== 'time') {
-            return this.replaceDate(this.checkDate(this.returnPickerTimeInterval(props)[0]))
+            return this.replaceDate(this.checkDate(this.returnPickerTimeInterval(props)[0]));
         }
     }
     returnEndDateTime = (props) => {
         if (this.returnPickerType(props) !== 'time') {
-            return this.replaceDate(this.checkDate(this.returnPickerTimeInterval(props)[1]))
+            return this.replaceDate(this.checkDate(this.returnPickerTimeInterval(props)[1]));
         }
     }
     returnPickerTimeInterval = (props) => {
-        return (this.returnPickerType(props) !== 'time' && props.pickerTimeInterval && props.pickerTimeInterval) || this.checkPickerTimeInterval(props)
+        return (this.returnPickerType(props) !== 'time' && props.pickerTimeInterval && props.pickerTimeInterval) || this.checkPickerTimeInterval(props);
     }
 
     returnDays = (selectYear, selectMonth) => {
-        selectYear = Number(selectYear)
-        selectMonth = Number(selectMonth)
+        selectYear = Number(selectYear);
+        selectMonth = Number(selectMonth);
         if (selectYear && selectMonth) {
-            return this.returnNum(this.monthSize(selectMonth, this.isLeapYearMethod(selectYear)), 1)
+            return this.returnNum(this.monthSize(selectMonth, this.isLeapYearMethod(selectYear)), 1);
         } else {
-            return this.returnNum(30, 1)
+            return this.returnNum(30, 1);
         }
     }
     returnYears = (props) => {
-        const startYear = new Date(this.returnStartDateTime(props)).getFullYear()
-        const endYear = new Date(this.returnEndDateTime(props)).getFullYear()
-        let yearsList = []
+        const startYear = new Date(this.returnStartDateTime(props)).getFullYear();
+        const endYear = new Date(this.returnEndDateTime(props)).getFullYear();
+        let yearsList = [];
         for (let i = 0; i < (endYear - startYear) + 1; i++) {
-            yearsList.push(Number(startYear) + i)
+            yearsList.push(Number(startYear) + i);
         }
-        return yearsList
+        return yearsList;
     }
     changeDateTime = (indexData) => {
         const timeStr = this.state.years[indexData.yearIndex !== undefined ? indexData.yearIndex : this.state.selectYearIndex] + '-'
@@ -117,16 +117,16 @@ export class DatePicker extends PureComponent {
             + this.state.days[indexData.daysIndex !== undefined ? indexData.daysIndex : this.state.selectDayIndex] + ' '
             + this.state.hours[indexData.hoursIndex !== undefined ? indexData.hoursIndex : this.state.selectHoursIndex] + ':'
             + this.state.minutes[indexData.minutesIndex !== undefined ? indexData.minutesIndex : this.state.selectMinutesIndex] + ':'
-            + this.state.seconds[indexData.secondsIndex !== undefined ? indexData.secondsIndex : this.state.selectSecondsIndex]
-        const time = new Date(this.replaceDate(timeStr))
-        const days = this.returnDays(this.state.years[indexData.yearIndex !== undefined ? indexData.yearIndex : this.state.selectYearIndex], this.state.months[indexData.monthsIndex !== undefined ? indexData.monthsIndex : this.state.selectMonthsIndex])
-        let dayIndex = new Date(time).getDate()
+            + this.state.seconds[indexData.secondsIndex !== undefined ? indexData.secondsIndex : this.state.selectSecondsIndex];
+        const time = new Date(this.replaceDate(timeStr));
+        const days = this.returnDays(this.state.years[indexData.yearIndex !== undefined ? indexData.yearIndex : this.state.selectYearIndex], this.state.months[indexData.monthsIndex !== undefined ? indexData.monthsIndex : this.state.selectMonthsIndex]);
+        let dayIndex = new Date(time).getDate();
         if (days.length <= this.state.selectDayIndex) {
-            dayIndex = days.length
+            dayIndex = days.length;
         }
-        let monthsIndex = time.getMonth()
+        let monthsIndex = time.getMonth();
         if (indexData.yearIndex !== undefined && this.isLeapYearMethod(this.state.years[this.state.selectYearIndex]) && !this.isLeapYearMethod(this.state.years[indexData.yearIndex]) && this.state.selectMonthsIndex === 1 && this.state.selectDayIndex === 28) {
-            monthsIndex -= 1
+            monthsIndex -= 1;
         }
         this.setState({
             days: days,
@@ -136,40 +136,40 @@ export class DatePicker extends PureComponent {
             selectHoursIndex: time.getHours(),
             selectMinutesIndex: time.getMinutes(),
             selectSecondsIndex: time.getSeconds(),
-        })
+        });
     }
     changeTime = (indexData) => {
         this.setState({
             selectHoursIndex: indexData.hoursIndex !== undefined ? indexData.hoursIndex : this.state.selectHoursIndex,
             selectMinutesIndex: indexData.minutesIndex !== undefined ? indexData.minutesIndex : this.state.selectMinutesIndex,
             selectSecondsIndex: indexData.secondsIndex !== undefined ? indexData.secondsIndex : this.state.selectSecondsIndex,
-        })
+        });
     }
 
     monthSize = (month, isLeapYearMethod) => {
-        month = Number(month)
+        month = Number(month);
         if (month === 4 || month === 6 || month === 9 || month === 11) {
-            return 30
+            return 30;
         } else if (month === 2) {
-            return isLeapYearMethod ? 29 : 28
+            return isLeapYearMethod ? 29 : 28;
         } else {
-            return 31
+            return 31;
         }
     }
 
 
     checkPickerTimeInterval = (props) => {
         if (this.returnPickerType(props) === 'date') {
-            return ['2019-01-01', '2020-01-01']
+            return ['2019-01-01', '2020-01-01'];
         }
-        return ['2019-01-01 00:00:00', '2020-01-01 00:00:00']
+        return ['2019-01-01 00:00:00', '2020-01-01 00:00:00'];
     }
     checkDate = (dateTime) => {
         if (!(Utils.regularStr(/^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\s+(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d$/, dateTime) ||
             Utils.regularStr(/^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/, dateTime))) {
-            return console.error('日期格式错误 正确格式 2019-01-01 00:00:00 或 2019-01-01')
+            return console.error('日期格式错误 正确格式 2019-01-01 00:00:00 或 2019-01-01');
         }
-        return Utils.checkLegalDate(dateTime.split(' ')[0]) && dateTime
+        return Utils.checkLegalDate(dateTime.split(' ')[0]) && dateTime;
     }
 
     returnSelect = () => {
@@ -177,18 +177,18 @@ export class DatePicker extends PureComponent {
             case 'date':
                 return this.state.years[this.state.selectYearIndex]
                     + '-' + this.state.months[this.state.selectMonthsIndex]
-                    + '-' + this.state.days[this.state.selectDayIndex]
+                    + '-' + this.state.days[this.state.selectDayIndex];
             case 'dateTime':
                 return this.state.years[this.state.selectYearIndex]
                     + '-' + this.state.months[this.state.selectMonthsIndex]
                     + '-' + this.state.days[this.state.selectDayIndex]
                     + ' ' + this.state.hours[this.state.selectHoursIndex]
                     + ':' + this.state.minutes[this.state.selectMinutesIndex]
-                    + ':' + this.state.seconds[this.state.selectSecondsIndex]
+                    + ':' + this.state.seconds[this.state.selectSecondsIndex];
             case 'time':
                 return this.state.hours[this.state.selectHoursIndex]
                     + ':' + this.state.minutes[this.state.selectMinutesIndex]
-                    + ':' + this.state.seconds[this.state.selectSecondsIndex]
+                    + ':' + this.state.seconds[this.state.selectSecondsIndex];
         }
     }
 
@@ -203,55 +203,55 @@ export class DatePicker extends PureComponent {
         }
     }
     returnNum = (num, startI) => {
-        let numList = []
+        let numList = [];
         for (let i = startI; i <= num; i++) {
-            let h
+            let h;
             if (i < 10) {
-                h = '0' + i
+                h = '0' + i;
             } else {
-                h = i.toString()
+                h = i.toString();
             }
-            numList.push(h)
+            numList.push(h);
         }
-        return numList
+        return numList;
     }
 
 
     renderWheel = (pickerType) => {
-        const width = (Constant.Screen_Width - Utils.getWidth(26)) / (this.pickerType === 'dateTime' ? 8 : 5)
-        const showDateView = (pickerType === 'date' || pickerType === 'dateTime')
-        const showTimeView = (pickerType === 'time' || pickerType === 'dateTime')
+        const width = (Constant.Screen_Width - Utils.getWidth(26)) / (this.pickerType === 'dateTime' ? 8 : 5);
+        const showDateView = (pickerType === 'date' || pickerType === 'dateTime');
+        const showTimeView = (pickerType === 'time' || pickerType === 'dateTime');
 
         return (<TouchView style={{flexDirection: 'row'}}>
             {showDateView && this.renderWheelItem(this.state.years, width, this.state.selectYearIndex, (index) => {
-                this.changeDateTime({"yearIndex": index})
+                this.changeDateTime({'yearIndex': index});
             })}
             {showDateView && this.showUnit && this.renderTextItem('年')}
             {showDateView && this.renderWheelItem(this.state.months, width, this.state.selectMonthsIndex, (index) => {
-                this.changeDateTime({"monthsIndex": index})
+                this.changeDateTime({'monthsIndex': index});
             })}
             {showDateView && this.showUnit && this.renderTextItem('月')}
             {showDateView && this.renderWheelItem(this.state.days, width, this.state.selectDayIndex, (index) => {
-                this.changeDateTime({"daysIndex": index})
+                this.changeDateTime({'daysIndex': index});
             })}
             {showDateView && this.showUnit && this.showUnit && this.renderTextItem('日')}
             {showTimeView && this.renderWheelItem(this.state.hours, width, this.state.selectHoursIndex, (index) => {
-                (this.pickerType === "time" ? this.changeTime : this.changeDateTime)({"hoursIndex": index})
+                (this.pickerType === 'time' ? this.changeTime : this.changeDateTime)({'hoursIndex': index});
             })}
             {showTimeView && this.showUnit && this.renderTextItem('时')}
             {showTimeView && this.renderWheelItem(this.state.minutes, width, this.state.selectMinutesIndex, (index) => {
-                (this.pickerType === "time" ? this.changeTime : this.changeDateTime)({"minutesIndex": index})
+                (this.pickerType === 'time' ? this.changeTime : this.changeDateTime)({'minutesIndex': index});
             })}
             {showTimeView && this.showUnit && this.renderTextItem('分')}
             {showTimeView && this.renderWheelItem(this.state.seconds, width, this.state.selectSecondsIndex, (index) => {
-                (this.pickerType === "time" ? this.changeTime : this.changeDateTime)({"secondsIndex": index})
+                (this.pickerType === 'time' ? this.changeTime : this.changeDateTime)({'secondsIndex': index});
             })}
             {showTimeView && this.showUnit && this.renderTextItem('秒')}
-        </TouchView>)
+        </TouchView>);
 
     }
     renderTextItem = (text) => {
-        return (<CustomButton buttonStyle={this.textViewStyle} textStyle={this.textStyle}>{text}</CustomButton>)
+        return (<CustomButton buttonStyle={this.textViewStyle} textStyle={this.textStyle}>{text}</CustomButton>);
     }
 
     render() {
@@ -276,13 +276,13 @@ export class DatePicker extends PureComponent {
                     <CustomButton textStyle={[{
                         padding: 10,
                         color: '#000',
-                        fontSize: FontSize.textSize_16
+                        fontSize: FontSize.textSize_16,
                     }, this.titleTextStyle]}>{this.title}</CustomButton>
                     <CustomButton
                         textStyle={[{color: '#000'}, this.sureTextStyle]}
                         bottonStyle={[{padding: 2}, this.sureTouchStyle]}
                         onPress={() => {
-                            this.props.onSure(this.returnSelect())
+                            this.props.onSure(this.returnSelect());
                         }}>
                         {this.sureText}
                     </CustomButton>
@@ -291,7 +291,7 @@ export class DatePicker extends PureComponent {
                     height: this.itemHeight * 6,
                     borderTopWidth: 1,
                     paddingTop: Utils.getHeight(10),
-                    borderColor: Colors.black30
+                    borderColor: Colors.black30,
                 }}>
                     {this.renderWheel(this.pickerType)}
                 </CenterView>
@@ -307,8 +307,8 @@ export class DatePicker extends PureComponent {
                 itemStyle={{textAlign: 'center'}}
                 index={index}
                 onChange={(i) => {
-                    return selectValueIndex(i)
-                }}/>)
+                    return selectValueIndex(i);
+                }}/>);
         }
     }
 }

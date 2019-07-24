@@ -1,16 +1,16 @@
 'use strict';
 import {
     RNFetchBlob,
-    DatePicker, React, Component,
+    DatePicker, React,
     Constant, height, scale, width, ModalIndicator, Overlay, Toast,
     AsyncStorage, NetInfo,
-} from "../index";
-import Storage from "./component/Storage";
-import NativeUtils from "./NativeUtils";
-import {NavigationActions, StackActions} from "react-navigation";
-import {Platform, DeviceEventEmitter, BackHandler, ToastAndroid,} from "react-native";
+} from '../index';
+import Storage from './component/Storage';
+import NativeUtils from './NativeUtils';
+import {NavigationActions, StackActions} from 'react-navigation';
+import {Platform, DeviceEventEmitter, BackHandler, ToastAndroid} from 'react-native';
 
-const alertStyle = {height: height, width: width}
+const alertStyle = {height: height, width: width};
 let storage;
 
 
@@ -22,7 +22,7 @@ export default class Utils {
      * @param failCallback
      */
     static promiseCallback(message, successCallback, failCallback) {
-        NativeUtils.promiseCallback(message, successCallback, failCallback)
+        NativeUtils.promiseCallback(message, successCallback, failCallback);
     }
 
     /**
@@ -32,7 +32,7 @@ export default class Utils {
      * @param message
      */
     static sendMessageNativeToJS(message) {
-        NativeUtils.sendMessageNativeToJS(message)
+        NativeUtils.sendMessageNativeToJS(message);
     }
 
     /**
@@ -42,7 +42,7 @@ export default class Utils {
      * @constructor
      */
     static SplashScreenHide() {
-        NativeUtils.SplashScreenHide()
+        NativeUtils.SplashScreenHide();
     }
 
     /**
@@ -52,7 +52,7 @@ export default class Utils {
      * @constructor
      */
     static SplashScreenShow() {
-        NativeUtils.showSplashScreen()
+        NativeUtils.showSplashScreen();
     }
 
     /**
@@ -61,7 +61,7 @@ export default class Utils {
      * @param statusBarColor
      */
     static setStatusBarColor(fontIconDark, statusBarColor) {
-        NativeUtils.setStatusBarColor(fontIconDark, statusBarColor)
+        NativeUtils.setStatusBarColor(fontIconDark, statusBarColor);
     }
 
     /**
@@ -70,7 +70,7 @@ export default class Utils {
      * @param apkFilePath
      */
     static installApp(apkFilePath) {
-        NativeUtils.installApp(apkFilePath)
+        NativeUtils.installApp(apkFilePath);
     }
 
     /**
@@ -80,7 +80,7 @@ export default class Utils {
      * @constructor
      */
     static ExitApp() {
-        NativeUtils.exitApp()
+        NativeUtils.exitApp();
     }
 
     /**
@@ -100,7 +100,7 @@ export default class Utils {
      * @param callback
      */
     static getAppInfo(callback) {
-        NativeUtils.getAppInfo(callback)
+        NativeUtils.getAppInfo(callback);
     }
 
     /**
@@ -110,11 +110,11 @@ export default class Utils {
      * @param callback
      */
     static getVersionName(callback) {
-        return callback(Constant.VersionName)
+        return callback(Constant.VersionName);
     }
 
     static VersionName() {
-        return Constant.VersionName
+        return Constant.VersionName;
     }
 
     /**
@@ -124,11 +124,11 @@ export default class Utils {
      * @param callback
      */
     static getVersionCode(callback) {
-        return callback(Constant.VersionCode)
+        return callback(Constant.VersionCode);
     }
 
     static VersionCode() {
-        return Constant.VersionCode
+        return Constant.VersionCode;
     }
 
     /**
@@ -205,7 +205,9 @@ export default class Utils {
         if (Constant.Android) {
             NativeUtils.goToMarket(Constant.packageName, null);
         } else if (Constant.IOS) {
-            if (!appID) return Utils.logError('appID')
+            if (!appID) {
+                return Utils.logError('appID');
+            }
             NativeUtils.goToMarket(appID);
         }
     }
@@ -216,8 +218,10 @@ export default class Utils {
      * @param content
      */
     static log(content) {
-        if (!content) return Utils.logError('content')
-        console.warn("LogInfo=> ", content)
+        if (!content) {
+            return Utils.logError('content');
+        }
+        console.warn('LogInfo=> ', content);
     }
 
     /**
@@ -225,7 +229,7 @@ export default class Utils {
      * @param content
      */
     static logError(content) {
-        console.error("LogError=> Please the incoming " + content)
+        console.error('LogError=> Please the incoming ' + content);
     }
 
     /**** react-navigation组件 ****/
@@ -236,7 +240,7 @@ export default class Utils {
      * @param callback
      */
     static navigationDidFocus(self, callback) {
-        return self.props.navigation.addListener('didFocus', callback)
+        return self.props.navigation.addListener('didFocus', callback);
     }
 
     /**
@@ -245,7 +249,7 @@ export default class Utils {
      * @param callback
      */
     static navigationDidBlur(self, callback) {
-        return self.props.navigation.addListener('didBlur', callback)
+        return self.props.navigation.addListener('didBlur', callback);
     }
 
     /**
@@ -254,7 +258,7 @@ export default class Utils {
      * @param callback
      */
     static navigationWillFocus(self, callback) {
-        return self.props.navigation.addListener('willFocus', callback)
+        return self.props.navigation.addListener('willFocus', callback);
     }
 
     /**
@@ -263,7 +267,7 @@ export default class Utils {
      * @param callback
      */
     static navigationWillBlur(self, callback) {
-        return self.props.navigation.addListener('willBlur', callback)
+        return self.props.navigation.addListener('willBlur', callback);
     }
 
     /**
@@ -271,7 +275,7 @@ export default class Utils {
      * @param navigation  ==> this.props.navigation
      */
     static navigationFocusRemoveListener(navigation) {
-        navigation.remove()
+        navigation.remove();
     }
 
     /**
@@ -279,7 +283,7 @@ export default class Utils {
      * @param self
      */
     static goBack(self) {
-        self.props.navigation.goBack(null)
+        self.props.navigation.goBack(null);
     }
 
     /**
@@ -300,7 +304,7 @@ export default class Utils {
      * @param n  n表示在堆栈内返回几层
      */
     static pop(self, n) {
-        self.props.navigation.pop(n)
+        self.props.navigation.pop(n);
     }
 
 
@@ -309,7 +313,7 @@ export default class Utils {
      * @param self
      */
     static popToTop(self) {
-        self.props.navigation.popToTop()
+        self.props.navigation.popToTop();
     }
 
     /**
@@ -332,10 +336,10 @@ export default class Utils {
         const resetAction = StackActions.reset({
             index: 0,
             actions: [
-                NavigationActions.navigate({routeName: routeName})
-            ]
-        })
-        self.props.navigation.dispatch(resetAction)
+                NavigationActions.navigate({routeName: routeName}),
+            ],
+        });
+        self.props.navigation.dispatch(resetAction);
     }
 
     /**
@@ -344,7 +348,7 @@ export default class Utils {
      * @param routeName
      */
     static jumpView(self, routeName) {
-        self.props.navigation.navigate(routeName)
+        self.props.navigation.navigate(routeName);
     }
 
     /**
@@ -354,7 +358,7 @@ export default class Utils {
      * @param data
      */
     static jumpDataView(self, routeName, data) {
-        self.props.navigation.navigate(routeName, {data})
+        self.props.navigation.navigate(routeName, {data});
     }
 
     /**
@@ -366,9 +370,9 @@ export default class Utils {
     static jumpCallbackView(self, routeName, callback) {
         self.props.navigation.navigate(routeName, {
             callback: (data) => {
-                return callback(data)
-            }
-        })
+                return callback(data);
+            },
+        });
     }
 
     /**
@@ -382,9 +386,9 @@ export default class Utils {
         self.props.navigation.navigate(routeName, {
             data,
             callback: (data) => {
-                return callback(data)
-            }
-        })
+                return callback(data);
+            },
+        });
     }
 
 
@@ -400,7 +404,7 @@ export default class Utils {
      * @param routeName
      */
     static pushView(self, routeName) {
-        self.props.navigation.push(routeName)
+        self.props.navigation.push(routeName);
     }
 
     /**
@@ -410,7 +414,7 @@ export default class Utils {
      * @param data
      */
     static pushDataView(self, routeName, data) {
-        self.props.navigation.push(routeName, {data})
+        self.props.navigation.push(routeName, {data});
     }
 
     /**
@@ -422,9 +426,9 @@ export default class Utils {
     static pushCallbackView(self, routeName, callback) {
         self.props.navigation.push(routeName, {
             callback: (data) => {
-                return callback(data)
-            }
-        })
+                return callback(data);
+            },
+        });
     }
 
     /**
@@ -438,9 +442,9 @@ export default class Utils {
         self.props.navigation.push(routeName, {
             data,
             callback: (data) => {
-                return callback(data)
-            }
-        })
+                return callback(data);
+            },
+        });
     }
 
 
@@ -464,17 +468,17 @@ export default class Utils {
      * @param content
      */
     static loadingShow(content) {
-        ModalIndicator.show(content ? content : '加载中...')
+        ModalIndicator.show(content ? content : '加载中...');
         setTimeout(() => {
-            ModalIndicator.hide()
-        }, 30000)
+            ModalIndicator.hide();
+        }, 30000);
     }
 
     /**
      * 隐藏loading
      */
     static loadingHide() {
-        ModalIndicator.hide()
+        ModalIndicator.hide();
     }
 
     /**
@@ -493,32 +497,32 @@ export default class Utils {
      * @returns {boolean}
      */
     static phoneFit() {
-        const y = scale * height
+        const y = scale * height;
         if (Platform.OS === 'android') {
             if (y < 1300) { //720p以下手机
-                return false
+                return false;
             } else if (y > 1300 && y < 1650) {//720p 18:9
-                return true
+                return true;
             } else if (y > 1700 && y < 1930) {//1080p 16:9
-                return false
+                return false;
             } else if (y > 1930 && y < 2400) {//1080p 18:9 19.5:9
-                return true
+                return true;
             } else if (y > 2400 && y < 2560) {//2k 16:9
-                return false
+                return false;
             } else if (y > 2560 && y < 3300) {//2k 18:9  19.5:9
-                return true
+                return true;
             } else {
-                return false
+                return false;
             }
         } else if (Platform.OS === 'ios') {
             if (y < 1400) {//4.7寸 16:9
-                return false
+                return false;
             } else if (y > 1400 && y < 1850) {//iphone xr 18:9
-                return true
+                return true;
             } else if (y > 1850 && y < 2300) {//iphone plus 16:9
-                return false
+                return false;
             } else if (y > 2300) {//iphone x  18:9
-                return true
+                return true;
             }
         }
     }
@@ -528,34 +532,34 @@ export default class Utils {
      * @returns {number} 返回全面屏对应的16：9 屏幕高度
      */
     static phoneFitHeight() {
-        const s = scale, h = height, y = scale * height
+        const s = scale, h = height, y = scale * height;
         if (Platform.OS === 'android') {
             if (y < 1000) { //720p以下手机
-                return h
+                return h;
             } else if (y > 1000 && y < 1300) {//720p 16:9
-                return h
+                return h;
             } else if (y > 1300 && y < 1650) {//720p 18:9
-                return 1280 / s
+                return 1280 / s;
             } else if (y > 1700 && y < 1930) {//1080p 16:9
-                return h
+                return h;
             } else if (y > 1930 && y < 2400) {//1080p 18:9 19.5:9
-                return 1920 / s
+                return 1920 / s;
             } else if (y > 2400 && y < 2560) {//2k 16:9
-                return h
+                return h;
             } else if (y > 2560 && y < 3300) {//2k 18:9  19.5:9
-                return 2560 / s
+                return 2560 / s;
             } else {
-                return h
+                return h;
             }
         } else if (Platform.OS === 'ios') {
             if (y < 1400) {//4.7寸 16:9
-                return h
+                return h;
             } else if (y > 1400 && y < 1850) {//iphone xr 18:9
-                return 1334 / s
+                return 1334 / s;
             } else if (y > 1850 && y < 2300) {//iphone plus 16:9
-                return h
+                return h;
             } else if (y > 2300) {//iphone x  18:9
-                return 2208 / s
+                return 2208 / s;
             }
         }
     }
@@ -567,7 +571,7 @@ export default class Utils {
      * @returns {number}
      */
     static getWidth(w) {
-        return (w / 750) * width
+        return (w / 750) * width;
     }
 
     /**
@@ -576,7 +580,7 @@ export default class Utils {
      * @returns {number}
      */
     static getHeight(h) {
-        return (h / 1334) * Utils.phoneFitHeight()
+        return (h / 1334) * Utils.phoneFitHeight();
     }
 
     /**
@@ -585,7 +589,7 @@ export default class Utils {
      * @returns {number}
      */
     static getActualHeight(h) {
-        return (h / 1334) * height
+        return (h / 1334) * height;
     }
 
     /**
@@ -594,7 +598,7 @@ export default class Utils {
      * @param data
      */
     static sendMessage(eventType, data) {
-        DeviceEventEmitter.emit(eventType, data || '')
+        DeviceEventEmitter.emit(eventType, data || '');
     }
 
     /**
@@ -603,7 +607,7 @@ export default class Utils {
      * @param callback  处理监听消息 返回消息内容
      */
     static receivesMessage(eventType, callback) {
-        return DeviceEventEmitter.addListener(eventType, callback)
+        return DeviceEventEmitter.addListener(eventType, callback);
     }
 
     /**
@@ -619,7 +623,7 @@ export default class Utils {
      * @param listener
      */
     static netInfoAddEventListener(listener) {
-        NetInfo.addEventListener("connectionChange", listener)
+        NetInfo.addEventListener('connectionChange', listener);
     }
 
     /**
@@ -627,7 +631,7 @@ export default class Utils {
      * @param listener
      */
     static netInfoRemoveEventListener(listener) {
-        NetInfo.removeEventListener("connectionChange", listener)
+        NetInfo.removeEventListener('connectionChange', listener);
     }
 
     /**
@@ -637,10 +641,10 @@ export default class Utils {
      */
     static getNetInfo(callback, errorCallback) {
         NetInfo.getConnectionInfo().then(({type, effectiveType}) => {
-            return callback(type, effectiveType)
+            return callback(type, effectiveType);
         }).catch((e) => {
-            return errorCallback(e)
-        })
+            return errorCallback(e);
+        });
     }
 
 
@@ -649,7 +653,9 @@ export default class Utils {
      * @param listener
      */
     static backHandlerAddEventListener(listener) {
-        if (Platform.OS === 'android') BackHandler.addEventListener("hardwareBackPress", listener)
+        if (Platform.OS === 'android') {
+            BackHandler.addEventListener('hardwareBackPress', listener);
+        }
     }
 
     /**
@@ -657,7 +663,9 @@ export default class Utils {
      * @param listener
      */
     static backHandlerRemoveEventListener(listener) {
-        if (Platform.OS === 'android') BackHandler.removeEventListener("hardwareBackPress", listener)
+        if (Platform.OS === 'android') {
+            BackHandler.removeEventListener('hardwareBackPress', listener);
+        }
     }
 
     /**
@@ -665,7 +673,9 @@ export default class Utils {
      * @param text
      */
     static toastAndroid(text) {
-        if (Platform.OS === 'android') ToastAndroid.show(text, ToastAndroid.SHORT);
+        if (Platform.OS === 'android') {
+            ToastAndroid.show(text, ToastAndroid.SHORT);
+        }
     }
 
     /**
@@ -678,7 +688,7 @@ export default class Utils {
             <Overlay.PopView
                 overlayOpacity={style && style.overlayOpacity || 0.5}
                 modal={style && style.modal || false}
-                style={[alertStyle, style && style]}>{view}</Overlay.PopView>)
+                style={[alertStyle, style && style]}>{view}</Overlay.PopView>);
     }
 
     /**
@@ -692,7 +702,7 @@ export default class Utils {
                 overlayOpacity={style && style.overlayOpacity || 0.5}
                 side={style && style.side || 'bottom'}
                 modal={style && style.modal || false}
-                style={[alertStyle, {justifyContent: 'flex-end'}, style && style]}>{view}</Overlay.PullView>)
+                style={[alertStyle, {justifyContent: 'flex-end'}, style && style]}>{view}</Overlay.PullView>);
     }
 
     /**
@@ -704,14 +714,14 @@ export default class Utils {
         return Overlay.show(
             <Overlay.PopoverView
                 overlayOpacity={style && style.overlayOpacity || 0.5}
-                direction={style && style.direction || "down"}
+                direction={style && style.direction || 'down'}
                 autoDirection={style && style.autoDirection || true}
                 align={style && style.align || 'end'}
                 alignInsets={style && style.alignInsets || 0}
                 showArrow={style && style.showArrow || true}
                 paddingCorner={style && style.paddingCorner || 0}
                 mmodal={style && style.modal || false}
-                style={[alertStyle, {justifyContent: 'flex-end'}, style && style]}>{view}</Overlay.PopoverView>)
+                style={[alertStyle, {justifyContent: 'flex-end'}, style && style]}>{view}</Overlay.PopoverView>);
     }
 
     /**
@@ -739,14 +749,14 @@ export default class Utils {
                 cancelText={pickerValue.cancelText}
                 title={pickerValue.title}
                 onSure={(v) => {
-                    Overlay.hide(pickerView)
-                    return onSureCallback && onSureCallback(v)
+                    Overlay.hide(pickerView);
+                    return onSureCallback && onSureCallback(v);
                 }}
                 onCancel={() => {
-                    Overlay.hide(pickerView)
-                    return onCancelCallback && onCancelCallback()
+                    Overlay.hide(pickerView);
+                    return onCancelCallback && onCancelCallback();
                 }}/>
-        )
+        );
     }
 
     /**
@@ -778,7 +788,7 @@ export default class Utils {
         storage.save({
             key: key,  // 注意:请不要在key中使用_下划线符号!
             data: object,
-            expires: null
+            expires: null,
         });
     }
 
@@ -823,13 +833,13 @@ export default class Utils {
         }).then(data => {
             return successCallBack(data);
         }).catch((error) => {
-            return errorCallback(error)
+            return errorCallback(error);
         });
     }
 
     static isInit() {
         if (storage === undefined) {
-            console.log("请先调用getStorage()进行初始化");
+            console.log('请先调用getStorage()进行初始化');
         }
     }
 
@@ -839,7 +849,7 @@ export default class Utils {
      * @returns {*}
      */
     static checkLegalDate(date) {
-        return Number(new Date(date).getDate()) === Number(date.substring(date.length - 2)) || console.error('非法日期=>', date)
+        return Number(new Date(date).getDate()) === Number(date.substring(date.length - 2)) || console.error('非法日期=>', date);
     }
 
     /**
@@ -849,7 +859,7 @@ export default class Utils {
      * @returns {*}
      */
     static regularStr(re, str) {
-        return re.test(str)
+        return re.test(str);
     }
 
     /**
@@ -858,25 +868,25 @@ export default class Utils {
      * @constructor
      */
     static Toast = (content) => {
-        Toast.show({text: content, position: 'center', duration: 1500})
+        Toast.show({text: content, position: 'center', duration: 1500});
     };
     static ToastSuccess = (content) => {
-        Toast.success(content)
+        Toast.success(content);
     };
     static ToastFail = (content) => {
-        Toast.fail(content)
+        Toast.fail(content);
     };
     static ToastSmile = (content) => {
-        Toast.smile(content)
+        Toast.smile(content);
     };
     static ToastSad = (content) => {
-        Toast.sad(content)
+        Toast.sad(content);
     };
     static ToastInfo = (content) => {
-        Toast.info(content)
+        Toast.info(content);
     };
     static ToastStop = (content) => {
-        Toast.stop(content)
+        Toast.stop(content);
     }
 
 
@@ -933,51 +943,51 @@ export default class Utils {
      * @param OSSUrl
      */
     static uploadBundle(netVersion, OSSUrl) {
-        const localVersionCode = Constant.VersionCode
+        const localVersionCode = Constant.VersionCode;
         if (Constant.Android) {
-            const fileDir = Constant.FileDir + '/'
+            const fileDir = Constant.FileDir + '/';
             Utils.findData('androidBundleVersion', (bundleVersion) => {
                 if ((Number(netVersion.androidVersion)) === localVersionCode && (Number(netVersion.androidBundleVersion)) > bundleVersion) {
                     this.downloadFile(OSSUrl + 'android/bundle/' + Number(netVersion.androidBundleVersion) + '/bundle.zip', fileDir, 'bundle.zip', (progress) => {
                     }, (finish) => {
                         Utils.unZipFile(fileDir + 'bundle.zip', (data) => {
                             if (data === 0) {
-                                Utils.saveData('androidBundleVersion', (Number(netVersion.androidBundleVersion)))
+                                Utils.saveData('androidBundleVersion', (Number(netVersion.androidBundleVersion)));
                             }
-                        })
+                        });
                     }, (callbackFail) => {
-                        Utils.cleanCache()
-                    })
+                        Utils.cleanCache();
+                    });
                 } else if ((Number(netVersion.iosVersion)) === localVersionCode && (Number(netVersion.iosBundleVersion)) < bundleVersion) {
-                    Utils.cleanCache()
+                    Utils.cleanCache();
                 }
             }, (error) => {
-                Utils.saveData('androidBundleVersion', 0)
-                Utils.uploadBundle(netVersion, OSSUrl)
-            })
+                Utils.saveData('androidBundleVersion', 0);
+                Utils.uploadBundle(netVersion, OSSUrl);
+            });
         } else if (Constant.IOS) {
-            const libraryDirectory = Constant.LibraryDirectory + '/'
+            const libraryDirectory = Constant.LibraryDirectory + '/';
             Utils.findData('iosBundleVersion', (bundleVersion) => {
                 if ((Number(netVersion.iosVersion)) === localVersionCode && (Number(netVersion.iosBundleVersion)) > bundleVersion) {
                     this.downloadFile(OSSUrl + 'ios/bundle/' + Number(localVersionCode) + '/bundle.zip', libraryDirectory, 'bundle.zip', (progress) => {
                         }, (finish) => {
                             this.unZipFile(libraryDirectory + 'bundle.zip', (data) => {
                                 if (data === 0) {
-                                    Utils.saveData('iosBundleVersion', (Number(netVersion.androidBundleVersion)))
+                                    Utils.saveData('iosBundleVersion', (Number(netVersion.androidBundleVersion)));
                                 }
-                            })
+                            });
                         },
                         (callbackFail) => {
-                            this.cleanCache()
+                            this.cleanCache();
                         }
-                    )
+                    );
                 } else if ((Number(netVersion.iosVersion)) === localVersionCode && (Number(netVersion.iosBundleVersion)) < bundleVersion) {
-                    this.cleanCache()
+                    this.cleanCache();
                 }
             }, (error) => {
-                this.saveData('iosBundleVersion', 0)
-                this.uploadBundle(netVersion, OSSUrl)
-            })
+                this.saveData('iosBundleVersion', 0);
+                this.uploadBundle(netVersion, OSSUrl);
+            });
         }
     }
 
@@ -995,21 +1005,21 @@ export default class Utils {
             path: path + fileName,
             fileCache: false,
         }).fetch('GET', url,).progress((received, total) => {
-            return callbackPercent(received / total)
+            return callbackPercent(received / total);
         }).then((finish) => {
-            return callbackFinish(finish)
+            return callbackFinish(finish);
         }).catch((error) => {
-            return callbackFail(error)
-        })
+            return callbackFail(error);
+        });
     }
 
     /**
      * 清除本地缓存
      */
     static cleanCache() {
-        const cache = Constant.CachesDirectory + '/'
+        const cache = Constant.CachesDirectory + '/';
         if (Constant.IOS) {
-            NativeUtils.deleteFolder(cache)
+            NativeUtils.deleteFolder(cache);
         } else if (Constant.Android) {
 
         }
@@ -1028,23 +1038,23 @@ export default class Utils {
      */
     static downloadBundleZipWithUnZip(url, callbackPercent, callbackUnzip) {
         if (Constant.IOS) {
-            const path = Constant.LibraryDirectory + '/'
+            const path = Constant.LibraryDirectory + '/';
             Utils.downloadFile(url, path, 'bundle.zip', (percent) => {
-                return callbackPercent(percent)
+                return callbackPercent(percent);
             }, () => {
                 NativeUtils.unZipFile(path + 'bundle.zip', (zip) => {
-                    return callbackUnzip(zip)
-                })
-            })
+                    return callbackUnzip(zip);
+                });
+            });
         } else if (Constant.Android) {
-            const path = Constant.filesDir + '/'
+            const path = Constant.filesDir + '/';
             Utils.downloadFile(url, path, 'bundle.zip', (percent) => {
-                return callbackPercent(percent)
+                return callbackPercent(percent);
             }, () => {
                 NativeUtils.unZipFile(path + 'bundle.zip', (zip) => {
-                    return callbackUnzip(zip)
-                })
-            })
+                    return callbackUnzip(zip);
+                });
+            });
         }
     }
 
@@ -1057,9 +1067,9 @@ export default class Utils {
      */
     static deleteBundle() {
         if (Constant.IOS) {
-            const library = Constant.LibraryDirectory + '/'
-            NativeUtils.deleteFile(library + 'bundle')
-            NativeUtils.deleteFile(library + 'bundle.zip')
+            const library = Constant.LibraryDirectory + '/';
+            NativeUtils.deleteFile(library + 'bundle');
+            NativeUtils.deleteFile(library + 'bundle.zip');
         } else if (Constant.Android) {
 
         }

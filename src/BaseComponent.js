@@ -4,8 +4,8 @@ import {
     Text, Image, View,
     ImageBackground, TouchableOpacity,
 } from 'react-native';
-import {Constant} from "./BaseConstant";
-import Utils from "./Utils";
+import {Constant} from './BaseConstant';
+import Utils from './Utils';
 
 /**
  * 自定义 点击按钮
@@ -13,7 +13,7 @@ import Utils from "./Utils";
 export class TouchView extends PureComponent {
     constructor(props) {
         super(props);
-        if (this.props.onPress) this.time = 0;  // 上次点击时间
+        if (this.props.onPress) {this.time = 0;}  // 上次点击时间
     }
 
     render() {
@@ -25,7 +25,7 @@ export class TouchView extends PureComponent {
                     onPress={() => {
                         if (this.props.onPress) {
                             let now = new Date().getTime();
-                            if ((now - this.time) < 200) return;
+                            if ((now - this.time) < 200) {return;}
                             this.time = now;
                             this.props.onPress();
                         }
@@ -37,7 +37,7 @@ export class TouchView extends PureComponent {
             return (<View
                 {...this.props}>
                 {this.props.children}
-            </View>)
+            </View>);
 
         }
     }
@@ -59,7 +59,7 @@ export class CenterView extends PureComponent {
                 }, this.props.style]}>
                 {this.props.children}
             </TouchView>
-        )
+        );
 
     }
 }
@@ -104,9 +104,9 @@ export class CustomImage extends PureComponent {
                     onPress={this.props.onPress}>
                     {this.renderImage()}
                 </CenterView>
-            )
+            );
         } else {
-            return this.renderImage()
+            return this.renderImage();
         }
     }
 
@@ -115,7 +115,7 @@ export class CustomImage extends PureComponent {
                 {...this.props}
                 source={this.props.source || this.props.url && {uri: this.props.url} || this.props.require && this.props.require}
                 style={[{resizeMode: 'contain'}, this.props.style]}/>
-        )
+        );
     }
 }
 
@@ -131,11 +131,11 @@ export class CustomImageBackground extends PureComponent {
                 source={this.props.source || this.props.url && {uri: this.props.url} || this.props.require && this.props.require}
                 style={[{
                     width: Constant.Screen_Width,
-                    resizeMode: 'contain'
+                    resizeMode: 'contain',
                 }, this.props.style]}>
                 {this.props.children}
             </ImageBackground>
-        )
+        );
     }
 }
 
@@ -146,12 +146,12 @@ export class CustomImageBackground extends PureComponent {
 export class CustomCheckbox extends PureComponent {
     constructor(props) {
         super(props);
-        this.onChange = props.onChange
-        this.checkedIcon = props.checkedIcon
-        this.uncheckedIcon = props.uncheckedIcon
+        this.onChange = props.onChange;
+        this.checkedIcon = props.checkedIcon;
+        this.uncheckedIcon = props.uncheckedIcon;
         this.state = {
             checked: props.checked || false,
-        }
+        };
     }
 
     render() {
@@ -160,20 +160,20 @@ export class CustomCheckbox extends PureComponent {
                 style={[{flexDirection: 'row'}, this.props.style]}
                 onPress={() => {
                     this.setState({
-                        checked: this.props.checked || !this.state.checked
+                        checked: this.props.checked || !this.state.checked,
                     }, () => {
-                        return this.onChange(this.state.checked)
-                    })
+                        return this.onChange(this.state.checked);
+                    });
                 }}>
                 <CustomImage
                     require={this.state.checked ? (this.checkedIcon || require('./icons/checkbox_true.png')) : (this.uncheckedIcon || require('./icons/checkbox_false.png'))}
                     style={[{
                         width: Utils.getWidth(30),
-                        height: Utils.getWidth(30)
+                        height: Utils.getWidth(30),
                     }, this.props.imageStyle]}/>
                 <Text style={[{
                     marginLeft: Utils.getWidth(10),
-                    color: Constant.mainBlack
+                    color: Constant.mainBlack,
                 }, this.props.titleStyle]}>{this.props.title}</Text>
             </TouchView>
         );

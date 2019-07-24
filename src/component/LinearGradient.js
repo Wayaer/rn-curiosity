@@ -1,7 +1,7 @@
 'use strict';
 import React, {PureComponent} from 'react';
 import {processColor, Platform, StyleSheet, View, requireNativeComponent} from 'react-native';
-import {TouchView} from '../BaseComponent'
+import {TouchView} from '../BaseComponent';
 
 const NativeLinearGradient = requireNativeComponent('LinearGradient', null);
 const convertPoint = (name, point) => {
@@ -13,7 +13,7 @@ const convertPoint = (name, point) => {
         if (Platform.OS === 'ios') {
             return {
                 x: point[0],
-                y: point[1]
+                y: point[1],
             };
         }
     }
@@ -61,7 +61,7 @@ class NativeClass extends PureComponent {
                 validRadius(flatStyle.borderBottomRightRadius),
                 validRadius(flatStyle.borderBottomRightRadius),
                 validRadius(flatStyle.borderBottomLeftRadius),
-                validRadius(flatStyle.borderBottomLeftRadius)
+                validRadius(flatStyle.borderBottomLeftRadius),
             ];
             return (
                 <View ref={(component) => {
@@ -119,9 +119,9 @@ export class LinearGradient extends PureComponent {
 
     constructor(props) {
         super(props);
-        this.style = props.style
-        this.viewStyle = props.viewStyle
-        this.touchStyle = props.touchStyle
+        this.style = props.style;
+        this.viewStyle = props.viewStyle;
+        this.touchStyle = props.touchStyle;
         this.horizontal = this.props.horizontal || false;//是否横向渐变，默认竖向
     }
 
@@ -133,9 +133,9 @@ export class LinearGradient extends PureComponent {
                     onPress={this.props.onPress}>
                     {this.renderLinearGradient()}
                 </TouchView>
-            )
+            );
         } else {
-            return this.renderLinearGradient()
+            return this.renderLinearGradient();
         }
     }
 
@@ -153,6 +153,6 @@ export class LinearGradient extends PureComponent {
                     {this.props.children}
                 </View>
             </NativeClass>
-        )
+        );
     }
 }

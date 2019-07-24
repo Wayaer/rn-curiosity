@@ -1,6 +1,6 @@
 {
   "name": "rn-curiosity",
-  "version": "2.2.1",
+  "version": "2.2.3",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
     "adbTcpip": "adb tcpip 5555",
     "adbDevices": "adb devices",
     "npmPublish": "npm publish",
-    "npmUnPublish": "npm unpublish rn-curiosity@2.2.0",
+    "npmUnPublish": "npm unpublish rn-curiosity@2.2.2",
     "npmDeprecate": "npm deprecate rn-curiosity@1.1.19"
   },
   "keywords": [
@@ -24,12 +24,32 @@
   "author": "Wayaer",
   "license": "",
   "dependencies": {
+    "eslint": "^6.1.0",
     "prop-types": "^15.7.2",
     "rn-fetch-blob": "^0.10.16",
     "teaset": "^0.6.3"
   },
+  "devDependencies": {
+    "@react-native-community/eslint-config": "^0.0.5"
+  },
   "peerDependencies": {
     "react-navigation": ">=3.3.0",
     "rn-fetch-blob": ">=0.10.15"
+  },
+  "prettier": {
+    "requirePragma": true,
+    "proseWrap": "always",
+    "printWidth": 80,
+    "tabWidth": 2,
+    "useTabs": false,
+    "singleQuote": true,
+    "semi": true,
+    "trailingComma": "all",
+    "bracketSpacing": false,
+    "parser": "flow",
+    "jsxBracketSameLine": true
+  },
+  "eslintConfig": {
+    "extends": "@react-native-community"
   }
 }

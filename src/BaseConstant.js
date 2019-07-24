@@ -1,8 +1,8 @@
 'use strict';
-import {Platform, NativeModules, Dimensions} from 'react-native'
+import {Platform, NativeModules, Dimensions} from 'react-native';
 
 export const {height, width, scale} = Dimensions.get('window');
-const RNCuriosity = NativeModules.RNCuriosity
+const RNCuriosity = NativeModules.RNCuriosity;
 export const FontSize = { //默认大小 14
     textSize_7: 7,
     textSize_8: 8,
@@ -70,32 +70,32 @@ export class Fit {
      * 全面屏适配
      * */
     static phoneFit() {
-        const y = scale * height
+        const y = scale * height;
         if (Platform.OS === 'android') {
             if (y < 1300) { //720p以下手机
-                return false
+                return false;
             } else if (y > 1300 && y < 1650) {//720p 18:9
-                return true
+                return true;
             } else if (y > 1700 && y < 1930) {//1080p 16:9
-                return false
+                return false;
             } else if (y > 1930 && y < 2400) {//1080p 18:9 19.5:9
-                return true
+                return true;
             } else if (y > 2400 && y < 2560) {//2k 16:9
-                return false
+                return false;
             } else if (y > 2560 && y < 3300) {//2k 18:9  19.5:9
-                return true
+                return true;
             } else {
-                return false
+                return false;
             }
         } else if (Platform.OS === 'ios') {
             if (y < 1400) {//4.7寸 16:9
-                return false
+                return false;
             } else if (y > 1400 && y < 1850) {//iphone xr 18:9
-                return true
+                return true;
             } else if (y > 1850 && y < 2300) {//iphone plus 16:9
-                return false
+                return false;
             } else if (y > 2300) {//iphone x  18:9
-                return true
+                return true;
             }
         }
     }
@@ -176,6 +176,6 @@ export const Constant = {
     TemporaryDirectory: Platform.OS === 'ios' ? RNCuriosity.constants.TemporaryDirectory : null,
     SystemName: Platform.OS === 'ios' ? RNCuriosity.constants.systemName : null,
 
-}
+};
 
 

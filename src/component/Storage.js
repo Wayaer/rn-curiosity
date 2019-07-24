@@ -38,7 +38,7 @@ export default class Storage {
             }
         } else {
             console.warn(`Data would be lost after reload cause there is no storageBackend specified!
-      \nEither use localStorage(for web) or AsyncStorage(for React Native) as a storageBackend.`)
+      \nEither use localStorage(for web) or AsyncStorage(for React Native) as a storageBackend.`);
         }
 
         this._mapPromise = this.getItem('map').then(map => {
@@ -63,7 +63,7 @@ export default class Storage {
         return {
             innerVersion: this._innerVersion,
             index: 0,
-            __keys__: {}
+            __keys__: {},
         };
     }
 
@@ -85,15 +85,17 @@ export default class Storage {
             m = this._m;
         if (m[newId] !== undefined) {
             //update existed data
-            if (this.enableCache) this.cache[newId] = JSON.parse(data);
+            if (this.enableCache) {
+                this.cache[newId] = JSON.parse(data);
+            }
             return this.setItem('map_' + m[newId], data);
         }
         if (m[m.index] !== undefined) {
             //loop over, delete old data
             let oldId = m[m.index];
-            let splitOldId = oldId.split('_')
+            let splitOldId = oldId.split('_');
             delete m[oldId];
-            this._removeIdInKey(splitOldId[0], splitOldId[1])
+            this._removeIdInKey(splitOldId[0], splitOldId[1]);
             if (this.enableCache) {
                 delete this.cache[oldId];
             }
@@ -105,8 +107,7 @@ export default class Storage {
         m.__keys__[key].push(id);
 
         if (this.enableCache) {
-            const cacheData = JSON.parse(data);
-            this.cache[newId] = cacheData;
+            this.cache[newId] = JSON.parse(data);
         }
         let currentIndex = m.index;
         if (++m.index === this._SIZE) {
@@ -138,8 +139,7 @@ export default class Storage {
         dataToSave = JSON.stringify(dataToSave);
         if (id === undefined) {
             if (this.enableCache) {
-                const cacheData = JSON.parse(dataToSave);
-                this.cache[key] = cacheData;
+                this.cache[key] = JSON.parse(dataToSave);
             }
             return this.setItem(key, dataToSave);
         } else {
@@ -149,7 +149,7 @@ export default class Storage {
             return this._mapPromise.then(() => this._saveToMap({
                 key,
                 id,
-                data: dataToSave
+                data: dataToSave,
             }));
         }
     }
@@ -176,14 +176,14 @@ export default class Storage {
                 return this.sync[key]({
                     id: ids.map((value) => value.syncId),
                     resolve,
-                    reject
+                    reject,
                 });
             }).then((data) => {
                 return results.map(value => {
-                    return value.syncId ? data.shift() : value
+                    return value.syncId ? data.shift() : value;
                 });
             });
-        })
+        });
     }
 
     _lookupGlobalItem(params) {
@@ -319,11 +319,11 @@ export default class Storage {
         return this._mapPromise.then(() => new Promise((resolve, reject) => {
             if (id === undefined) {
                 return resolve(this._lookupGlobalItem({
-                    key, resolve, reject, autoSync, syncInBackground, syncParams
+                    key, resolve, reject, autoSync, syncInBackground, syncParams,
                 }));
             }
             return resolve(this._lookUpInMap({
-                key, id, resolve, reject, autoSync, syncInBackground, syncParams
+                key, id, resolve, reject, autoSync, syncInBackground, syncParams,
             }));
         }));
     }

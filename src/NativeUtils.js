@@ -1,6 +1,6 @@
-import {Constant} from "./BaseConstant";
-import {NativeModules} from "react-native";
-import Utils from "./Utils";
+import {Constant} from './BaseConstant';
+import {NativeModules} from 'react-native';
+import Utils from './Utils';
 
 const RNCuriosity = NativeModules.RNCuriosity;
 const SplashScreen = NativeModules.SplashScreen;
@@ -16,11 +16,11 @@ export default class NativeUtils {
      */
     static promiseCallback = async (message, successCallback, failCallback) => {
         await RNCuriosity.promiseCallback(message).then((success) => {
-            return successCallback(success)
+            return successCallback(success);
         }).catch((e) => {
-            return failCallback(e.code && e.code, e.message && e.message)
-        })
-    }
+            return failCallback(e.code && e.code, e.message && e.message);
+        });
+    };
 
     /**
      * Native发消息到JS
@@ -30,7 +30,7 @@ export default class NativeUtils {
      * @param map
      */
     static sendMessageNativeToJS(eventName, map) {
-        RNCuriosity.sendMessageNativeToJS(eventName, map)
+        RNCuriosity.sendMessageNativeToJS(eventName, map);
     }
 
 
@@ -42,9 +42,9 @@ export default class NativeUtils {
      */
     static SplashScreenHide() {
         if (Constant.IOS) {
-            RNCuriosity.hideSplashScreen()
+            RNCuriosity.hideSplashScreen();
         } else {
-            SplashScreen.hideSplashScreen()
+            SplashScreen.hideSplashScreen();
         }
     }
 
@@ -56,9 +56,9 @@ export default class NativeUtils {
      */
     static SplashScreenShow() {
         if (Constant.IOS) {
-            RNCuriosity.showSplashScreen()
+            RNCuriosity.showSplashScreen();
         } else {
-            SplashScreen.showSplashScreen()
+            SplashScreen.showSplashScreen();
         }
     }
 
@@ -69,8 +69,8 @@ export default class NativeUtils {
      * @param apkFilePath
      */
     static installApp(apkFilePath) {
-        if (!apkFilePath) return Utils.logError('apkFilePath')
-        RNCuriosity.installApp(apkFilePath)
+        if (!apkFilePath) {return Utils.logError('apkFilePath');}
+        RNCuriosity.installApp(apkFilePath);
 
     }
 
@@ -81,7 +81,7 @@ export default class NativeUtils {
      * @constructor
      */
     static exitApp() {
-        RNCuriosity.exitApp()
+        RNCuriosity.exitApp();
     }
 
     /**
@@ -92,15 +92,15 @@ export default class NativeUtils {
      * @param callback
      */
     static getCookie(url, callback) {
-        if (!url) return Utils.logError('url')
+        if (!url) {return Utils.logError('url');}
         if (Constant.Android) {
             RNCuriosity.getAllCookie(url, (data) => {
-                return callback(data)
+                return callback(data);
             });
         } else if (Constant.IOS) {
             RNCuriosity.getAllCookie((data) => {
-                return callback(data)
-            })
+                return callback(data);
+            });
         }
 
     }
@@ -111,9 +111,9 @@ export default class NativeUtils {
      * @param callback
      */
     static getAppInfo(callback) {
-        if (callback) RNCuriosity.getAppInfo((data) => {
-            return callback(data)
-        });
+        if (callback) {RNCuriosity.getAppInfo((data) => {
+            return callback(data);
+        });}
     }
 
 
@@ -126,8 +126,8 @@ export default class NativeUtils {
      * @param callback
      */
     static unZipFile(filePath, callback) {
-        if (!filePath) return Utils.logError('filePath')
-        RNCuriosity.unZipFile(filePath, callback)//Success   NotFile  没有该文件
+        if (!filePath) {return Utils.logError('filePath');}
+        RNCuriosity.unZipFile(filePath, callback);//Success   NotFile  没有该文件
     }
 
     /**
@@ -137,8 +137,8 @@ export default class NativeUtils {
      * @param filePath
      */
     static deleteFile(filePath) {
-        if (!filePath) return Utils.logError('filePath')
-        RNCuriosity.deleteFile(filePath)
+        if (!filePath) {return Utils.logError('filePath');}
+        RNCuriosity.deleteFile(filePath);
     }
 
     /**
@@ -149,8 +149,8 @@ export default class NativeUtils {
      */
 
     static deleteFolder(foldrPath) {
-        if (!foldrPath) return Utils.logError('foldrPath')
-        RNCuriosity.deleteFolder(foldrPath)
+        if (!foldrPath) {return Utils.logError('foldrPath');}
+        RNCuriosity.deleteFolder(foldrPath);
     }
 
     /**
@@ -161,10 +161,10 @@ export default class NativeUtils {
      * @param callback
      */
     static getFilePathSize(filePath, callback) {
-        if (!filePath) return Utils.logError('filePath')
+        if (!filePath) {return Utils.logError('filePath');}
         RNCuriosity.getFilePathSize(filePath, (data) => {
-            return callback(data)
-        })
+            return callback(data);
+        });
     }
 
     /**
@@ -175,18 +175,18 @@ export default class NativeUtils {
      * @param callback
      */
     static isFolderExists(filePath, callback) {
-        if (!filePath) return Utils.logError('filePath')
+        if (!filePath) {return Utils.logError('filePath');}
         RNCuriosity.isFolderExists(filePath, (data) => {
             if (Constant.Android) {
-                return callback(data)
+                return callback(data);
             } else if (Constant.IOS) {
-                if (data === "true") {
-                    return callback(true)
+                if (data === 'true') {
+                    return callback(true);
                 } else if (data === 'false') {
-                    return callback(false)
+                    return callback(false);
                 }
             }
-        })
+        });
     }
 
     /**
@@ -197,16 +197,16 @@ export default class NativeUtils {
      * @param callback
      */
     static createDirectory(filePath, callback) {
-        if (!filePath) return Utils.logError('filePath')
+        if (!filePath) {return Utils.logError('filePath');}
         if (Constant.Android) {
             RNCuriosity.isFolderExists(filePath, (data) => {
                 if (data) {
-                    return callback('success')
+                    return callback('success');
                 } else {
-                    return callback('fail')
+                    return callback('fail');
                 }
 
-            })
+            });
         }
     }
 
@@ -217,10 +217,10 @@ export default class NativeUtils {
      */
     static goToMarket(packageName, marketPackageName) {
         if (Constant.Android) {
-            if (!packageName) return Utils.logError('packageName')
-            RNCuriosity.goToMarket(packageName, marketPackageName)
+            if (!packageName) {return Utils.logError('packageName');}
+            RNCuriosity.goToMarket(packageName, marketPackageName);
         } else {
-            RNCuriosity.goToMarket(packageName)
+            RNCuriosity.goToMarket(packageName);
         }
     }
 
@@ -230,7 +230,7 @@ export default class NativeUtils {
      * @param statusBarColor  //String  状态栏背景色 仅支持六进制颜色值 #000000 rgb  #00000000 rgba
      */
     static setStatusBarColor(fontIconDark, statusBarColor) {
-        RNCuriosity.setStatusBarColor(fontIconDark, statusBarColor || "#00000000")
+        RNCuriosity.setStatusBarColor(fontIconDark, statusBarColor || '#00000000');
     }
 
     /**
@@ -238,6 +238,6 @@ export default class NativeUtils {
      * @param time
      */
     static singleVibration(time) {
-        RNCuriosity.singleVibration(time)
+        RNCuriosity.singleVibration(time);
     }
 }
