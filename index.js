@@ -1,10 +1,10 @@
 'use strict';
-import React, {Component} from 'react';
+import React, {Component, PureComponent} from 'react';
 import Utils from "./src/Utils"
-const  Curiosity=Utils;
+
+const Curiosity = Utils;
 //第三方
 import RNFetchBlob from 'rn-fetch-blob'
-import SnapCarousel from 'react-native-snap-carousel'
 import NetInfo from '@react-native-community/netinfo'
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -53,10 +53,9 @@ import {
 export * from "react-native";
 export * from "./src/BaseComponent";
 export * from "./src/BaseConstant";
-export * from "./src/component/BarLine";
+export * from "./src/component/Bar";
 export * from "./src/component/DatePicker";
 export * from "./src/component/LinearGradient";
-export * from "react-native-snap-carousel";
 
 export {
     Theme,
@@ -100,9 +99,8 @@ export {
     KeyboardSpace,
     /* curiosity */
     React,
-    Component,
-    SnapCarousel,
+    Component, PureComponent,
     NetInfo, AsyncStorage,
-    Utils,Curiosity,
+    Utils, Curiosity,
     RNFetchBlob,
 }

@@ -1,8 +1,7 @@
 package com.curiosity;
 
-import android.content.Context;
 import android.os.Vibrator;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
@@ -13,14 +12,16 @@ import com.facebook.react.bridge.WritableArray;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.common.MapBuilder;
+import com.facebook.react.module.annotations.ReactModule;
 import com.facebook.react.uimanager.PixelUtil;
 
 
 import java.io.IOException;
 import java.util.Map;
 
-
+@ReactModule(name = CuriosityModule.NAME)
 public class CuriosityModule extends ReactContextBaseJavaModule {
+    public static final String NAME = "RNCuriosity";
 
 
     public static ReactApplicationContext reactApplicationContext;
@@ -32,7 +33,7 @@ public class CuriosityModule extends ReactContextBaseJavaModule {
 
     @Override
     public String getName() {
-        return "RNCuriosity";
+        return NAME;
     }
 
     @Override

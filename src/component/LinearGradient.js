@@ -1,5 +1,5 @@
 'use strict';
-import React, {Component} from 'react';
+import React, {PureComponent} from 'react';
 import {processColor, Platform, StyleSheet, View, requireNativeComponent} from 'react-native';
 import {TouchView} from '../BaseComponent'
 
@@ -31,7 +31,7 @@ const validNumber = (defaultValue) => (value) => {
     return typeof value === 'number' ? value : defaultValue;
 };
 
-class NativeClass extends Component {
+class NativeClass extends PureComponent {
 
     render() {
         if (Platform.OS === 'android') {
@@ -115,7 +115,7 @@ class NativeClass extends Component {
     }
 
 }
-export class LinearGradient extends Component {
+export class LinearGradient extends PureComponent {
 
     constructor(props) {
         super(props);

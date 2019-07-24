@@ -1,7 +1,7 @@
 
 # rn-curiosity
 
-### rn-curiosity 快速搭建app，封装多个常用 组件 方法，统一管理。 
+### rn-curiosity 
 
 
 ## 必须加入的库
@@ -13,9 +13,10 @@
 
 `$  npm install @react-native-community/netinfo --save`
 
+ react-native <0.59
+
 `$ react-native link`
 
-##推荐使用的库
 ```
 
  npm install react-native-fast-image --save`  //大图片优化
@@ -25,8 +26,8 @@
  lottie-react-native 动画库
 ```
 
-##所有组件方法导入方式
-rn-curiosity 继承 react-native 、react-native-snap-carousel、@react-native-community/netinfo、@react-native-community/async-storage 全部组件和方法
+##组件方法导入方式
+rn-curiosity 继承 react-native 、@react-native-community/netinfo、@react-native-community/async-storage 全部组件和方法
 ```
 
 import {TouchView, Utils, View, React, Component} from "rn-curiosity";
