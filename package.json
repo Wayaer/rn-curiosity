@@ -1,8 +1,11 @@
 {
   "name": "rn-curiosity",
-  "version": "2.2.4",
-  "description": "",
+  "version": "2.2.6",
+  "description": "React Native rn-curiosity API for iOS & Android",
   "main": "index.js",
+  "homepage":"https://github.com/Wayaer/rn-curiosity",
+  "license":"license",
+  "author": "Wayaer",
   "scripts": {
     "android755": "chmod 755 android/gradlew",
     "androidBundle": "react-native bundle --platform android --entry-file index.js --reset-cache --bundle-output android/bundle/index.bundle --dev false --assets-dest android/bundle/",
@@ -15,14 +18,23 @@
     "adbTcpip": "adb tcpip 5555",
     "adbDevices": "adb devices",
     "npmPublish": "npm publish",
-    "npmUnPublish": "npm unpublish rn-curiosity@2.2.4",
+    "npmUnPublish": "npm unpublish rn-curiosity@2.2.5",
     "npmDeprecate": "npm deprecate rn-curiosity@1.1.19"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Wayaer/rn-curiosity"
+  },
+  "files": [
+    "/android",
+    "!/android/build",
+    "/ios",
+    "/src",
+    "/*.podspec"
+  ],
   "keywords": [
     "react-native"
   ],
-  "author": "Wayaer",
-  "license": "",
   "dependencies": {
     "eslint": "^6.1.0",
     "prop-types": "^15.7.2",

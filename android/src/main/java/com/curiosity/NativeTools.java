@@ -11,8 +11,6 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
-import android.support.v4.content.FileProvider;
-import android.support.v4.view.ViewCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +19,8 @@ import android.view.WindowManager;
 import android.webkit.CookieManager;
 import android.webkit.ValueCallback;
 
+
+import androidx.core.content.FileProvider;
 
 import com.curiosity.statusbarutil.StatusBarUtil;
 import com.curiosity.utils.FileUtils;

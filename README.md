@@ -1,29 +1,31 @@
 
 # rn-curiosity
 
-### rn-curiosity 
+
+##注意：您必须使用React Native 0.60.0或更高版本才能使用最新版本的rn-curiosity。
 
 
-## 必须加入的库
-`$  npm install rn-curiosity --save`
-
-`$  npm install rn-fetch-blob --save`      
-
-`$  npm install @react-native-community/async-storage --save`
-
-`$  npm install @react-native-community/netinfo --save`
-
+ react-native >0.60.0
+```
+ yarn add rn-curiosity 
+ 
+```
+ 
  react-native <0.59
+```
+   yarn add rn-curiosity 
 
-`$ react-native link`
+   react-native link rn-curiosity 
+```
+## 必须加入的库
 
 ```
+  yarn add rn-fetch-blob       
 
- npm install react-native-fast-image --save`  //大图片优化
+  yarn add @react-native-community/async-storage 
 
- react-native-syan-image-picker --save//图片选择
- 
- lottie-react-native 动画库
+  yarn add @react-native-community/netinfo 
+
 ```
 
 ##组件方法导入方式
@@ -35,41 +37,6 @@ import {TouchView, Utils, View, React, Component} from "rn-curiosity";
 ```
 ###组件
 
-
-继承  <TouchableOpacity/> 加入200ms 延迟点击
-```html
-<TouchView/> 
-```
-继承  TouchView  内部居中
-```html
-<CenterView/> 
-```
-继承  CenterView
-```html
-<CustomButton
-      buttonStyle={{}}    //外部View样式
-      textStyle={{}}      //内部Text样式
-   /> 
-```
-    
-
-         
-继承  CenterView
-```html
-<CustomImage
-       buttonStyle={{}} //有onPress 属性
-       style={{}}       //无onPress 时 等同于Image组件
-   />
-
-```
-   
-   
-继承 ImageBackground
-```html
-<CustomImageBackground/>
-```
-
-   
    
 Checkbox
 ```html
@@ -82,11 +49,7 @@ Checkbox
       checked={  }        // 默认状态
    />
 ```
-   
-首页TabBar
-```html
-   <TabBarItem/>
-```
+
 渐变组件   
 ```html
 
@@ -432,6 +395,14 @@ NSURL *jsCodeLocation;
 
 ```
 
+推荐库
+```
 
+ react-native-fast-image `  //大图片优化
+
+ react-native-syan-image-picker //图片选择
+ 
+ lottie-react-native 动画库
+```
 
 
