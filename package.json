@@ -1,10 +1,10 @@
 {
   "name": "rn-curiosity",
-  "version": "2.2.6",
+  "version": "2.3.1",
   "description": "React Native rn-curiosity API for iOS & Android",
   "main": "index.js",
-  "homepage":"https://github.com/Wayaer/rn-curiosity",
-  "license":"license",
+  "homepage": "https://github.com/Wayaer/rn-curiosity",
+  "license": "license",
   "author": "Wayaer",
   "scripts": {
     "android755": "chmod 755 android/gradlew",
@@ -18,8 +18,7 @@
     "adbTcpip": "adb tcpip 5555",
     "adbDevices": "adb devices",
     "npmPublish": "npm publish",
-    "npmUnPublish": "npm unpublish rn-curiosity@2.2.5",
-    "npmDeprecate": "npm deprecate rn-curiosity@1.1.19"
+    "npmUnPublish": "npm unpublish rn-curiosity@2.2.7"
   },
   "repository": {
     "type": "git",
@@ -46,7 +45,7 @@
   },
   "peerDependencies": {
     "react-navigation": ">=3.3.0",
-    "rn-fetch-blob": ">=0.10.15"
+    "rn-fetch-blob": ">=0.10.16"
   },
   "prettier": {
     "requirePragma": true,

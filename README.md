@@ -7,15 +7,16 @@
 
  react-native >0.60.0
 ```
- yarn add rn-curiosity 
+ yarn add rn-curiosity
  
 ```
  
  react-native <0.59
 ```
-   yarn add rn-curiosity 
+   yarn add rn-curiosity
 
    react-native link rn-curiosity 
+```
 ```
 ## 必须加入的库
 
