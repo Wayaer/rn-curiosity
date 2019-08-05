@@ -1,10 +1,6 @@
 
 # rn-curiosity
 
-
-##注意：您必须使用React Native 0.60.0或更高版本才能使用最新版本的rn-curiosity。
-
-
  react-native >0.60.0
 ```
  yarn add rn-curiosity
