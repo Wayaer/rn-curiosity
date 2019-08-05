@@ -17,6 +17,19 @@
 
    react-native link rn-curiosity 
 ```
+0.60以下版本Android编译会报错 
+```
+import androidx . annotation. Nullable;
+```
+需要在 android/gradle.properties 文件下
+加入以下代码
+```
+
+   android.useAndroidX=true
+   android.enableJetifier=true
+
+```
+
 ```
 ## 必须加入的库
 
