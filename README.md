@@ -27,7 +27,6 @@ import androidx . annotation. Nullable;
 
 ```
 
-```
 ## 必须加入的库
 
 ```
@@ -38,7 +37,6 @@ import androidx . annotation. Nullable;
   yarn add @react-native-community/netinfo 
 ```
 ##组件方法导入方式
-```
 
 rn-curiosity 继承 react-native 、@react-native-community/netinfo、@react-native-community/async-storage 全部组件和方法
 

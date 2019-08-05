@@ -1,6 +1,6 @@
 {
   "name": "rn-curiosity",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "React Native rn-curiosity API for iOS & Android",
   "main": "index.js",
   "homepage": "https://github.com/Wayaer/rn-curiosity",
@@ -18,7 +18,7 @@
     "adbTcpip": "adb tcpip 5555",
     "adbDevices": "adb devices",
     "npmPublish": "npm publish",
-    "npmUnPublish": "npm unpublish rn-curiosity@2.3.0"
+    "npmUnPublish": "npm unpublish rn-curiosity@2.4.0"
   },
   "repository": {
     "type": "git",
