@@ -22,12 +22,12 @@ import androidx . annotation. Nullable;
 加入以下代码
 ```
 
-   android.useAndroidX=true
-   android.enableJetifier=true
-
+  android.useAndroidX=true
+  android.enableJetifier=true
+   
 ```
 
-## 必须加入的库
+# 必须加入的库
 
 ```
   yarn add rn-fetch-blob       
@@ -36,7 +36,8 @@ import androidx . annotation. Nullable;
 
   yarn add @react-native-community/netinfo 
 ```
-##组件方法导入方式
+
+#组件方法导入方式
 
 rn-curiosity 继承 react-native 、@react-native-community/netinfo、@react-native-community/async-storage 全部组件和方法
 
@@ -45,7 +46,7 @@ rn-curiosity 继承 react-native 、@react-native-community/netinfo、@react-nat
 import {TouchView, Curiosity, View, React, Component} from "rn-curiosity";
 
 ```
-###组件
+#组件
 
    
 Checkbox
@@ -97,7 +98,7 @@ Checkbox
 <img  src="src/res/ios.png" width="420" height = "750"><img  src="src/res/android.png" width="420" height = "750">
 
 
-#属性
+属性
 
 ```pickerType || 'dateTime'  类型  
 
@@ -132,7 +133,7 @@ Checkbox
 
  
  
-#事件
+事件
 ```
 onSure     确定 回调
 
@@ -140,7 +141,7 @@ onCancel   取消 回调
 ```
 
 
-#例
+例
 
 ```
    Curiosity.alertPicker({
@@ -158,7 +159,7 @@ onCancel   取消 回调
         })
 ```    
 
-###常量
+常量
 加入多个原生app信息[详见Constant](src/BaseConstant.js)
 ```
 import {FontSize, Colors, Constant,} from "rn-curiosity";
@@ -177,7 +178,7 @@ import {FontSize, Colors, Constant,} from "rn-curiosity";
        
 ``` 
 
-###方法 Curiosity
+#方法 Curiosity
 [参考Curiosity文件](src/Curiosity.js)
 
 ```
@@ -189,9 +190,9 @@ import {FontSize, Colors, Constant,} from "rn-curiosity";
 
 ```
 
-##热更新
+#热更新
 
-###Android[参考MainTest](android/src/main/java/com/curiosity/MainTest.java)
+Android[参考MainTest](android/src/main/java/com/curiosity/MainTest.java)
 
      android:networkSecurityConfig="@xml/network_config"
 ```
@@ -247,8 +248,11 @@ android/src/main/AndroidManiTest.xml  中加入代码
 
 ```
 
-###IOS[参考AppDelegateTest](ios/AppDelegateTest.m)
-[ios 运行http请求文件配置信息](ios/ioshttp.png)
+IOS
+
+[参考AppDelegateTest](ios/AppDelegateTest.m)
+
+[IOS 运行http请求文件配置信息](ios/ioshttp.png)
 
 ```
 
@@ -294,7 +298,7 @@ NSURL *jsCodeLocation;
 ...
 
 ```
-###JS调用热更新
+#JS调用热更新
 
 [参考Curiosity文件uploadBundle方法](src/Curiosity.js)
 ```
@@ -406,6 +410,7 @@ NSURL *jsCodeLocation;
 ```
 
 推荐库
+
 ```
 
  react-native-fast-image `  //大图片优化
