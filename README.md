@@ -3,6 +3,7 @@
 
  react-native >0.60.0
 ```
+
  yarn add rn-curiosity
  
 ```
@@ -35,14 +36,15 @@ import androidx . annotation. Nullable;
   yarn add @react-native-community/async-storage 
 
   yarn add @react-native-community/netinfo 
-
 ```
-
 ##组件方法导入方式
-rn-curiosity 继承 react-native 、@react-native-community/netinfo、@react-native-community/async-storage 全部组件和方法
 ```
 
-import {TouchView, Utils, View, React, Component} from "rn-curiosity";
+rn-curiosity 继承 react-native 、@react-native-community/netinfo、@react-native-community/async-storage 全部组件和方法
+
+```
+
+import {TouchView, Curiosity, View, React, Component} from "rn-curiosity";
 
 ```
 ###组件
@@ -68,12 +70,12 @@ Checkbox
        colors={['#000000', '#ffffff']}
        viewStyle={{
            flexDirection: 'row',
-           height: Constant.CurrentHeight + Utils.getHeight(100),
+           height: Constant.CurrentHeight + Curiosity.getHeight(100),
            paddingTop: Constant.CurrentHeight,
            alignItems: 'center',
            width: Screen_Width,
            justifyContent: 'space-between',
-           paddingHorizontal: Utils.getWidth(25),
+           paddingHorizontal: Curiosity.getWidth(25),
        }}
        style={{}}>
    </LinearGradient>
@@ -143,7 +145,7 @@ onCancel   取消 回调
 #例
 
 ```
-   Utils.alertPicker({
+   Curiosity.alertPicker({
             showUnit: true, itemHeight: 30,
             showUnit={pickerValue.showUnit}//是否显示年月日时分秒 文字
             pickerType: 'dateTime', //time date dateTime
@@ -151,7 +153,7 @@ onCancel   取消 回调
             pickerTimeInterval: ['2018-01-12 23:34:45', '2026-01-07 23:34:45'],  //不支持time类型
             sureText: '确定', title: '时间选择器', cancelText: '取消',
         }, (time) => {
-            Utils.Toast(time)
+            Curiosity.Toast(time)
 
         }, () => {
 
@@ -177,15 +179,15 @@ import {FontSize, Colors, Constant,} from "rn-curiosity";
        
 ``` 
 
-###方法 Utils
-[参考Utils文件](src/Utils.js)
+###方法 Curiosity
+[参考Curiosity文件](src/Curiosity.js)
 
 ```
   使用方法
   
-  Utils.方法名()
+  Curiosity.方法名()
   
-  Utils.sendMessageNativeToJS()
+  Curiosity.sendMessageNativeToJS()
 
 ```
 
@@ -296,7 +298,7 @@ NSURL *jsCodeLocation;
 ```
 ###JS调用热更新
 
-[参考Utils文件uploadBundle方法](src/Utils.js)
+[参考Curiosity文件uploadBundle方法](src/Curiosity.js)
 ```
     /**
      *
@@ -355,35 +357,35 @@ NSURL *jsCodeLocation;
                 const localVersionCode = appInfo.versionCode
                 if (Constant.Android) {
                     const fileDir = appInfo.fileDir + '/'
-                    Utils.findData('androidBundleVersion', (bundleVersion) => {
+                    Curiosity.findData('androidBundleVersion', (bundleVersion) => {
                         if ((Number(netVersion.androidVersion)) === localVersionCode && (Number(netVersion.androidBundleVersion)) > bundleVersion) {
                             this.downloadFile(OSSUrl + 'android/bundle/' + Number(netVersion.androidBundleVersion) + '/bundle.zip', fileDir, 'bundle.zip', (progress) => {
                             }, (finish) => {
-                                Utils.unZipFile(fileDir + 'bundle.zip', (data) => {
+                                Curiosity.unZipFile(fileDir + 'bundle.zip', (data) => {
                                     if (data === 0) {
-                                        Utils.saveData('androidBundleVersion', (Number(netVersion.androidBundleVersion)))
+                                        Curiosity.saveData('androidBundleVersion', (Number(netVersion.androidBundleVersion)))
                                     }
                                 })
                             }, (callbackFail) => {
-                                Utils.cleanCache()
+                                Curiosity.cleanCache()
                             })
                         } else if ((Number(netVersion.iosVersion)) === localVersionCode && (Number(netVersion.iosBundleVersion)) < bundleVersion) {
-                            Utils.cleanCache()
+                            Curiosity.cleanCache()
                         }
                     }, (error) => {
-                        Utils.saveData('androidBundleVersion', 0)
-                        Utils.uploadBundle(netVersion,OSSUrl)
+                        Curiosity.saveData('androidBundleVersion', 0)
+                        Curiosity.uploadBundle(netVersion,OSSUrl)
                     })
 
                 } else if (Constant.IOS) {
                     const libraryDirectory = appInfo.LibraryDirectory + '/'
-                    Utils.findData('iosBundleVersion', (bundleVersion) => {
+                    Curiosity.findData('iosBundleVersion', (bundleVersion) => {
                         if ((Number(netVersion.iosVersion)) === localVersionCode && (Number(netVersion.iosBundleVersion)) > bundleVersion) {
                             this.downloadFile(OSSUrl + 'ios/bundle/' + Number(localVersionCode) + '/bundle.zip', libraryDirectory, 'bundle.zip', (progress) => {
                                 }, (finish) => {
                                     this.unZipFile(libraryDirectory + 'bundle.zip', (data) => {
                                         if (data === 0) {
-                                            Utils.saveData('iosBundleVersion', (Number(netVersion.androidBundleVersion)))
+                                            Curiosity.saveData('iosBundleVersion', (Number(netVersion.androidBundleVersion)))
                                         }
                                     })
                                 },

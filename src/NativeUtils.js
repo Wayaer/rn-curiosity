@@ -1,6 +1,6 @@
 import {Constant} from './BaseConstant';
 import {NativeModules} from 'react-native';
-import Utils from './Utils';
+import Curiosity from './Curiosity';
 
 const RNCuriosity = NativeModules.RNCuriosity;
 const SplashScreen = NativeModules.SplashScreen;
@@ -69,7 +69,7 @@ export default class NativeUtils {
      * @param apkFilePath
      */
     static installApp(apkFilePath) {
-        if (!apkFilePath) {return Utils.logError('apkFilePath');}
+        if (!apkFilePath) {return Curiosity.logError('apkFilePath');}
         RNCuriosity.installApp(apkFilePath);
 
     }
@@ -92,7 +92,7 @@ export default class NativeUtils {
      * @param callback
      */
     static getCookie(url, callback) {
-        if (!url) {return Utils.logError('url');}
+        if (!url) {return Curiosity.logError('url');}
         if (Constant.Android) {
             RNCuriosity.getAllCookie(url, (data) => {
                 return callback(data);
@@ -126,7 +126,7 @@ export default class NativeUtils {
      * @param callback
      */
     static unZipFile(filePath, callback) {
-        if (!filePath) {return Utils.logError('filePath');}
+        if (!filePath) {return Curiosity.logError('filePath');}
         RNCuriosity.unZipFile(filePath, callback);//Success   NotFile  没有该文件
     }
 
@@ -137,7 +137,7 @@ export default class NativeUtils {
      * @param filePath
      */
     static deleteFile(filePath) {
-        if (!filePath) {return Utils.logError('filePath');}
+        if (!filePath) {return Curiosity.logError('filePath');}
         RNCuriosity.deleteFile(filePath);
     }
 
@@ -149,7 +149,7 @@ export default class NativeUtils {
      */
 
     static deleteFolder(foldrPath) {
-        if (!foldrPath) {return Utils.logError('foldrPath');}
+        if (!foldrPath) {return Curiosity.logError('foldrPath');}
         RNCuriosity.deleteFolder(foldrPath);
     }
 
@@ -161,7 +161,7 @@ export default class NativeUtils {
      * @param callback
      */
     static getFilePathSize(filePath, callback) {
-        if (!filePath) {return Utils.logError('filePath');}
+        if (!filePath) {return Curiosity.logError('filePath');}
         RNCuriosity.getFilePathSize(filePath, (data) => {
             return callback(data);
         });
@@ -175,7 +175,7 @@ export default class NativeUtils {
      * @param callback
      */
     static isFolderExists(filePath, callback) {
-        if (!filePath) {return Utils.logError('filePath');}
+        if (!filePath) {return Curiosity.logError('filePath');}
         RNCuriosity.isFolderExists(filePath, (data) => {
             if (Constant.Android) {
                 return callback(data);
@@ -197,7 +197,7 @@ export default class NativeUtils {
      * @param callback
      */
     static createDirectory(filePath, callback) {
-        if (!filePath) {return Utils.logError('filePath');}
+        if (!filePath) {return Curiosity.logError('filePath');}
         if (Constant.Android) {
             RNCuriosity.isFolderExists(filePath, (data) => {
                 if (data) {
@@ -217,7 +217,7 @@ export default class NativeUtils {
      */
     static goToMarket(packageName, marketPackageName) {
         if (Constant.Android) {
-            if (!packageName) {return Utils.logError('packageName');}
+            if (!packageName) {return Curiosity.logError('packageName');}
             RNCuriosity.goToMarket(packageName, marketPackageName);
         } else {
             RNCuriosity.goToMarket(packageName);

@@ -1,8 +1,8 @@
 'use strict';
 import React, {Component, PureComponent} from 'react';
-import Utils from "./src/Utils"
+import Curiosity from "./src/Curiosity"
 
-const Curiosity = Utils;
+const Utils = Curiosity;
 //第三方
 import RNFetchBlob from 'rn-fetch-blob'
 import NetInfo from '@react-native-community/netinfo'
@@ -101,6 +101,6 @@ export {
     React,
     Component, PureComponent,
     NetInfo, AsyncStorage,
-    Utils, Curiosity,
+    Curiosity, Utils,
     RNFetchBlob,
 }

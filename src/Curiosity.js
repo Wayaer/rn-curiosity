@@ -14,7 +14,7 @@ const alertStyle = {height: height, width: width};
 let storage;
 
 
-export default class Utils {
+export default class Curiosity {
     /**
      * promise例子
      * @param message
@@ -206,7 +206,7 @@ export default class Utils {
             NativeUtils.goToMarket(Constant.packageName, null);
         } else if (Constant.IOS) {
             if (!appID) {
-                return Utils.logError('appID');
+                return Curiosity.logError('appID');
             }
             NativeUtils.goToMarket(appID);
         }
@@ -219,7 +219,7 @@ export default class Utils {
      */
     static log(content) {
         if (!content) {
-            return Utils.logError('content');
+            return Curiosity.logError('content');
         }
         console.warn('LogInfo=> ', content);
     }
@@ -580,7 +580,7 @@ export default class Utils {
      * @returns {number}
      */
     static getHeight(h) {
-        return (h / 1334) * Utils.phoneFitHeight();
+        return (h / 1334) * Curiosity.phoneFitHeight();
     }
 
     /**
@@ -731,7 +731,7 @@ export default class Utils {
      * @param onCancelCallback
      */
     static alertPicker(pickerValue, onSureCallback, onCancelCallback) {
-        let pickerView = Utils.alertPullView(
+        let pickerView = Curiosity.alertPullView(
             <DatePicker
                 pickerType={pickerValue.pickerType}
                 itemHeight={pickerValue.itemHeight}
@@ -784,7 +784,7 @@ export default class Utils {
      * @param object
      */
     static saveData(key, object) {
-        Utils.isInit();
+        Curiosity.isInit();
         storage.save({
             key: key,  // 注意:请不要在key中使用_下划线符号!
             data: object,
@@ -797,7 +797,7 @@ export default class Utils {
      * @param key
      */
     static removeData(key) {
-        Utils.isInit();
+        Curiosity.isInit();
         storage.remove({
             key: key,
         });
@@ -807,7 +807,7 @@ export default class Utils {
      * 移除所有"key-id"数据（但会保留只有key的数据）
      */
     static removeAll() {
-        Utils.isInit();
+        Curiosity.isInit();
         storage.clearMap();
     }
 
@@ -816,7 +816,7 @@ export default class Utils {
      * @param key
      */
     static clearDataByKey(key) {
-        Utils.isInit();
+        Curiosity.isInit();
         storage.clearMapForKey(key);
     }
 
@@ -827,7 +827,7 @@ export default class Utils {
      * @param errorCallback
      */
     static findData(key, successCallBack, errorCallback) {
-        Utils.isInit();
+        Curiosity.isInit();
         storage.load({
             key: key,
         }).then(data => {
@@ -946,34 +946,34 @@ export default class Utils {
         const localVersionCode = Constant.VersionCode;
         if (Constant.Android) {
             const fileDir = Constant.FileDir + '/';
-            Utils.findData('androidBundleVersion', (bundleVersion) => {
+            Curiosity.findData('androidBundleVersion', (bundleVersion) => {
                 if ((Number(netVersion.androidVersion)) === localVersionCode && (Number(netVersion.androidBundleVersion)) > bundleVersion) {
                     this.downloadFile(OSSUrl + 'android/bundle/' + Number(netVersion.androidBundleVersion) + '/bundle.zip', fileDir, 'bundle.zip', (progress) => {
                     }, (finish) => {
-                        Utils.unZipFile(fileDir + 'bundle.zip', (data) => {
+                        Curiosity.unZipFile(fileDir + 'bundle.zip', (data) => {
                             if (data === 0) {
-                                Utils.saveData('androidBundleVersion', (Number(netVersion.androidBundleVersion)));
+                                Curiosity.saveData('androidBundleVersion', (Number(netVersion.androidBundleVersion)));
                             }
                         });
                     }, (callbackFail) => {
-                        Utils.cleanCache();
+                        Curiosity.cleanCache();
                     });
                 } else if ((Number(netVersion.iosVersion)) === localVersionCode && (Number(netVersion.iosBundleVersion)) < bundleVersion) {
-                    Utils.cleanCache();
+                    Curiosity.cleanCache();
                 }
             }, (error) => {
-                Utils.saveData('androidBundleVersion', 0);
-                Utils.uploadBundle(netVersion, OSSUrl);
+                Curiosity.saveData('androidBundleVersion', 0);
+                Curiosity.uploadBundle(netVersion, OSSUrl);
             });
         } else if (Constant.IOS) {
             const libraryDirectory = Constant.LibraryDirectory + '/';
-            Utils.findData('iosBundleVersion', (bundleVersion) => {
+            Curiosity.findData('iosBundleVersion', (bundleVersion) => {
                 if ((Number(netVersion.iosVersion)) === localVersionCode && (Number(netVersion.iosBundleVersion)) > bundleVersion) {
                     this.downloadFile(OSSUrl + 'ios/bundle/' + Number(localVersionCode) + '/bundle.zip', libraryDirectory, 'bundle.zip', (progress) => {
                         }, (finish) => {
                             this.unZipFile(libraryDirectory + 'bundle.zip', (data) => {
                                 if (data === 0) {
-                                    Utils.saveData('iosBundleVersion', (Number(netVersion.androidBundleVersion)));
+                                    Curiosity.saveData('iosBundleVersion', (Number(netVersion.androidBundleVersion)));
                                 }
                             });
                         },
@@ -1039,7 +1039,7 @@ export default class Utils {
     static downloadBundleZipWithUnZip(url, callbackPercent, callbackUnzip) {
         if (Constant.IOS) {
             const path = Constant.LibraryDirectory + '/';
-            Utils.downloadFile(url, path, 'bundle.zip', (percent) => {
+            Curiosity.downloadFile(url, path, 'bundle.zip', (percent) => {
                 return callbackPercent(percent);
             }, () => {
                 NativeUtils.unZipFile(path + 'bundle.zip', (zip) => {
@@ -1048,7 +1048,7 @@ export default class Utils {
             });
         } else if (Constant.Android) {
             const path = Constant.filesDir + '/';
-            Utils.downloadFile(url, path, 'bundle.zip', (percent) => {
+            Curiosity.downloadFile(url, path, 'bundle.zip', (percent) => {
                 return callbackPercent(percent);
             }, () => {
                 NativeUtils.unZipFile(path + 'bundle.zip', (zip) => {

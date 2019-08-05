@@ -5,7 +5,7 @@ import {
     ImageBackground, TouchableOpacity,
 } from 'react-native';
 import {Constant} from './BaseConstant';
-import Utils from './Utils';
+import Curiosity from './Curiosity';
 
 /**
  * 自定义 点击按钮
@@ -168,11 +168,11 @@ export class CustomCheckbox extends PureComponent {
                 <CustomImage
                     require={this.state.checked ? (this.checkedIcon || require('./icons/checkbox_true.png')) : (this.uncheckedIcon || require('./icons/checkbox_false.png'))}
                     style={[{
-                        width: Utils.getWidth(30),
-                        height: Utils.getWidth(30),
+                        width: Curiosity.getWidth(30),
+                        height: Curiosity.getWidth(30),
                     }, this.props.imageStyle]}/>
                 <Text style={[{
-                    marginLeft: Utils.getWidth(10),
+                    marginLeft: Curiosity.getWidth(10),
                     color: Constant.mainBlack,
                 }, this.props.titleStyle]}>{this.props.title}</Text>
             </TouchView>
@@ -194,8 +194,8 @@ export class TabBarItem extends PureComponent {
                     {...this.props}
                     source={this.props.imageSource}
                     style={[{
-                        width: Utils.getWidth(23),
-                        height: Utils.getWidth(23),
+                        width: Curiosity.getWidth(23),
+                        height: Curiosity.getWidth(23),
                     }, this.props.imageStyle]}/>
                 <CustomButton
                     {...this.props}

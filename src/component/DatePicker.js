@@ -3,7 +3,7 @@ import React, {PureComponent} from 'react';
 import {Wheel} from 'teaset';
 import {CustomButton, CenterView, TouchView} from '../BaseComponent';
 import {Colors, Constant, FontSize} from '../BaseConstant';
-import Utils from '../Utils';
+import Curiosity from '../Curiosity';
 
 export class DatePicker extends PureComponent {
     /*
@@ -15,7 +15,7 @@ export class DatePicker extends PureComponent {
 
     constructor(props) {
         super(props);
-        this.itemHeight = props.itemHeight || Utils.getHeight(35);
+        this.itemHeight = props.itemHeight || Curiosity.getHeight(35);
         this.pickerType = this.returnPickerType(props);
         this.title = props.title || 'Select';
         this.cancelText = props.cancelText || 'cancel';
@@ -165,11 +165,11 @@ export class DatePicker extends PureComponent {
         return ['2019-01-01 00:00:00', '2020-01-01 00:00:00'];
     }
     checkDate = (dateTime) => {
-        if (!(Utils.regularStr(/^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\s+(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d$/, dateTime) ||
-            Utils.regularStr(/^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/, dateTime))) {
+        if (!(Curiosity.regularStr(/^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])\s+(20|21|22|23|[0-1]\d):[0-5]\d:[0-5]\d$/, dateTime) ||
+            Curiosity.regularStr(/^[1-9]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/, dateTime))) {
             return console.error('日期格式错误 正确格式 2019-01-01 00:00:00 或 2019-01-01');
         }
-        return Utils.checkLegalDate(dateTime.split(' ')[0]) && dateTime;
+        return Curiosity.checkLegalDate(dateTime.split(' ')[0]) && dateTime;
     }
 
     returnSelect = () => {
@@ -218,7 +218,7 @@ export class DatePicker extends PureComponent {
 
 
     renderWheel = (pickerType) => {
-        const width = (Constant.Screen_Width - Utils.getWidth(26)) / (this.pickerType === 'dateTime' ? 8 : 5);
+        const width = (Constant.Screen_Width - Curiosity.getWidth(26)) / (this.pickerType === 'dateTime' ? 8 : 5);
         const showDateView = (pickerType === 'date' || pickerType === 'dateTime');
         const showTimeView = (pickerType === 'time' || pickerType === 'dateTime');
 
@@ -261,10 +261,10 @@ export class DatePicker extends PureComponent {
                 width: Constant.Screen_Width,
             }}>
                 <TouchView style={{
-                    paddingVertical: Utils.getHeight(8),
+                    paddingVertical: Curiosity.getHeight(8),
                     flexDirection: 'row',
                     justifyContent: 'space-between',
-                    marginHorizontal: Utils.getWidth(10),
+                    marginHorizontal: Curiosity.getWidth(10),
                     alignItems: 'center',
                 }}>
                     <CustomButton
@@ -290,7 +290,7 @@ export class DatePicker extends PureComponent {
                 <CenterView style={{
                     height: this.itemHeight * 6,
                     borderTopWidth: 1,
-                    paddingTop: Utils.getHeight(10),
+                    paddingTop: Curiosity.getHeight(10),
                     borderColor: Colors.black30,
                 }}>
                     {this.renderWheel(this.pickerType)}
