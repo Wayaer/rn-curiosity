@@ -18,7 +18,7 @@
     "adbTcpip": "adb tcpip 5555",
     "adbDevices": "adb devices",
     "npmPublish": "npm publish",
-    "npmUnPublish": "npm unpublish rn-curiosity@2.4.5",
+    "npmUnPublish": "npm unpublish rn-curiosity@2.4.6",
     "npmDeprecate": "npm deprecate rn-curiosity@2.3.0 Please update the version for rn-curiosity"
   },
   "repository": {
