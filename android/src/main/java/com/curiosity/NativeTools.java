@@ -142,11 +142,11 @@ public class NativeTools {
         Context context = CuriosityModule.reactApplicationContext;
         PackageManager appInfo = context.getPackageManager();
         WritableMap map = new WritableNativeMap();
-        String filesDir = context.getCacheDir().getPath();
+        String filesDir = context.getFilesDir().getPath();
         String cacheDir = context.getCacheDir().getPath();
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) || !Environment.isExternalStorageRemovable()) {
-            map.putString("externalFilesDir", context.getExternalCacheDir().getPath() + "");
-            map.putString("externalCacheDir", context.getExternalFilesDir(null).getPath() + "");
+            map.putString("externalCacheDir", context.getExternalCacheDir().getPath() + "");
+            map.putString("externalFilesDir", context.getExternalFilesDir(null).getPath() + "");
             map.putString("externalStorageDirectory", Environment.getExternalStorageDirectory() + "");
             map.putString("DIRECTORY_DCIM", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "");
             map.putString("DIRECTORY_DOWNLOADS", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "");
@@ -163,8 +163,7 @@ public class NativeTools {
             map.putString("externalCacheDir", cacheDir + "");
         }
         map.putString("filesDir", filesDir + "");
-        map.putString("cacheDir", filesDir + "");
-
+        map.putString("cacheDir", cacheDir + "");
         map.putString("phoneModel", android.os.Build.MODEL);
         map.putString("phoneBrand", android.os.Build.BRAND);
         map.putString("systemVersion", android.os.Build.VERSION.RELEASE);

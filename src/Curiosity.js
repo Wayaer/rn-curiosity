@@ -890,14 +890,15 @@ export default class Curiosity {
 
 
   /**
-   *
+   * 此方法包含 校验bundle版本号匹配问题已经下载和解压
+   * 版本号必须为int类型，字段key 不可改变
    * netVersion={
    *     androidBundleVersion:0,
    *     androidVersion:1,
    *     iosBundleVersion:0,
    *     iosVersion:1,
    *   }
-   * OSS目录文件
+   * OSS目录文件 服务器文件下载目录,目录不可更改
    *
    * ├── OSS
    *      ├──android
@@ -939,73 +940,55 @@ export default class Curiosity {
    *                     └──2.apk
    *
    * @param netVersion
+   * @param localAndroidBundleVersion    可在package.json中加入两个字段 并从中获取
+   * @param localIosBundleVersion        可在package.json中加入两个字段 并从中获取
    * @param OSSUrl
+   * @param bundleUnZip
    */
-  static uploadBundle(netVersion, OSSUrl) {
-    const localVersionCode = Constant.VersionCode;
-    if (Constant.Android) {
-      const fileDir = Constant.FilesDir + '/';
-      Curiosity.findData('androidBundleVersion', (bundleVersion) => {
-        if ((Number(netVersion.androidVersion)) === localVersionCode && (Number(netVersion.androidBundleVersion)) > bundleVersion) {
-          FetchBlob.downloadFile(OSSUrl + 'android/bundle/' + Number(netVersion.androidBundleVersion) + '/bundle.zip', fileDir, 'bundle.zip', (progress) => {
-          }, (finish) => {
-            Curiosity.unZipFile(fileDir + 'bundle.zip', (data) => {
-              if (data === 0) {
-                Curiosity.saveData('androidBundleVersion', (Number(netVersion.androidBundleVersion)));
-              }
-            });
-          }, (callbackFail) => {
-            Curiosity.cleanCache();
+  static uploadBundle(netVersion, localAndroidBundleVersion, localIosBundleVersion, OSSUrl, bundleUnZip) {
+    if (this.checkNumber(netVersion.androidBundleVersion) &&
+      this.checkNumber(netVersion.androidVersion) &&
+      this.checkNumber(netVersion.iosBundleVersion) &&
+      this.checkNumber(netVersion.iosVersion) &&
+      this.checkNumber(localAndroidBundleVersion) &&
+      this.checkNumber(localIosBundleVersion)) {
+      const localVersionCode = Constant.VersionCode;
+      if (Constant.Android) {
+        if ((netVersion.androidVersion) === localVersionCode && (netVersion.androidBundleVersion) > localAndroidBundleVersion) {
+          Curiosity.downloadBundleZipWithUnZip(OSSUrl + 'android/bundle/' + (netVersion.androidBundleVersion) + '/bundle.zip', (percent) => {
+          }, () => {
+            bundleUnZip && bundleUnZip();
           });
-        } else if ((Number(netVersion.iosVersion)) === localVersionCode && (Number(netVersion.iosBundleVersion)) < bundleVersion) {
-          Curiosity.cleanCache();
+        } else if ((netVersion.iosVersion) === localVersionCode && (netVersion.iosBundleVersion) < localAndroidBundleVersion) {
+          Curiosity.deleteBundle();
         }
-      }, (error) => {
-        Curiosity.saveData('androidBundleVersion', 0);
-        Curiosity.uploadBundle(netVersion, OSSUrl);
-      });
-    } else if (Constant.IOS) {
-      const libraryDirectory = Constant.LibraryDirectory + '/';
-      Curiosity.findData('iosBundleVersion', (bundleVersion) => {
-        if ((Number(netVersion.iosVersion)) === localVersionCode && (Number(netVersion.iosBundleVersion)) > bundleVersion) {
-          FetchBlob.downloadFile(OSSUrl + 'ios/bundle/' + Number(localVersionCode) + '/bundle.zip', libraryDirectory, 'bundle.zip', (progress) => {
-            }, (finish) => {
-              this.unZipFile(libraryDirectory + 'bundle.zip', (data) => {
-                if (data === 0) {
-                  Curiosity.saveData('iosBundleVersion', (Number(netVersion.androidBundleVersion)));
-                }
-              });
-            },
-            (callbackFail) => {
-              this.cleanCache();
-            },
-          );
-        } else if ((Number(netVersion.iosVersion)) === localVersionCode && (Number(netVersion.iosBundleVersion)) < bundleVersion) {
-          this.cleanCache();
+      } else if (Constant.IOS) {
+        if ((netVersion.iosVersion) === localVersionCode && (netVersion.iosBundleVersion) > localIosBundleVersion) {
+          Curiosity.downloadBundleZipWithUnZip(OSSUrl + 'android/bundle/' + (netVersion.androidBundleVersion) + '/bundle.zip', (percent) => {
+          }, () => {
+            bundleUnZip && bundleUnZip();
+          });
+        } else if ((netVersion.iosVersion) === localVersionCode && (netVersion.iosBundleVersion) < localIosBundleVersion) {
+          this.deleteBundle();
         }
-      }, (error) => {
-        this.saveData('iosBundleVersion', 0);
-        this.uploadBundle(netVersion, OSSUrl);
-      });
+      }
+    } else {
+      return console.error('version type error (not number)');
     }
   }
 
-
   /**
-   * 清除本地缓存
+   * 校验类型是否为number
+   * @param num
+   * @returns {boolean}
    */
-  static cleanCache() {
-    const cache = Constant.CachesDirectory + '/';
-    if (Constant.IOS) {
-      NativeUtils.deleteFolder(cache);
-    } else if (Constant.Android) {
-
-    }
+  static checkNumber(num) {
+    return typeof num === 'number';
   }
 
 
   /**
-   * 解压bundle文件
+   * 下载并解压bundle文件,此方法只可以下载和解压至固定位置，
    * 固定位置
    * android:/data/user/0/{packageName}/files/
    * ios:/var/mobile/Containers/Data/Application/{186EE408-3B95-4A09-B8E2-E1C14B333E2B}/Library/
@@ -1023,6 +1006,8 @@ export default class Curiosity {
         NativeUtils.unZipFile(path + 'bundle.zip', (zip) => {
           return callbackUnzip(zip);
         });
+      }, (fail) => {
+        return console.error('download Fail');
       });
     } else if (Constant.Android) {
       const path = Constant.FilesDir + '/';
@@ -1032,6 +1017,8 @@ export default class Curiosity {
         NativeUtils.unZipFile(path + 'bundle.zip', (zip) => {
           return callbackUnzip(zip);
         });
+      }, (fail) => {
+        return console.error('download Fail');
       });
     }
   }
@@ -1039,7 +1026,8 @@ export default class Curiosity {
 
   /**
    * 删除Bundle文件或目录
-   * android
+   * android 固定地址 /data/user/0/{包名}/files/bundle/
+   *         固定地址 /data/user/0/{包名}/files/bundle.zip
    * ios 固定路径 /var/mobile/Containers/Data/Application/{570EAD8E-C3F9-4A8D-9A17-ACD3355AC501}/Library/bundle.zip
    *     固定路径 /var/mobile/Containers/Data/Application/{570EAD8E-C3F9-4A8D-9A17-ACD3355AC501}/Library/bundle/
    */
@@ -1049,7 +1037,24 @@ export default class Curiosity {
       NativeUtils.deleteFile(library + 'bundle');
       NativeUtils.deleteFile(library + 'bundle.zip');
     } else if (Constant.Android) {
+      const filesDir = Constant.FilesDir + '/';
+      NativeUtils.deleteFile(filesDir + 'bundle');
+      NativeUtils.deleteFile(filesDir + 'bundle.zip');
+    }
+  }
 
+  /**
+   * 清除本地缓存目录
+   */
+  static cleanCache() {
+    if (Constant.IOS) {
+      const cache = Constant.CachesDirectory + '/';
+      NativeUtils.deleteFolder(cache);
+    } else if (Constant.Android) {
+      const ExternalCacheDir = Constant.ExternalCacheDir + '/';
+      const CacheDir = Constant.CacheDir + '/';
+      NativeUtils.deleteFile(ExternalCacheDir);
+      NativeUtils.deleteFile(CacheDir);
     }
   }
 

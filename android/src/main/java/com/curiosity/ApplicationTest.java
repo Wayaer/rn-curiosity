@@ -2,17 +2,18 @@ package com.curiosity;
 
 import android.app.Application;
 
+import com.curiosity.NativeTools;//bundle更新加入代码
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 
-import java.io.File;
+import java.io.File;//bundle更新加入代码
 import java.util.Arrays;
 import java.util.List;
 
-public class MainTest extends Application implements ReactApplication {
+public class ApplicationTest extends Application implements ReactApplication {
 
     private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
         @Override
@@ -22,6 +23,7 @@ public class MainTest extends Application implements ReactApplication {
 
         /*
          * bundle加载判断
+         * bundle更新加入代码
          */
         @Override
         protected String getJSBundleFile() {
@@ -58,20 +60,4 @@ public class MainTest extends Application implements ReactApplication {
         super.onCreate();
         SoLoader.init(this, /* native exopackage */ false);
     }
-
-
-// MainActivity
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        SplashScreen.show(this, true);  // 添加这一句
-//        super.onCreate(savedInstanceState);
-//
-//        SharedPreferences m = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-//        SharedPreferences.Editor editor = m.edit();
-//        editor.putString("debug_http_host", "192.168.3.10:8081");
-//        editor.commit();
-
-//    }
-
-
 }
