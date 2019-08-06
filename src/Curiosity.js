@@ -203,7 +203,7 @@ export default class Curiosity {
      */
     static goToMarket(appID) {
         if (Constant.Android) {
-            NativeUtils.goToMarket(Constant.packageName, null);
+            NativeUtils.goToMarket(Constant.PackageName, null);
         } else if (Constant.IOS) {
             if (!appID) {
                 return Curiosity.logError('appID');
@@ -945,7 +945,7 @@ export default class Curiosity {
     static uploadBundle(netVersion, OSSUrl) {
         const localVersionCode = Constant.VersionCode;
         if (Constant.Android) {
-            const fileDir = Constant.FileDir + '/';
+            const fileDir = Constant.FilesDir + '/';
             Curiosity.findData('androidBundleVersion', (bundleVersion) => {
                 if ((Number(netVersion.androidVersion)) === localVersionCode && (Number(netVersion.androidBundleVersion)) > bundleVersion) {
                     this.downloadFile(OSSUrl + 'android/bundle/' + Number(netVersion.androidBundleVersion) + '/bundle.zip', fileDir, 'bundle.zip', (progress) => {
@@ -1047,7 +1047,7 @@ export default class Curiosity {
                 });
             });
         } else if (Constant.Android) {
-            const path = Constant.filesDir + '/';
+            const path = Constant.FilesDir + '/';
             Curiosity.downloadFile(url, path, 'bundle.zip', (percent) => {
                 return callbackPercent(percent);
             }, () => {
