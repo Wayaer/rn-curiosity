@@ -95,7 +95,7 @@ Checkbox
 ```html
  <DatePicker/>
 ```
-<img  src="src/res/ios.png" width="420" height = "750"><img  src="src/res/android.png" width="420" height = "750">
+<img  src="src/res/ios_datePicker.png" width="420" height = "750"> <img  src="src/res/android_datePicker.png" width="420" height = "750">
 
 
 属性
@@ -449,8 +449,7 @@ Android问题解决
 
 android react-native-gesture-handler 编译爆红()
 
-<img  src="src/res/android_support.v4.png" width="1704" height = "588">
-
+<img  src="src/res/android_support.v4.png" width="852" height = "294">
 
 ``` 
    问题： 程序包android.support.v4 不存在
