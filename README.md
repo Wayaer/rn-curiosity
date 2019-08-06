@@ -447,7 +447,7 @@ NSURL *jsCodeLocation;
 
 Android问题解决
 
-android react-native-gesture-handler 编译爆红()
+android react-native-gesture-handler 编译爆红
 
 <img  src="src/res/android_support.v4.png" width="852" height = "294">
 

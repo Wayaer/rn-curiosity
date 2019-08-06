@@ -3,6 +3,7 @@ package com.curiosity;
 import android.app.Application;
 
 import com.curiosity.NativeTools;//bundle更新加入代码
+import com.facebook.react.BuildConfig;
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
