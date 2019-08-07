@@ -1,11 +1,8 @@
 import {NativeModules, Platform} from 'react-native';
+import {NativeConstant} from './NativeConstant';
 
 const RNCuriosity = NativeModules.RNCuriosity;
 const SplashScreen = NativeModules.SplashScreen;
-// 系统是iOS
-const IOS = (Platform.OS === 'ios');
-// 系统是安卓
-const Android = (Platform.OS === 'android');
 
 export class NativeUtils {
   /**
@@ -50,7 +47,7 @@ export class NativeUtils {
    * @constructor
    */
   static SplashScreenHide() {
-    if (IOS) {
+    if (NativeConstant.IOS) {
       RNCuriosity.hideSplashScreen();
     } else {
       SplashScreen.hideSplashScreen();
@@ -64,7 +61,7 @@ export class NativeUtils {
    * @constructor
    */
   static SplashScreenShow() {
-    if (IOS) {
+    if (NativeConstant.IOS) {
       RNCuriosity.showSplashScreen();
     } else {
       SplashScreen.showSplashScreen();
@@ -106,11 +103,11 @@ export class NativeUtils {
     if (!url) {
       return NativeUtils.logError('url');
     }
-    if (Android) {
+    if (NativeConstant.Android) {
       RNCuriosity.getAllCookie(url, (data) => {
         return callback(data);
       });
-    } else if (IOS) {
+    } else if (NativeConstant.IOS) {
       RNCuriosity.getAllCookie((data) => {
         return callback(data);
       });
@@ -202,9 +199,9 @@ export class NativeUtils {
       return NativeUtils.logError('filePath');
     }
     RNCuriosity.isFolderExists(filePath, (data) => {
-      if (Android) {
+      if (NativeConstant.Android) {
         return callback(data);
-      } else if (IOS) {
+      } else if (NativeConstant.IOS) {
         if (data === 'true') {
           return callback(true);
         } else if (data === 'false') {
@@ -225,7 +222,7 @@ export class NativeUtils {
     if (!filePath) {
       return NativeUtils.logError('filePath');
     }
-    if (Android) {
+    if (NativeConstant.Android) {
       RNCuriosity.isFolderExists(filePath, (data) => {
         if (data) {
           return callback('success');
@@ -243,7 +240,7 @@ export class NativeUtils {
    *
    */
   static goToMarket(packageName, marketPackageName) {
-    if (Android) {
+    if (NativeConstant.Android) {
       if (!packageName) {
         return NativeUtils.logError('packageName');
       }
@@ -268,7 +265,7 @@ export class NativeUtils {
    * @param navigationBarColor  //String  状态栏背景色 仅支持六进制颜色值 #000000 rgb  #00000000 rgba
    */
   static setNavigationBarColor(fontIconDark, navigationBarColor) {
-    if (Android) {
+    if (NativeConstant.Android) {
       RNCuriosity.setNavigationBarColor(fontIconDark, navigationBarColor || '#00000000');
     }
   }

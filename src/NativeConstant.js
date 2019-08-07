@@ -4,6 +4,16 @@ import {Platform, NativeModules, Dimensions} from 'react-native';
 export const {height, width, scale} = Dimensions.get('window');
 const RNCuriosity = NativeModules.RNCuriosity;
 export const NativeConstant = {
+  // 系统是iOS
+  IOS: (Platform.OS === 'ios'),
+  // 系统是安卓
+  Android: (Platform.OS === 'android'),
+  // 实际屏幕高度
+  ActualScreen_Height: height,
+  // 获取屏幕宽度
+  Screen_Width: width,
+  // 获取屏幕分辨率
+  Screen_Scale: scale,
 
   //系统版本
   SystemVersion: RNCuriosity.constants.systemVersion,
