@@ -1,6 +1,7 @@
 package com.curiosity;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -13,21 +14,17 @@ import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.CookieManager;
 import android.webkit.ValueCallback;
 
 
+import androidx.annotation.RequiresApi;
 import androidx.core.content.FileProvider;
 
-import com.curiosity.statusbarutil.StatusBarUtil;
 import com.curiosity.utils.FileUtils;
-import com.facebook.react.ReactActivity;
 import com.facebook.react.bridge.GuardedRunnable;
-import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContext;
 import com.facebook.react.bridge.UiThreadUtil;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
@@ -52,7 +49,6 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import javax.annotation.Nullable;
 
 /**
  * Created by Wayaer on 2017/9/15.
@@ -433,9 +429,50 @@ public class NativeTools {
      */
     public static void setStatusBarColor(final Activity activity, final Boolean fontIconDark, final String statusBarColor) {
         UiThreadUtil.runOnUiThread(new GuardedRunnable(CuriosityModule.reactApplicationContext) {
+            @TargetApi(Build.VERSION_CODES.M)
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void runGuarded() {
-                StatusBarUtil.setImmersiveStatusBar(activity, fontIconDark, statusBarColor);
+                Window window = activity.getWindow();
+                if (fontIconDark) {
+                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                    window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                } else {
+                    window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+                }
+                window.setStatusBarColor(Color.parseColor(statusBarColor));
+            }
+        });
+    }
+
+    /**
+     * 修改导航栏虚拟按键背景色
+     *
+     * @param activity
+     * @param navigationBarColor
+     */
+    public static void setNavigationBarColor(final Activity activity, final String navigationBarColor) {
+        UiThreadUtil.runOnUiThread(new GuardedRunnable(CuriosityModule.reactApplicationContext) {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void runGuarded() {
+                Window window = activity.getWindow();
+                window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN//状态栏不会被隐藏但activity布局会扩展到状态栏所在位置
+                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION//导航栏不会被隐藏但activity布局会扩展到导航栏所在位置
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+                window.setNavigationBarColor(Color.parseColor(navigationBarColor));
+            }
+        });
+    }
+
+
+    public static void setSystemUiVisibility(final Activity activity, final int uiFlags) {
+        UiThreadUtil.runOnUiThread(new GuardedRunnable(CuriosityModule.reactApplicationContext) {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void runGuarded() {
+                activity.getWindow().getDecorView().setSystemUiVisibility(uiFlags);
             }
         });
     }
