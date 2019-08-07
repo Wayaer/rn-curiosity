@@ -30,8 +30,6 @@
 ```
 
 
-
-
 #方法 NativeUtils
 [参考NativeUtils文件](src/NativeUtils.js)
 
