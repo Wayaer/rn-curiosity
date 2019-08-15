@@ -209,4 +209,6 @@ android/src/main/AndroidManiTest.xml  中加入代码
 
 
 ```
-
+版本更新记录
+3.0.5
+加入android sql操作，增删改 以及sql语句（ios端后续加入）

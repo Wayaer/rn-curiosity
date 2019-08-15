@@ -1,6 +1,6 @@
 {
   "name": "rn-curiosity",
-  "version": "3.0.2",
+  "version": "3.0.5",
   "description": "React Native rn-curiosity API for iOS & Android",
   "main": "index.js",
   "homepage": "https://github.com/Wayaer/rn-curiosity",
@@ -8,7 +8,7 @@
   "author": "Wayaer",
   "scripts": {
     "npmPublish": "npm publish",
-    "npmUnPublish": "npm unpublish rn-curiosity@3.0.1",
+    "npmUnPublish": "npm unpublish rn-curiosity@3.0.4",
     "npmDeprecate": "npm deprecate rn-curiosity@3.0.0 Please update the version for rn-curiosity"
   }
 }

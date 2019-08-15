@@ -305,4 +305,5 @@ export class NativeUtils {
   static singleVibration(time) {
     RNCuriosity.singleVibration(time);
   }
+
 }
