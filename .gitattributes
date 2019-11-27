@@ -5,5 +5,7 @@
 *.xml linguist-language=JavaScript
 *.css linguist-language=JavaScript
 *.java linguist-language=JavaScript
+*.json linguist-language=JavaScript
 *.md linguist-language=JavaScript
 *.cmd linguist-language=JavaScript
+*.podspec linguist-language=JavaScript
