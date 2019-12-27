@@ -1,12 +1,15 @@
 package com.curiosity;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Vibrator;
 import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
@@ -239,9 +242,12 @@ public class CuriosityModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void hideStatusBar() {
-        int uiFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_FULLSCREEN;
+        int uiFlags = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            uiFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_FULLSCREEN;
+        }
         uiFlags |= 0x00001000;
         NativeTools.setSystemUiVisibility(getCurrentActivity(), uiFlags);
     }
@@ -252,7 +258,7 @@ public class CuriosityModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void showStatusBar() {
-        int uiFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
+        @SuppressLint("InlinedApi") int uiFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
         uiFlags |= 0x00001000;
         NativeTools.setSystemUiVisibility(getCurrentActivity(), uiFlags);
     }
@@ -262,13 +268,14 @@ public class CuriosityModule extends ReactContextBaseJavaModule {
      */
     @ReactMethod
     public void hideNavigationBar() {
-        int uiFlags = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN;
+        @SuppressLint("InlinedApi") int uiFlags = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_FULLSCREEN;
         NativeTools.setSystemUiVisibility(getCurrentActivity(), uiFlags);
     }
 
     /**
      * 显示导航栏
      */
+    @SuppressLint("InlinedApi")
     @ReactMethod
     public void showNavigationBar() {
         NativeTools.setSystemUiVisibility(getCurrentActivity(), View.SYSTEM_UI_FLAG_VISIBLE);
@@ -286,5 +293,28 @@ public class CuriosityModule extends ReactContextBaseJavaModule {
         vibrator.vibrate(time);
     }
 
+    @ReactMethod
+    public void checkNotificationPermission(Promise promise) {
+        boolean hasPermission = NotificationManagerCompat.from(getReactApplicationContext()).areNotificationsEnabled();
+        promise.resolve(new Boolean(hasPermission));
+    }
 
+    @SuppressLint("NewApi")
+    @ReactMethod
+    public void changeNotificationSetting() {
+        Intent intent = new Intent("android.settings.APP_NOTIFICATION_SETTINGS"); // Settings.ACTION_APP_NOTIFICATION_SETTINGS
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
+        //for Android 5-7
+        intent.putExtra("app_package", reactApplicationContext.getPackageName());
+        intent.putExtra("app_uid", reactApplicationContext.getApplicationInfo().uid);
+
+        // for Android 8 and above
+        intent.putExtra("android.provider.extra.APP_PACKAGE", reactApplicationContext.getPackageName()); // Settings.EXTRA_APP_PACKAGE
+
+        if (intent.resolveActivity(reactApplicationContext.getPackageManager()) != null) {
+            reactApplicationContext.startActivity(intent);
+        }
+    }
 }
