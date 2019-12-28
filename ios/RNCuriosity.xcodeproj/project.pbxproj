@@ -58,8 +58,8 @@
 		14591CEA23B7611700975AEB /* AlipaySDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlipaySDK.h; sourceTree = "<group>"; };
 		14591CEB23B7611700975AEB /* APayAuthInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APayAuthInfo.h; sourceTree = "<group>"; };
 		14591CEC23B7611700975AEB /* libAlipaySDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAlipaySDK.a; sourceTree = "<group>"; };
-		14591CED23B7611700975AEB /* RCTAlipay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTAlipay.h; sourceTree = "<group>"; };
-		14591CEE23B7611700975AEB /* RCTAlipay.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTAlipay.m; sourceTree = "<group>"; };
+		14591CED23B7611700975AEB /* RCTAliPay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTAliPay.h; sourceTree = "<group>"; };
+		14591CEE23B7611700975AEB /* RCTAliPay.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTAliPay.m; sourceTree = "<group>"; };
 		149C2D472227B46C0039ED1E /* AppDelegateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegateTest.m; sourceTree = "<group>"; };
 		14A98E2F222692CD00BE24EE /* RNCuriosity.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = RNCuriosity.xcodeproj; sourceTree = "<group>"; };
 		14A98E32222692CD00BE24EE /* RNCuriosity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNCuriosity.m; sourceTree = "<group>"; };
@@ -148,8 +148,8 @@
 				14591CEA23B7611700975AEB /* AlipaySDK.h */,
 				14591CEB23B7611700975AEB /* APayAuthInfo.h */,
 				14591CEC23B7611700975AEB /* libAlipaySDK.a */,
-				14591CED23B7611700975AEB /* RCTAlipay.h */,
-				14591CEE23B7611700975AEB /* RCTAlipay.m */,
+				14591CED23B7611700975AEB /* RCTAliPay.h */,
+				14591CEE23B7611700975AEB /* RCTAliPay.m */,
 			);
 			path = AliPay;
 			sourceTree = "<group>";

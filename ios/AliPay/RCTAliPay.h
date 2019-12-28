@@ -1,10 +1,3 @@
-//
-//  RCTAlipay.h
-//  RCTAlipay
-//
-//  Created by 高森 on 2017/9/30.
-//  Copyright © 2017年 0x5e. All rights reserved.
-//
 
 #if __has_include("RCTBridgeModule.h")
 #import "RCTBridgeModule.h"
@@ -20,6 +13,6 @@
 #import <AlipaySDK/AlipaySDK.h>
 #endif
 
-@interface RCTAlipay : NSObject <RCTBridgeModule>
+@interface RCTAliPay : NSObject <RCTBridgeModule>
 
 @end

@@ -24,7 +24,7 @@ public class AliPayModule extends ReactContextBaseJavaModule {
 
   @Override
   public String getName() {
-    return "RCTAlipay";
+    return "RCTAliPay";
   }
 
   @ReactMethod

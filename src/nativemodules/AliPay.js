@@ -1,10 +1,10 @@
 import {NativeModules} from 'react-native';
 import {Buffer} from 'buffer';
-import RSASign from 'jsrsasign';
+import {KEYUTIL, KJUR} from 'jsrsasign';
 
-const {Alipay} = NativeModules;
+const {AliPay} = NativeModules;
 
-Alipay.sign = (object, privateKey) => {
+AliPay.sign = (object, privateKey) => {
 
     // Add default sign_type
     if (!object.sign_type || object.sign_type.length === 0) {
@@ -24,7 +24,7 @@ Alipay.sign = (object, privateKey) => {
     // Sort query string
     let sortedQuery = '';
     let sortedKeys = Object.keys(object).sort((a, b) => a > b);
-    for (var i = 0; i < sortedKeys.length; i++) {
+    for (let i = 0; i < sortedKeys.length; i++) {
         let key = sortedKeys[i];
         let value = object[key];
         sortedQuery += `${(i === 0) ? '' : '&'}${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
@@ -32,13 +32,11 @@ Alipay.sign = (object, privateKey) => {
 
     // Create signature
     let alg = {RSA: 'SHA1withRSA', RSA2: 'SHA256withRSA'}[object.sign_type];
-    let sig = new RSASign.KJUR.crypto.Signature({alg});
-    sig.init(RSASign.KEYUTIL.getKey(privateKey));
+    let sig = KJUR.crypto.Signature({alg});
+    sig.init(KEYUTIL.getKey(privateKey));
     sig.updateString(sortedQuery);
     let sign = Buffer.from(sig.sign(), 'hex').toString('base64');
 
     sortedQuery += `&sign=${encodeURIComponent(sign)}`;
     return sortedQuery;
 }
-
-export default aliPay;

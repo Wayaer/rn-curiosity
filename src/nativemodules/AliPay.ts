@@ -8,14 +8,14 @@ interface IResult {
 
 export declare namespace aliPay {
 
-    function aliPayAuthWithInfo(infoStr: string): IResult;
+    function payAuthWithInfo(infoStr: string): IResult;
 
-    function aliPay(infoStr: string): IResult;
+    function pay(infoStr: string): IResult;
 
-    function aliPayInterceptorWithUrl(infoStr: string): {
+    function payInterceptorWithUrl(infoStr: string): {
         resultCode: TStatus;
         returnUrl: string;
     };
 
-    function aliPaySign(infoStr: string): string;
+    function sign(infoStr: string): string;
 }

@@ -1,23 +1,16 @@
-//
-//  RCTAlipay.m
-//  RCTAlipay
-//
-//  Created by 高森 on 2017/9/30.
-//  Copyright © 2017年 0x5e. All rights reserved.
-//
 
-#import "RCTAlipay.h"
+#import "RCTAliPay.h"
 
 // RCTLinking/RCTLinkingManager.m
 static NSString *const kOpenURLNotification = @"RCTOpenURLNotification";
 
-@interface RCTAlipay ()
+@interface RCTAliPay ()
 
 @property (nonatomic, copy) RCTPromiseResolveBlock payOrderResolve;
 
 @end
 
-@implementation RCTAlipay
+@implementation RCTAliPay
 
 - (instancetype)init {
     if (self = [super init]) {
