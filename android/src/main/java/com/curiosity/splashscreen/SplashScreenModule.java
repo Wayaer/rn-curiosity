@@ -1,4 +1,4 @@
-package com.curiosity.splashScreen;
+package com.curiosity.splashscreen;
 
 import android.app.Activity;
 import android.app.Dialog;

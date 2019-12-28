@@ -1,5 +1,4 @@
-
-package com.reactlibrary;
+package com.curiosity.alipay;
 
 import com.alipay.sdk.app.H5PayCallback;
 import com.alipay.sdk.util.H5PayResultModel;
@@ -14,18 +13,18 @@ import com.facebook.react.bridge.WritableMap;
 
 import java.util.Map;
 
-public class AlipayModule extends ReactContextBaseJavaModule {
+public class AliPayModule extends ReactContextBaseJavaModule {
 
   private final ReactApplicationContext reactContext;
 
-  public AlipayModule(ReactApplicationContext reactContext) {
+  public AliPayModule(ReactApplicationContext reactContext) {
     super(reactContext);
     this.reactContext = reactContext;
   }
 
   @Override
   public String getName() {
-    return "Alipay";
+    return "RCTAlipay";
   }
 
   @ReactMethod
