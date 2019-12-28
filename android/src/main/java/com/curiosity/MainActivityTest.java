@@ -4,7 +4,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
-import com.curiosity.splashScreen.SplashScreenModule;
+import com.curiosity.splashscreen.SplashScreenModule;
 import com.facebook.react.ReactActivity;
 
 public class MainActivityTest extends ReactActivity {
