@@ -14,5 +14,9 @@
   "dependencies": {
     "buffer": "^5.4.3",
     "jsrsasign": "^8.0.12"
+  },
+  "peerDependencies": {
+    "buffer": "^5.4.3",
+    "jsrsasign": "^8.0.12"
   }
 }
