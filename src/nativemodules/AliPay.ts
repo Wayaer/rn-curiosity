@@ -17,5 +17,5 @@ export declare namespace aliPay {
         returnUrl: string;
     };
 
-    function sign(infoStr: string): string;
+    // function sign(infoStr: string): string;
 }
