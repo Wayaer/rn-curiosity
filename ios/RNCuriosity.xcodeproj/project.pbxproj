@@ -55,8 +55,8 @@
 		1438F871224E257A00F8A9C7 /* LinearGradientManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinearGradientManager.m; sourceTree = "<group>"; };
 		1438F872224E257A00F8A9C7 /* LinearGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinearGradientLayer.h; sourceTree = "<group>"; };
 		14591CE923B7611700975AEB /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
-		14591CEA23B7611700975AEB /* AlipaySDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AlipaySDK.h; sourceTree = "<group>"; };
-		14591CEB23B7611700975AEB /* APayAuthInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = APayAuthInfo.h; sourceTree = "<group>"; };
+		14591CEA23B7611700975AEB /* AliPaySDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AliPaySDK.h; sourceTree = "<group>"; };
+		14591CEB23B7611700975AEB /* AliPayAuthInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AliPayAuthInfo.h; sourceTree = "<group>"; };
 		14591CEC23B7611700975AEB /* libAlipaySDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAlipaySDK.a; sourceTree = "<group>"; };
 		14591CED23B7611700975AEB /* RCTAliPay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTAliPay.h; sourceTree = "<group>"; };
 		14591CEE23B7611700975AEB /* RCTAliPay.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTAliPay.m; sourceTree = "<group>"; };
@@ -145,8 +145,8 @@
 			isa = PBXGroup;
 			children = (
 				14591CE923B7611700975AEB /* AlipaySDK.bundle */,
-				14591CEA23B7611700975AEB /* AlipaySDK.h */,
-				14591CEB23B7611700975AEB /* APayAuthInfo.h */,
+				14591CEA23B7611700975AEB /* AliPaySDK.h */,
+				14591CEB23B7611700975AEB /* AliPayAuthInfo.h */,
 				14591CEC23B7611700975AEB /* libAlipaySDK.a */,
 				14591CED23B7611700975AEB /* RCTAliPay.h */,
 				14591CEE23B7611700975AEB /* RCTAliPay.m */,

@@ -4,7 +4,7 @@
 ////////////////////////////////////////////////////////
 
 #import <UIKit/UIKit.h>
-#import "APayAuthInfo.h"
+#import "AliPayAuthInfo.h"
 
 typedef void(^CompletionBlock)(NSDictionary *resultDic);
 

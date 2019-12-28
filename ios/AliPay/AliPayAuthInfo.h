@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface APayAuthInfo : NSObject
+@interface AliPayAuthInfo : NSObject
 
 @property(nonatomic, copy)NSString *appID;
 @property(nonatomic, copy)NSString *pid;
