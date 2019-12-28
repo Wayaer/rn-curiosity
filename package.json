@@ -10,5 +10,9 @@
     "npmPublish": " npm publish",
     "npmUnPublish": " npm unpublish rn-curiosity@0.0.2",
     "npmDeprecate": "npm deprecate rn-curiosity@0.0.0 Please update the version for rn-curiosity"
+  },
+  "dependencies": {
+    "buffer": "^5.4.3",
+    "jsrsasign": "^8.0.12"
   }
 }
