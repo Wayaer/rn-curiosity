@@ -3,6 +3,7 @@
 #import <React/RCTBridge.h>
 #import <React/RCTEventEmitter.h>
 
+
 @interface RNCuriosity : RCTEventEmitter<RCTBridgeModule>
 //Log
 + (void)logInfo:(id)props;

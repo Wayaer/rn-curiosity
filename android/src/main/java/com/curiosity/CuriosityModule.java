@@ -9,7 +9,6 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
-import androidx.core.app.NotificationManagerCompat;
 
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.Promise;
@@ -293,28 +292,4 @@ public class CuriosityModule extends ReactContextBaseJavaModule {
         vibrator.vibrate(time);
     }
 
-    @ReactMethod
-    public void checkNotificationPermission(Promise promise) {
-        boolean hasPermission = NotificationManagerCompat.from(getReactApplicationContext()).areNotificationsEnabled();
-        promise.resolve(new Boolean(hasPermission));
-    }
-
-    @SuppressLint("NewApi")
-    @ReactMethod
-    public void changeNotificationSetting() {
-        Intent intent = new Intent("android.settings.APP_NOTIFICATION_SETTINGS"); // Settings.ACTION_APP_NOTIFICATION_SETTINGS
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-
-        //for Android 5-7
-        intent.putExtra("app_package", reactApplicationContext.getPackageName());
-        intent.putExtra("app_uid", reactApplicationContext.getApplicationInfo().uid);
-
-        // for Android 8 and above
-        intent.putExtra("android.provider.extra.APP_PACKAGE", reactApplicationContext.getPackageName()); // Settings.EXTRA_APP_PACKAGE
-
-        if (intent.resolveActivity(reactApplicationContext.getPackageManager()) != null) {
-            reactApplicationContext.startActivity(intent);
-        }
-    }
 }

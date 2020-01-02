@@ -1,4 +1,4 @@
-import {NativeModules, Platform} from 'react-native';
+import {NativeModules} from 'react-native';
 import {NativeConstant} from './NativeConstant';
 
 const RNCuriosity = NativeModules.RNCuriosity;
@@ -305,14 +305,6 @@ export class NativeUtils {
      */
     static singleVibration(time) {
         RNCuriosity.singleVibration(time);
-    }
-
-    static changeNotificationSetting(time) {
-        RNCuriosity.changeNotificationSetting(time);
-    }
-
-    static checkNotificationPermission() {
-        RNCuriosity.checkNotificationPermission();
     }
 
 }

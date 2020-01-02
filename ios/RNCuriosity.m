@@ -1,7 +1,7 @@
 #import "RNCuriosity.h"
 #import <AudioToolbox/AudioToolbox.h>
 @implementation RNCuriosity
-@interface RCT_EXTERN_MODULE(CheckNotificationPermission, NSObject)
+RCT_EXPORT_MODULE(RNCuriosity)
 - (dispatch_queue_t)methodQueue
 {
     return dispatch_get_main_queue();
@@ -45,7 +45,7 @@
 {
     return @{@"constants":[NativeTools getAppInfo]};
 }
-RCT_EXPORT_MODULE(RNCuriosity)
+
 
 // promise例子
 RCT_REMAP_METHOD(promiseCallback, options:(NSString *)options resolver:(RCTPromiseResolveBlock)resolver rejecter:(RCTPromiseRejectBlock)rejecter){
@@ -148,8 +148,4 @@ RCT_EXPORT_METHOD(goToMarket:(NSString *)idStr) {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[url stringByAppendingString:idStr]]];
     
 }
-RCT_EXTERN_METHOD(checkNotificationPermission:
-                  (RCTPromiseResolveBlock)resolve
-                  rejecter:(RCTPromiseRejectBlock)reject)
-RCT_EXTERN_METHOD(changeNotificationSetting)
 @end
