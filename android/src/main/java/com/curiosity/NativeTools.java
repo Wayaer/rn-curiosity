@@ -213,6 +213,14 @@ public class NativeTools {
         return context.getFilesDir().getPath();
     }
 
+    /**
+     * 获取android 内部 Files文件
+     *
+     * @return
+     */
+    public static String getExternalFilesDir(Context context) {
+        return context.getExternalFilesDir(null).getPath();
+    }
 
     /**
      * 解压文件
@@ -305,17 +313,35 @@ public class NativeTools {
     }
 
     /**
-     * 判断是否存在bundle文件
+     * 返回bundle文件 没有返回null
      *
      * @return
      */
-    public static boolean isBundle(Context context) {
-        String filePath = getFilesDir(context) + "/bundle/index.bundle";
-        File file = new File(filePath);
-        if (file.exists()) return true;
-        return false;
+    public static File getBundleFile(Context context) {
+        String indexBundleName = "index.bundle";
+        String filePath = getFilePath(context, indexBundleName) + indexBundleName;
+        if (filePath.equals("")) return null;
+        return new File(filePath);
+
     }
 
+    /**
+     * 获取index.bundle 或version 文件path  不存在返回""
+     *
+     * @param context
+     * @return
+     */
+    public static String getFilePath(Context context, String fileName) {
+        String filePath = getFilesDir(context) + "/bundle/";
+        String fileExternalPath = getExternalFilesDir(context) + "/bundle/";
+        if (isFolderExists(filePath + fileName)) {
+            return filePath;
+        } else if (isFolderExists(fileExternalPath + fileName)) {
+            return fileExternalPath;
+        }
+        return "";
+
+    }
 
     /**
      * 判断bundle版本是否匹配当前app版本
@@ -323,33 +349,29 @@ public class NativeTools {
      * @return
      */
     public static boolean matchingVersion(Context context) {
+        String versionFileName = "version.json";
+        String versionPath = getFilePath(context, versionFileName);
+        if (versionPath.equals("")) return false;
         int localVersionCode = 0;
+        int versionCode = 0;
+        File file = new File(versionPath + versionFileName);
         try {
             localVersionCode = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        String versionPath = NativeTools.getFilesDir(context) + "/bundle/version.json";
-        if (isFolderExists(versionPath)) {
-            int versionCode = 0;
-            File file = new File(versionPath);
-            try {
-                BufferedReader v = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-                versionCode = Integer.parseInt(new JSONObject(v.readLine()).getString("version"));
-                v.close();
-                if (versionCode == localVersionCode) {
-                    return true;
-                } else {
-                    NativeTools.deleteFile(NativeTools.getFilesDir(context) + "/bundle");
-                    NativeTools.deleteFile(NativeTools.getFilesDir(context) + "/bundle.zip");
-                    return false;
-                }
-            } catch (Exception e) {
+            BufferedReader v = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+            String versionFileKey = "version";
+            versionCode = Integer.parseInt(new JSONObject(v.readLine()).getString(versionFileKey));
+            v.close();
+            if (versionCode == localVersionCode) {
+                return true;
+            } else {
+                NativeTools.deleteFile(versionPath + "bundle");
+                NativeTools.deleteFile(versionPath + "bundle.zip");
                 return false;
             }
-        } else {
+        } catch (Exception e) {
             return false;
         }
+
     }
 
 
@@ -378,7 +400,7 @@ public class NativeTools {
         Uri uri = Uri.parse("market://details?id=" + packageName);
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        if (marketPackageName != null && marketPackageName != "") {// 如果没给市场的包名，则系统会弹出市场的列表让你进行选择。
+        if (marketPackageName != null && !marketPackageName.equals("")) {// 如果没给市场的包名，则系统会弹出市场的列表让你进行选择。
             intent.setPackage(marketPackageName);
         }
         try {

@@ -21,12 +21,11 @@ public class ApplicationTest extends Application {
      **
         @Override
         protected String getJSBundleFile() {
-            if (NativeTools.isBundle(getApplicationContext()) && NativeTools.matchingVersion(getApplicationContext())) {
-                File file = new File(NativeTools.getFilesDir(getApplicationContext()) + "/bundle/index.bundle");
-                return file.getAbsolutePath();
-            } else {
-                return super.getJSBundleFile();
-            }
+           if (NativeTools.getBundleFile(getApplicationContext()) != null && NativeTools.matchingVersion(getApplicationContext())) {
+                   return NativeTools.getBundleFile(getApplicationContext()).getAbsolutePath();
+              } else {
+                  return super.getJSBundleFile();
+              }
         }
 
 
