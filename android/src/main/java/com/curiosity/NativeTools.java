@@ -19,7 +19,6 @@ import android.view.WindowManager;
 import android.webkit.CookieManager;
 import android.webkit.ValueCallback;
 
-
 import androidx.annotation.RequiresApi;
 import androidx.core.content.FileProvider;
 
@@ -29,7 +28,6 @@ import com.facebook.react.bridge.UiThreadUtil;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
-
 
 import org.json.JSONObject;
 
@@ -352,16 +350,20 @@ public class NativeTools {
         String versionFileName = "version.json";
         String versionPath = getFilePath(context, versionFileName);
         if (versionPath.equals("")) return false;
-        int localVersionCode = 0;
-        int versionCode = 0;
-        File file = new File(versionPath + versionFileName);
+        String localVersionCode;
+        String versionCode;
         try {
-            localVersionCode = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode;
-            BufferedReader v = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-            String versionFileKey = "version";
-            versionCode = Integer.parseInt(new JSONObject(v.readLine()).getString(versionFileKey));
-            v.close();
-            if (versionCode == localVersionCode) {
+            localVersionCode = String.valueOf(context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionCode);
+            BufferedReader bufferedReader =
+                    new BufferedReader(new InputStreamReader(new FileInputStream(new File(versionPath + versionFileName))));
+            StringBuilder versionJson = new StringBuilder();
+            String readString;
+            while ((readString = bufferedReader.readLine()) != null) {
+                versionJson.append(readString);
+            }
+            versionCode = new JSONObject(versionJson.toString()).getString("version").trim();
+            bufferedReader.close();
+            if (versionCode.equals(localVersionCode)) {
                 return true;
             } else {
                 NativeTools.deleteFile(versionPath + "bundle");
