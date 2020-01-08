@@ -18,8 +18,8 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.dependency "React"
-  s.resource = '/AliPay/AlipaySDK.bundle'
-  s.vendored_libraries = "/AliPay/libAlipaySDK.a"
+  s.resource = 'AlipaySDK.bundle'
+  s.vendored_libraries = "libAlipaySDK.a"
   s.frameworks = "SystemConfiguration", "CoreTelephony", "QuartzCore", "CoreText", "CoreGraphics", "UIKit", "Foundation", "CFNetwork", "CoreMotion"
   s.library = "c++", "z"
 end
