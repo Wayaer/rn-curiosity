@@ -432,7 +432,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/RNCuriosity\"",
-					"$(PROJECT_DIR)/AliPay",
+					"\"$(SRCROOT)/AliPay/RCTAliPay\"",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RNCuriosity;
@@ -457,7 +458,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/RNCuriosity\"",
-					"$(PROJECT_DIR)/AliPay",
+					"\"$(SRCROOT)/AliPay/RCTAliPay\"",
+					"$(PROJECT_DIR)",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RNCuriosity;

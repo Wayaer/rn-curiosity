@@ -31,7 +31,7 @@ static NSString *const kOpenURLNotification = @"RCTOpenURLNotification";
     NSURL *url = [NSURL URLWithString:urlString];
     if ([url.host isEqualToString:@"safepay"]) {
         __weak __typeof__(self) weakSelf = self;
-        [AlipaySDK.defaultService processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+        [AliPaySDK.defaultService processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
             NSLog(@"processOrderWithPaymentResult = %@", resultDic);
             if (weakSelf.payOrderResolve) {
                 weakSelf.payOrderResolve(resultDic);
@@ -39,7 +39,7 @@ static NSString *const kOpenURLNotification = @"RCTOpenURLNotification";
             }
         }];
 
-        [AlipaySDK.defaultService processAuth_V2Result:url standbyCallback:^(NSDictionary *resultDic) {
+        [AliPaySDK.defaultService processAuth_V2Result:url standbyCallback:^(NSDictionary *resultDic) {
             NSLog(@"processAuth_V2Result = %@", resultDic);
         }];
     }
@@ -54,7 +54,7 @@ RCT_EXPORT_MODULE()
 RCT_EXPORT_METHOD(aliPayAuthWithInfo:(NSString *)infoStr
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject) {
-    [AlipaySDK.defaultService auth_V2WithInfo:infoStr fromScheme:self.appScheme callback:^(NSDictionary *resultDic) {
+    [AliPaySDK.defaultService auth_V2WithInfo:infoStr fromScheme:self.appScheme callback:^(NSDictionary *resultDic) {
         resolve(resultDic);
     }];
 }
@@ -63,7 +63,7 @@ RCT_EXPORT_METHOD(aliPay:(NSString *)orderInfo
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject) {
     self.payOrderResolve = resolve;
-    [AlipaySDK.defaultService payOrder:orderInfo fromScheme:self.appScheme callback:^(NSDictionary *resultDic) {
+    [AliPaySDK.defaultService payOrder:orderInfo fromScheme:self.appScheme callback:^(NSDictionary *resultDic) {
 //        resolve(resultDic);
     }];
 }
@@ -71,13 +71,13 @@ RCT_EXPORT_METHOD(aliPay:(NSString *)orderInfo
 RCT_EXPORT_METHOD(aliPayInterceptorWithUrl:(NSString *)urlStr
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject) {
-    [AlipaySDK.defaultService payInterceptorWithUrl:urlStr fromScheme:self.appScheme callback:^(NSDictionary *resultDic) {
+    [AliPaySDK.defaultService payInterceptorWithUrl:urlStr fromScheme:self.appScheme callback:^(NSDictionary *resultDic) {
         resolve(resultDic);
     }];
 }
 
 RCT_EXPORT_METHOD(getAliPaySDKVersion:(RCTPromiseResolveBlock)resolve) {
-    resolve(AlipaySDK.defaultService.currentVersion);
+    resolve(AliPaySDK.defaultService.currentVersion);
 }
 
 - (NSString *)appScheme {

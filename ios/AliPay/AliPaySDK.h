@@ -36,7 +36,7 @@ typedef enum {
  *
  *  @return 返回单例对象
  */
-+ (AlipaySDK *)defaultService;
++ (AliPaySDK *)defaultService;
 
 /**
  *  用于设置SDK使用的window，如果没有自行创建window无需设置此接口
@@ -127,7 +127,7 @@ typedef enum {
  *  @param completionBlock  授权结果回调，若在授权过程中，调用方应用被系统终止，则此block无效，
                             需要调用方在appDelegate中调用processAuth_V2Result:standbyCallback:方法获取授权结果
  */
-- (void)authWithInfo:(APayAuthInfo *)authInfo
+- (void)authWithInfo:(AliPayAuthInfo *)authInfo
             callback:(CompletionBlock)completionBlock;
 
 /**
