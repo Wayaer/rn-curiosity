@@ -71,12 +71,7 @@ Android:
         * */
        @Override
        protected String getJSBundleFile() {
-         if (NativeTools.isBundle(getApplicationContext()) && NativeTools.matchingVersion(getApplicationContext())) {
-           File file = new File(NativeTools.getFilesDir(getApplicationContext()) + "/bundle/index.bundle");
-           return file.getAbsolutePath();
-         } else {
-           return super.getJSBundleFile();
-         }
+        ///
        }
        ...
        
@@ -209,6 +204,4 @@ android/src/main/AndroidManiTest.xml  中加入代码
 
 
 ```
-版本更新记录  
-0.1.1
-移出alipay sql操作
+

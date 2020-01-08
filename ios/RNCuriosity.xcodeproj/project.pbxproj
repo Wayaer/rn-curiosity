@@ -10,8 +10,9 @@
 		1438F873224E257A00F8A9C7 /* LinearGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1438F86D224E257A00F8A9C7 /* LinearGradient.m */; };
 		1438F874224E257A00F8A9C7 /* LinearGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1438F86E224E257A00F8A9C7 /* LinearGradientLayer.m */; };
 		1438F875224E257A00F8A9C7 /* LinearGradientManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1438F871224E257A00F8A9C7 /* LinearGradientManager.m */; };
+		14654BD723C6110F004199F3 /* libAlipaySDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 14654BD423C6110F004199F3 /* libAlipaySDK.a */; };
+		14654BE223C61C2A004199F3 /* RCTAliPay.m in Sources */ = {isa = PBXBuildFile; fileRef = 14654BE123C61C2A004199F3 /* RCTAliPay.m */; };
 		149C2D492227B46C0039ED1E /* AppDelegateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 149C2D472227B46C0039ED1E /* AppDelegateTest.m */; };
-		14A3D98223BD88F600F76E0D /* libAlipaySDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 14A3D98123BD88F600F76E0D /* libAlipaySDK.a */; };
 		14A98E8B222692CE00BE24EE /* RNCuriosity.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A98E32222692CD00BE24EE /* RNCuriosity.m */; };
 		14A98E9F222692CE00BE24EE /* NativeTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A98E60222692CE00BE24EE /* NativeTools.m */; };
 		14A98EA0222692CE00BE24EE /* crypt.c in Sources */ = {isa = PBXBuildFile; fileRef = 14A98E65222692CE00BE24EE /* crypt.c */; };
@@ -54,13 +55,13 @@
 		1438F870224E257A00F8A9C7 /* LinearGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinearGradient.h; sourceTree = "<group>"; };
 		1438F871224E257A00F8A9C7 /* LinearGradientManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinearGradientManager.m; sourceTree = "<group>"; };
 		1438F872224E257A00F8A9C7 /* LinearGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinearGradientLayer.h; sourceTree = "<group>"; };
-		14591CEA23B7611700975AEB /* AliPaySDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AliPaySDK.h; sourceTree = "<group>"; };
-		14591CEB23B7611700975AEB /* AliPayAuthInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AliPayAuthInfo.h; sourceTree = "<group>"; };
-		14591CED23B7611700975AEB /* RCTAliPay.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTAliPay.h; sourceTree = "<group>"; };
-		14591CEE23B7611700975AEB /* RCTAliPay.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RCTAliPay.m; sourceTree = "<group>"; };
+		14654BD123C6110F004199F3 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
+		14654BD423C6110F004199F3 /* libAlipaySDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAlipaySDK.a; sourceTree = "<group>"; };
+		14654BDC23C61AED004199F3 /* AliPaySDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliPaySDK.h; sourceTree = "<group>"; };
+		14654BDD23C61AF5004199F3 /* AliPayAuthInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliPayAuthInfo.h; sourceTree = "<group>"; };
+		14654BE023C61C2A004199F3 /* RCTAliPay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTAliPay.h; sourceTree = "<group>"; };
+		14654BE123C61C2A004199F3 /* RCTAliPay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTAliPay.m; sourceTree = "<group>"; };
 		149C2D472227B46C0039ED1E /* AppDelegateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegateTest.m; sourceTree = "<group>"; };
-		14A3D98123BD88F600F76E0D /* libAlipaySDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAlipaySDK.a; sourceTree = "<group>"; };
-		14A3D98423BD890800F76E0D /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
 		14A98E2F222692CD00BE24EE /* RNCuriosity.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = RNCuriosity.xcodeproj; sourceTree = "<group>"; };
 		14A98E32222692CD00BE24EE /* RNCuriosity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNCuriosity.m; sourceTree = "<group>"; };
 		14A98E5E222692CE00BE24EE /* RNCuriosity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCuriosity.h; sourceTree = "<group>"; };
@@ -112,7 +113,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14A3D98223BD88F600F76E0D /* libAlipaySDK.a in Frameworks */,
+				14654BD723C6110F004199F3 /* libAlipaySDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,15 +142,15 @@
 			path = LinearGradient;
 			sourceTree = "<group>";
 		};
-		14591CE823B7611700975AEB /* AliPay */ = {
+		14654BD023C6110F004199F3 /* AliPay */ = {
 			isa = PBXGroup;
 			children = (
-				14591CEA23B7611700975AEB /* AliPaySDK.h */,
-				14A3D98423BD890800F76E0D /* AlipaySDK.bundle */,
-				14A3D98123BD88F600F76E0D /* libAlipaySDK.a */,
-				14591CEB23B7611700975AEB /* AliPayAuthInfo.h */,
-				14591CED23B7611700975AEB /* RCTAliPay.h */,
-				14591CEE23B7611700975AEB /* RCTAliPay.m */,
+				14654BE023C61C2A004199F3 /* RCTAliPay.h */,
+				14654BE123C61C2A004199F3 /* RCTAliPay.m */,
+				14654BDD23C61AF5004199F3 /* AliPayAuthInfo.h */,
+				14654BDC23C61AED004199F3 /* AliPaySDK.h */,
+				14654BD123C6110F004199F3 /* AlipaySDK.bundle */,
+				14654BD423C6110F004199F3 /* libAlipaySDK.a */,
 			);
 			path = AliPay;
 			sourceTree = "<group>";
@@ -223,7 +224,7 @@
 		58B511D21A9E6C8500147676 = {
 			isa = PBXGroup;
 			children = (
-				14591CE823B7611700975AEB /* AliPay */,
+				14654BD023C6110F004199F3 /* AliPay */,
 				1438F86C224E257A00F8A9C7 /* LinearGradient */,
 				149C2D472227B46C0039ED1E /* AppDelegateTest.m */,
 				14A98EC3222693E300BE24EE /* NativeTools.h */,
@@ -312,6 +313,7 @@
 				14A98EA4222692CE00BE24EE /* ioapi_buf.c in Sources */,
 				14A98EAD222692CE00BE24EE /* prng.c in Sources */,
 				14A98EA3222692CE00BE24EE /* ioapi.c in Sources */,
+				14654BE223C61C2A004199F3 /* RCTAliPay.m in Sources */,
 				149C2D492227B46C0039ED1E /* AppDelegateTest.m in Sources */,
 				1438F874224E257A00F8A9C7 /* LinearGradientLayer.m in Sources */,
 				14A98EAB222692CE00BE24EE /* sha1.c in Sources */,
