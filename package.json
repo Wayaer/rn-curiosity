@@ -1,17 +1,21 @@
 {
   "name": "rn-curiosity",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "description": "React Native rn-curiosity API for iOS & Android",
   "main": "index.js",
-  "pod":"RNCuriosity",
+  "pod": "RNCuriosity",
   "homepage": "https://github.com/Wayaer/rn-curiosity",
   "license": "license",
   "author": "Wayaer",
   "scripts": {
     "useNpm": "npx nrm use npm",
     "useTaoBao": "npx nrm use taobao",
-    "npmPublish": " npm publish",
-    "npmUnPublish": " npm unpublish rn-curiosity@0.3.3",
+    "npmPublish": "npm publish",
+    "npmUnPublish": "npm unpublish rn-curiosity@0.3.5",
     "npmDeprecate": "npm deprecate rn-curiosity@0.0.0 Please update the version for rn-curiosity"
+  },
+  "dependencies": {
+    "buffer": "^5.0.8",
+    "jsrsasign": "^8.0.4"
   }
 }
