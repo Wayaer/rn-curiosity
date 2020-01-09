@@ -24,10 +24,12 @@ import androidx.core.content.FileProvider;
 
 import com.curiosity.utils.FileUtils;
 import com.facebook.react.bridge.GuardedRunnable;
+import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.UiThreadUtil;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
+import com.facebook.react.uimanager.PixelUtil;
 
 import org.json.JSONObject;
 
@@ -53,6 +55,13 @@ import java.util.zip.ZipFile;
  */
 
 public class NativeTools {
+
+    public static float getResourcesPixel(ReactApplicationContext reactApplicationContext, String name) {
+        final int id = reactApplicationContext.getResources()
+                .getIdentifier(name, "dimen", "android");
+        return id > 0 ?
+                PixelUtil.toDIPFromPixel(reactApplicationContext.getResources().getDimensionPixelSize(id)) : 0;
+    }
 
     /**
      * @param content
@@ -217,7 +226,10 @@ public class NativeTools {
      * @return
      */
     public static String getExternalFilesDir(Context context) {
-        return context.getExternalFilesDir(null).getPath();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
+            return context.getExternalFilesDir(null).getPath();
+        }
+        return null;
     }
 
     /**
@@ -331,7 +343,10 @@ public class NativeTools {
      */
     public static String getFilePath(Context context, String fileName) {
         String filePath = getFilesDir(context) + "/bundle/";
-        String fileExternalPath = getExternalFilesDir(context) + "/bundle/";
+        String fileExternalPath = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.FROYO) {
+            fileExternalPath = getExternalFilesDir(context) + "/bundle/";
+        }
         if (isFolderExists(filePath + fileName)) {
             return filePath;
         } else if (isFolderExists(fileExternalPath + fileName)) {
@@ -403,7 +418,9 @@ public class NativeTools {
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if (marketPackageName != null && !marketPackageName.equals("")) {// 如果没给市场的包名，则系统会弹出市场的列表让你进行选择。
-            intent.setPackage(marketPackageName);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.DONUT) {
+                intent.setPackage(marketPackageName);
+            }
         }
         try {
             CuriosityModule.reactApplicationContext.startActivity(intent);

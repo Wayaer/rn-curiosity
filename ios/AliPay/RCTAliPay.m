@@ -64,7 +64,7 @@ RCT_EXPORT_METHOD(aliPay:(NSString *)orderInfo
                   rejecter:(RCTPromiseRejectBlock)reject) {
     self.payOrderResolve = resolve;
     [AliPaySDK.defaultService payOrder:orderInfo fromScheme:self.appScheme callback:^(NSDictionary *resultDic) {
-//        resolve(resultDic);
+        resolve(resultDic);
     }];
 }
 

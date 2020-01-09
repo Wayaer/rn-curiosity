@@ -1,44 +1,81 @@
 import {NativeModules} from 'react-native';
-import {Buffer} from 'buffer';
-import {KEYUTIL, KJUR} from 'jsrsasign';
+import {NativeUtils} from "../NativeUtils";
 
-const {AliPay} = NativeModules;
+const pay = NativeModules.AliPay;
 
-AliPay.sign = (object, privateKey) => {
+export class AliPay {
 
-    // Add default sign_type
-    if (!object.sign_type || object.sign_type.length === 0) {
-        object.sign_type = 'RSA';
+    /**
+     * promise
+     * @param authWithInfo
+     * @param successCallback
+     * @param errorCallback
+     */
+    static aliPayAuthWithInfo(authWithInfo, successCallback, errorCallback) {
+        if (typeof (authWithInfo) != 'string') return NativeUtils.logError('authWithInfo must is string')
+        pay.aliPayAuthWithInfo(authWithInfo).then((value) => {
+            return successCallback(value);
+        }).catch((error) => {
+            return errorCallback(error);
+        });
     }
 
-    // Remove sign field
-    delete object.sign;
-
-    // Remove empty field
-    Object.keys(object).forEach((key) => {
-        if (String(object[key]).length === 0) {
-            delete object[key];
-        }
-    })
-
-    // Sort query string
-    let sortedQuery = '';
-    let sortedKeys = Object.keys(object).sort((a, b) => a > b);
-    for (let i = 0; i < sortedKeys.length; i++) {
-        let key = sortedKeys[i];
-        let value = object[key];
-        sortedQuery += `${(i === 0) ? '' : '&'}${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
+    /**
+     * promise
+     * @param isSandbox
+     * @param successCallback
+     * @param errorCallback
+     */
+    static setAliPaySandbox(isSandbox, successCallback, errorCallback) {
+        if (typeof (isSandbox) != 'boolean') return NativeUtils.logError('isSandbox must is boolean')
+        pay.setAliPaySandbox(isSandbox).then((value) => {
+            return successCallback(value);
+        }).catch((error) => {
+            return errorCallback(error);
+        });
     }
 
-    // Create signature
-    let alg = {RSA: 'SHA1withRSA', RSA2: 'SHA256withRSA'}[object.sign_type];
-    let sig = new KJUR.crypto.Signature({alg});
-    sig.init(KEYUTIL.getKey(privateKey));
-    sig.updateString(sortedQuery);
-    let sign = Buffer.from(sig.sign(), 'hex').toString('base64');
+    /**
+     * promise
+     * @param orderInfo
+     * @param successCallback
+     * @param errorCallback
+     */
+    static aliPay(orderInfo, successCallback, errorCallback) {
+        if (typeof (orderInfo) != 'string') return NativeUtils.logError('orderInfo must is string')
+        pay.aliPay(orderInfo).then((value) => {
+            return successCallback(value);
+        }).catch((error) => {
+            return errorCallback(error);
+        });
+    }
 
-    sortedQuery += `&sign=${encodeURIComponent(sign)}`;
-    return sortedQuery;
+    /**
+     * promise
+     * @param h5PayUrl
+     * @param successCallback
+     * @param errorCallback
+     */
+    static aliPayInterceptorWithUrl(h5PayUrl, successCallback, errorCallback) {
+        if (typeof (h5PayUrl) != 'string') return NativeUtils.logError('h5PayUrl must is string')
+        pay.aliPayInterceptorWithUrl(h5PayUrl).then((value) => {
+            return successCallback(value);
+        }).catch((error) => {
+            return errorCallback(error);
+        });
+    }
+
+    /**
+     * promise
+     * @returns {*}
+     */
+
+    static getAliPaySDKVersion(successCallback, errorCallback) {
+        pay.getAliPaySDKVersion().then((value) => {
+            return successCallback(value);
+        }).catch((error) => {
+            return errorCallback(error);
+        });
+    }
+
 }
-
-export default AliPay;

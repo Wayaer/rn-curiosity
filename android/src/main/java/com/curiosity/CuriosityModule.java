@@ -2,7 +2,6 @@ package com.curiosity;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Vibrator;
 import android.view.View;
@@ -20,8 +19,6 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeArray;
 import com.facebook.react.common.MapBuilder;
 import com.facebook.react.module.annotations.ReactModule;
-import com.facebook.react.uimanager.PixelUtil;
-
 
 import java.io.IOException;
 import java.util.Map;
@@ -29,12 +26,10 @@ import java.util.Objects;
 
 @ReactModule(name = CuriosityModule.NAME)
 public class CuriosityModule extends ReactContextBaseJavaModule {
-    public static final String NAME = "RNCuriosity";
+    static final String NAME = "RNCuriosity";
+    static ReactApplicationContext reactApplicationContext;
 
-
-    public static ReactApplicationContext reactApplicationContext;
-
-    public CuriosityModule(ReactApplicationContext reactContext) {
+    CuriosityModule(ReactApplicationContext reactContext) {
         super(reactContext);
         reactApplicationContext = reactContext;
     }
@@ -48,18 +43,11 @@ public class CuriosityModule extends ReactContextBaseJavaModule {
     public @javax.annotation.Nullable
     Map<String, Object> getConstants() {
         WritableMap map = NativeTools.getAppInfo();
-        map.putDouble("StatusBarHeight", getResourcesPixel("status_bar_height"));
-        map.putDouble("NavigationBarHeight", getResourcesPixel("navigation_bar_height"));
+        map.putDouble("StatusBarHeight", NativeTools.getResourcesPixel(reactApplicationContext, "status_bar_height"));
+        map.putDouble("NavigationBarHeight", NativeTools.getResourcesPixel(reactApplicationContext, "navigation_bar_height"));
         return MapBuilder.<String, Object>of("constants", map);
     }
 
-    public float getResourcesPixel(String name) {
-        final int id = reactApplicationContext.getResources()
-                .getIdentifier(name, "dimen", "android");
-        final float pixel = id > 0 ?
-                PixelUtil.toDIPFromPixel(reactApplicationContext.getResources().getDimensionPixelSize(id)) : 0;
-        return pixel;
-    }
 
     /**
      * promise例子
