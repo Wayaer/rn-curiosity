@@ -7,10 +7,10 @@
 
 #import <UIKit/UIKit.h>
 
-#if __has_include("AliPaySDK.h")
-#import "AliPaySDK.h"
+#if __has_include("AlipaySDK.h")
+#import "AlipaySDK.h"
 #else
-#import <AliPaySDK/AliPaySDK.h>
+#import <AlipaySDK/AlipaySDK.h>
 #endif
 
 @interface RCTAliPay : NSObject <RCTBridgeModule>

@@ -8,7 +8,7 @@ RCT_EXPORT_MODULE(RNCuriosity)
 }
 
 //Log
-+ (void)LogInfo:(id)info{
++ (void)logInfo:(id)info{
     [NativeTools logInfo:info];
 }
 //显示隐藏启动屏

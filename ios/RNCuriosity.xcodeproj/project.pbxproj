@@ -10,8 +10,9 @@
 		1438F873224E257A00F8A9C7 /* LinearGradient.m in Sources */ = {isa = PBXBuildFile; fileRef = 1438F86D224E257A00F8A9C7 /* LinearGradient.m */; };
 		1438F874224E257A00F8A9C7 /* LinearGradientLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 1438F86E224E257A00F8A9C7 /* LinearGradientLayer.m */; };
 		1438F875224E257A00F8A9C7 /* LinearGradientManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1438F871224E257A00F8A9C7 /* LinearGradientManager.m */; };
-		14654BD723C6110F004199F3 /* libAlipaySDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 14654BD423C6110F004199F3 /* libAlipaySDK.a */; };
+		1457F69E23DAE13400A6B7D9 /* AlipaySDK in Frameworks */ = {isa = PBXBuildFile; fileRef = 1457F69D23DAE13400A6B7D9 /* AlipaySDK */; };
 		14654BE223C61C2A004199F3 /* RCTAliPay.m in Sources */ = {isa = PBXBuildFile; fileRef = 14654BE123C61C2A004199F3 /* RCTAliPay.m */; };
+		147F478523DAE1D600EF9281 /* AlipaySDK.bundle in Copy Files */ = {isa = PBXBuildFile; fileRef = 14654BD123C6110F004199F3 /* AlipaySDK.bundle */; };
 		149C2D492227B46C0039ED1E /* AppDelegateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 149C2D472227B46C0039ED1E /* AppDelegateTest.m */; };
 		14A98E8B222692CE00BE24EE /* RNCuriosity.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A98E32222692CD00BE24EE /* RNCuriosity.m */; };
 		14A98E9F222692CE00BE24EE /* NativeTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A98E60222692CE00BE24EE /* NativeTools.m */; };
@@ -32,17 +33,18 @@
 		14A98EAE222692CE00BE24EE /* pwd2key.c in Sources */ = {isa = PBXBuildFile; fileRef = 14A98E84222692CE00BE24EE /* pwd2key.c */; };
 		14A98EAF222692CE00BE24EE /* aestab.c in Sources */ = {isa = PBXBuildFile; fileRef = 14A98E85222692CE00BE24EE /* aestab.c */; };
 		14A98EB0222692CE00BE24EE /* SSZipArchive.m in Sources */ = {isa = PBXBuildFile; fileRef = 14A98E8A222692CE00BE24EE /* SSZipArchive.m */; };
-		14BFB83F23B662E100EEA8E3 /* RNCheckNotificationPermission.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14BFB83E23B662E100EEA8E3 /* RNCheckNotificationPermission.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		58B511D91A9E6C8500147676 /* CopyFiles */ = {
+		58B511D91A9E6C8500147676 /* Copy Files */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				147F478523DAE1D600EF9281 /* AlipaySDK.bundle in Copy Files */,
 			);
+			name = "Copy Files";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -55,10 +57,10 @@
 		1438F870224E257A00F8A9C7 /* LinearGradient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinearGradient.h; sourceTree = "<group>"; };
 		1438F871224E257A00F8A9C7 /* LinearGradientManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LinearGradientManager.m; sourceTree = "<group>"; };
 		1438F872224E257A00F8A9C7 /* LinearGradientLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LinearGradientLayer.h; sourceTree = "<group>"; };
+		1457F69D23DAE13400A6B7D9 /* AlipaySDK */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.objfile"; path = AlipaySDK; sourceTree = "<group>"; };
 		14654BD123C6110F004199F3 /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
-		14654BD423C6110F004199F3 /* libAlipaySDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAlipaySDK.a; sourceTree = "<group>"; };
 		14654BDC23C61AED004199F3 /* AliPaySDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliPaySDK.h; sourceTree = "<group>"; };
-		14654BDD23C61AF5004199F3 /* AliPayAuthInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliPayAuthInfo.h; sourceTree = "<group>"; };
+		14654BDD23C61AF5004199F3 /* APayAuthInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APayAuthInfo.h; sourceTree = "<group>"; };
 		14654BE023C61C2A004199F3 /* RCTAliPay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RCTAliPay.h; sourceTree = "<group>"; };
 		14654BE123C61C2A004199F3 /* RCTAliPay.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RCTAliPay.m; sourceTree = "<group>"; };
 		149C2D472227B46C0039ED1E /* AppDelegateTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegateTest.m; sourceTree = "<group>"; };
@@ -105,7 +107,6 @@
 		14A98E89222692CE00BE24EE /* SSZipCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSZipCommon.h; sourceTree = "<group>"; };
 		14A98E8A222692CE00BE24EE /* SSZipArchive.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSZipArchive.m; sourceTree = "<group>"; };
 		14A98EC3222693E300BE24EE /* NativeTools.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NativeTools.h; sourceTree = SOURCE_ROOT; };
-		14BFB83E23B662E100EEA8E3 /* RNCheckNotificationPermission.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RNCheckNotificationPermission.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,7 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				14654BD723C6110F004199F3 /* libAlipaySDK.a in Frameworks */,
+				1457F69E23DAE13400A6B7D9 /* AlipaySDK in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,7 +132,6 @@
 		1438F86C224E257A00F8A9C7 /* LinearGradient */ = {
 			isa = PBXGroup;
 			children = (
-				14BFB83E23B662E100EEA8E3 /* RNCheckNotificationPermission.swift */,
 				1438F86D224E257A00F8A9C7 /* LinearGradient.m */,
 				1438F86E224E257A00F8A9C7 /* LinearGradientLayer.m */,
 				1438F86F224E257A00F8A9C7 /* LinearGradientManager.h */,
@@ -145,12 +145,12 @@
 		14654BD023C6110F004199F3 /* AliPay */ = {
 			isa = PBXGroup;
 			children = (
+				1457F69D23DAE13400A6B7D9 /* AlipaySDK */,
 				14654BE023C61C2A004199F3 /* RCTAliPay.h */,
 				14654BE123C61C2A004199F3 /* RCTAliPay.m */,
-				14654BDD23C61AF5004199F3 /* AliPayAuthInfo.h */,
+				14654BDD23C61AF5004199F3 /* APayAuthInfo.h */,
 				14654BDC23C61AED004199F3 /* AliPaySDK.h */,
 				14654BD123C6110F004199F3 /* AlipaySDK.bundle */,
-				14654BD423C6110F004199F3 /* libAlipaySDK.a */,
 			);
 			path = AliPay;
 			sourceTree = "<group>";
@@ -246,7 +246,7 @@
 			buildPhases = (
 				58B511D71A9E6C8500147676 /* Sources */,
 				58B511D81A9E6C8500147676 /* Frameworks */,
-				58B511D91A9E6C8500147676 /* CopyFiles */,
+				58B511D91A9E6C8500147676 /* Copy Files */,
 			);
 			buildRules = (
 			);
@@ -305,7 +305,6 @@
 				14A98EB0222692CE00BE24EE /* SSZipArchive.m in Sources */,
 				14A98EA0222692CE00BE24EE /* crypt.c in Sources */,
 				14A98E9F222692CE00BE24EE /* NativeTools.m in Sources */,
-				14BFB83F23B662E100EEA8E3 /* RNCheckNotificationPermission.swift in Sources */,
 				14A98EA9222692CE00BE24EE /* aescrypt.c in Sources */,
 				14A98EA1222692CE00BE24EE /* unzip.c in Sources */,
 				14A98EAE222692CE00BE24EE /* pwd2key.c in Sources */,
@@ -422,6 +421,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/AliPay/AlipaySDK\"";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -432,8 +432,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/RNCuriosity\"",
-					"\"$(SRCROOT)/AliPay/RCTAliPay\"",
-					"$(PROJECT_DIR)",
+					"$(SRCROOT)/AliPay/RCTAliPay\" \"$(SRCROOT)/LinearGradient/LinearGradientManager.m\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RNCuriosity;
@@ -448,6 +447,7 @@
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
+				FRAMEWORK_SEARCH_PATHS = "\"$(SRCROOT)/AliPay/AlipaySDK\"";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -458,8 +458,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/RNCuriosity\"",
-					"\"$(SRCROOT)/AliPay/RCTAliPay\"",
-					"$(PROJECT_DIR)",
+					"$(SRCROOT)/AliPay/RCTAliPay\" \"$(SRCROOT)/LinearGradient/LinearGradientManager.m\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RNCuriosity;
