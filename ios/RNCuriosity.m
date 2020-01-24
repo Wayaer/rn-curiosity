@@ -1,7 +1,10 @@
 #import "RNCuriosity.h"
 #import <AudioToolbox/AudioToolbox.h>
+
 @implementation RNCuriosity
+
 RCT_EXPORT_MODULE(RNCuriosity)
+
 - (dispatch_queue_t)methodQueue
 {
     return dispatch_get_main_queue();

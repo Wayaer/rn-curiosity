@@ -11,10 +11,9 @@ Pod::Spec.new do |s|
   s.homepage     = package['homepage']
   s.platforms    = { :ios => "9.0", :tvos => "9.0" }
   s.source       = { :git => package['homepage'], :tag => "#{s.version}" }
-  s.source_files  = "ios/**/*.{h,m}","ios/**/minizip/*.{c,h}"
-  s.dependency "React","AlipaySDK"
-  s.resource = 'AlipaySDK.bundle'
-  s.vendored_frameworks = "ios/AliPay/AlipaySDK"
-  s.frameworks = "Security","SystemConfiguration", "CoreTelephony", "QuartzCore", "CoreText", "CoreGraphics", "UIKit", "Foundation", "CFNetwork", "CoreMotion"
-  s.library = "c++",'z', 'iconv'
+  s.source_files  = "ios/**/*.{h,m}"
+  s.dependency "React"
+  s.dependency "AlipaySDK-iOS"
+  s.dependency "SSZipArchive"
+
 end

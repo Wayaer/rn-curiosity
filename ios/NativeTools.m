@@ -1,5 +1,7 @@
 #import "NativeTools.h"
+
 #import "SSZipArchive.h"
+
 #define fileManager [NSFileManager defaultManager]
 #define cachePath [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject]
 
@@ -92,27 +94,36 @@ static bool addedJsLoadErrorObserver = false;
 
     return  info;
 }
-
+static UIView* loadingView = nil;
 //显示启动屏
 + (void)showSplashScreen {
-    if (!addedJsLoadErrorObserver) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jsLoadError:) name:RCTJavaScriptDidFailToLoadNotification object:nil];
-        addedJsLoadErrorObserver = true;
-    }
+   if (!addedJsLoadErrorObserver) {
+          [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jsLoadError:) name:RCTJavaScriptDidFailToLoadNotification object:nil];
+          addedJsLoadErrorObserver = true;
+      }
 
-    while (waiting) {
-        NSDate* later = [NSDate dateWithTimeIntervalSinceNow:1];
-        [[NSRunLoop mainRunLoop] runUntilDate:later];
-    }
+      while (waiting) {
+          NSDate* later = [NSDate dateWithTimeIntervalSinceNow:0.1];
+          [[NSRunLoop mainRunLoop] runUntilDate:later];
+      }
 }
 //隐藏启动屏
 + (void)hideSplashScreen {
-    dispatch_async(dispatch_get_main_queue(),
-                   ^{
-                       waiting = false;
-                   });
+     if (waiting) {
+          dispatch_async(dispatch_get_main_queue(), ^{
+              waiting = false;
+          });
+      } else {
+          dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+              [loadingView removeFromSuperview];
+          });
+      }
 }
-
++ (void) jsLoadError:(NSNotification*)notification
+{
+    // If there was an error loading javascript, hide the splash screen so it can be shown.  Otherwise the splash screen will remain forever, which is a hassle to debug.
+    [self  hideSplashScreen];
+}
 // 获取Library的目录路径
 + (NSString *)getLibraryDirectory {
     return [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject];;
