@@ -1,6 +1,6 @@
 {
   "name": "rn-curiosity",
-  "version": "0.3.11",
+  "version": "0.3.12",
   "description": "React Native rn-curiosity API for iOS & Android",
   "main": "index.js",
   "pod": "RNCuriosity",
@@ -11,7 +11,7 @@
     "useNpm": "npx nrm use npm",
     "useTaoBao": "npx nrm use taobao",
     "npmPublish": "npm publish",
-    "npmUnPublish": "npm unpublish rn-curiosity@0.3.9",
+    "npmUnPublish": "npm unpublish rn-curiosity@0.3.11",
     "npmDeprecate": "npm deprecate rn-curiosity@0.0.0 Please update the version for rn-curiosity"
   }
 }

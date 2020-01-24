@@ -1,8 +1,5 @@
 #import "NativeTools.h"
-//#import "SSZipArchive.h"
 #import "SSZipArchive.h"
-//#import "AliPay/libAlipaySDK.a"
-
 #define fileManager [NSFileManager defaultManager]
 #define cachePath [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject]
 
@@ -28,7 +25,7 @@ static bool addedJsLoadErrorObserver = false;
     NSString *origin = [RCTConvert NSString:props[@"origin"]];
     NSString *path = [RCTConvert NSString:props[@"path"]];
     NSDate *expiration = [RCTConvert NSDate:props[@"expiration"]];
-    
+
     NSMutableDictionary *cookieProperties = [NSMutableDictionary dictionary];
     [cookieProperties setObject:name forKey:NSHTTPCookieName];
     [cookieProperties setObject:value forKey:NSHTTPCookieValue];
@@ -36,10 +33,10 @@ static bool addedJsLoadErrorObserver = false;
     [cookieProperties setObject:origin forKey:NSHTTPCookieOriginURL];
     [cookieProperties setObject:path forKey:NSHTTPCookiePath];
     [cookieProperties setObject:expiration forKey:NSHTTPCookieExpires];
-    
+
     NSHTTPCookie *cookie = [NSHTTPCookie cookieWithProperties:cookieProperties];
     [[NSHTTPCookieStorage sharedHTTPCookieStorage] setCookie:cookie];
-    
+
 }
 + (void)clearAllCookie
 {
@@ -61,7 +58,7 @@ static bool addedJsLoadErrorObserver = false;
         [cookies setObject:d forKey:c.name];
     }
     return cookies;
-    
+
 }
 
 //获取app信息
@@ -72,17 +69,17 @@ static bool addedJsLoadErrorObserver = false;
     CGRect rectStatus = [[UIApplication sharedApplication] statusBarFrame];
     [info setObject:@(rectStatus.size.height) forKey:@"StatusBarHeight"];
     [info setObject:@(rectStatus.size.width) forKey:@"StatusBarWidth"];
-    
+
     [info setObject:NSHomeDirectory() forKey:@"HomeDirectory"];
     [info setObject:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject] forKey:@"DocumentDirectory"];
     [info setObject:[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) lastObject] forKey:@"LibraryDirectory"];
     [info setObject:[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) firstObject] forKey:@"CachesDirectory"];
     [info setObject:NSTemporaryDirectory() forKey:@"TemporaryDirectory"];
-    
+
     [info setObject:[app objectForKey:@"CFBundleShortVersionString"] forKey:@"versionName"];
     [info setObject:@"Apple" forKey:@"phoneBrand"];
     [info setObject:[NSNumber numberWithInt:[[app objectForKey:@"CFBundleVersion"] intValue]] forKey:@"versionCode"];
-    
+
     [info setObject:[app objectForKey:@"CFBundleIdentifier"] forKey:@"packageName"];
     [info setObject:[app objectForKey:@"CFBundleName"] forKey:@"AppName"];
     [info setObject:[app objectForKey:@"DTSDKBuild"] forKey:@"SDKBuild"];
@@ -92,7 +89,7 @@ static bool addedJsLoadErrorObserver = false;
     UIDevice *device = [UIDevice currentDevice];
     [info setObject:device.systemName forKey:@"systemName"];
     [info setObject:device.systemVersion forKey:@"systemVersion"];
-    
+
     return  info;
 }
 
@@ -102,7 +99,7 @@ static bool addedJsLoadErrorObserver = false;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(jsLoadError:) name:RCTJavaScriptDidFailToLoadNotification object:nil];
         addedJsLoadErrorObserver = true;
     }
-    
+
     while (waiting) {
         NSDate* later = [NSDate dateWithTimeIntervalSinceNow:1];
         [[NSRunLoop mainRunLoop] runUntilDate:later];
@@ -192,7 +189,7 @@ static bool addedJsLoadErrorObserver = false;
     }else {
         return NO;
     }
-    
+
 }
 
 //index.bundle文件路径
@@ -216,7 +213,7 @@ static bool addedJsLoadErrorObserver = false;
         BOOL isDirectory = NO;
         // 3. 判断文件是否存在
         BOOL isExist = [[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:&isDirectory];
-        
+
         // 4. 以上判断目的是忽略不需要计算的文件
         if (!isExist || isDirectory || [filePath containsString:@".DS"]){
             // 过滤: 1. 文件夹不存在  2. 过滤文件夹  3. 隐藏文件
@@ -237,10 +234,10 @@ static bool addedJsLoadErrorObserver = false;
     NSString *totleStr = nil;
     if (totleSize > 1000 * 1000){
         totleStr = [NSString stringWithFormat:@"%.2fMB",totleSize / 1000.00f /1000.00f];
-        
+
     }else if (totleSize > 1000){
         totleStr = [NSString stringWithFormat:@"%.2fKB",totleSize / 1000.00f ];
-        
+
     }else{
         totleStr = [NSString stringWithFormat:@"%.2fB",totleSize / 1.00f];
     }
@@ -256,27 +253,27 @@ static bool addedJsLoadErrorObserver = false;
 
 +(UIColor *)colorWithHexString:(NSString *)hexColor{
     NSString * cString = [[hexColor stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] uppercaseString];
-    
+
     // String should be 6 or 8 characters
     if ([cString length] < 6) return [UIColor blackColor];
-    
+
     // strip 0X if it appears
     if ([cString hasPrefix:@"0X"]) cString = [cString substringFromIndex:2];
     if ([cString hasPrefix:@"#"]) cString = [cString substringFromIndex:1];
     if ([cString length] != 6&[cString length] != 8) return [UIColor blackColor];
-    
+
     // Separate into r, g, b substrings
     NSRange range;
     range.location = 0;
     range.length = 2;
     NSString * rString = [cString substringWithRange:range];
-    
+
     range.location = 2;
     NSString * gString = [cString substringWithRange:range];
-    
+
     range.location = 4;
     NSString * bString = [cString substringWithRange:range];
-    
+
     NSString * aString=@"10";
     if ([cString length]==8) {
         range.location = 6;
