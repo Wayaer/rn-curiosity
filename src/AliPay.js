@@ -1,5 +1,5 @@
 import {NativeModules} from 'react-native';
-import {NativeUtils} from "../NativeUtils";
+import {NativeUtils} from "./NativeUtils";
 
 const pay = NativeModules.AliPay;
 

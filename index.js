@@ -1,6 +1,6 @@
 'use strict';
 export * from './src/NativeConstant';
 export * from './src/NativeUtils';
-export * from './src/native/AliPay'
+export * from './src/AliPay'
 
 
