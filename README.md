@@ -85,7 +85,7 @@ Android:
 
 IOS:
 
-[参考AppDelegateTest](ios/AppDelegateTest.m)
+[参考AppDelegateTest](ios/RNCuriosity/AppDelegateTest.m)
 
 [IOS 运行http请求文件配置信息](ios/ioshttp.png)
 
