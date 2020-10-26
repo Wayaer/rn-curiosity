@@ -1,6 +1,6 @@
 {
   "name": "rn-curiosity",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "React Native rn-curiosity API for iOS & Android",
   "main": "index.js",
   "pod": "RNCuriosity",
@@ -14,8 +14,10 @@
     "npmUnPublish": "npm unpublish rn-curiosity@0.5.0",
     "npmDeprecate": "npm deprecate rn-curiosity@0.0.0 Please update the version for rn-curiosity"
   },
-  "devDependencies": {
-    "react-native": "^0.63.3",
+  "dependencies": {
     "rn-fetch-blob": "^0.12.0"
+  },
+  "devDependencies": {
+    "react-native": "^0.63.3"
   }
 }
