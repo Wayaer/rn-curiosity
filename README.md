@@ -1,12 +1,12 @@
 
 # rn-curiosity
 
-## rn-curiosity，原生工具集合 详见NativeUtils
+## rn-curiosity，原生工具集合
 
  react-native >0.60.0
 ```
 
-  yarn add rn-curiosity
+   yarn add rn-curiosity
  
 ```
  
@@ -28,12 +28,11 @@
    android.enableJetifier=true
    
 ```
-## 方法 NativeUtils
+## 部分原生方法 NativeUtils
 [参考NativeUtils文件](src/NativeUtils.js)
 
 ## 网络请求封装 FetchBlob
 [参考FetchBlob文件](src/FetchBlob.js)
-
 
 ## 支付宝支付 AliPay
 [参考AliPay文件](src/AliPay.js)
@@ -211,9 +210,7 @@ Android:
    import com.curiosity.NativeTools;
    import java.io.File;
    
-   
-   public class MainApplication extends Application implements ReactApplication {
-     
+   public class MainApplication extends Application implements ReactApplication { 
      ...
      private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
         
@@ -221,17 +218,18 @@ Android:
        /*
         * bundle加载判断
         * */
-       @Override
-       protected String getJSBundleFile() {
-        ///
-       }
-       ...
-       
+         @Override
+         protected String getJSBundleFile() {
+           if (NativeTools.getBundleFile(getApplicationContext()) != null && NativeTools.matchingVersion(getApplicationContext())) {
+                 return NativeTools.getBundleFile(getApplicationContext()).getAbsolutePath();
+              } else {
+                 return super.getJSBundleFile();
+              }
+         }
+       ... 
       };
       ...
-      
     }
-   
 ```
 
 
@@ -239,7 +237,7 @@ IOS:
 
 [参考AppDelegateTest](ios/RNCuriosity/AppDelegateTest.m)
 
-[IOS 运行http请求文件配置信息](ios/ioshttp.png)
+[IOS 运行http请求文件配置信息](src/res/ioshttp.png)
 
 ```
 //热更新导入头部
