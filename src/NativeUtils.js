@@ -1,11 +1,32 @@
 import {NativeModules} from 'react-native';
 import {NativeConstant} from './NativeConstant';
+import {FetchBlob} from './FetchBlob';
 
 const RNCuriosity = NativeModules.RNCuriosity;
 const SplashScreen = NativeModules.SplashScreen;
 
 
 export class NativeUtils {
+    /**
+     * 获取app版本名字 => '1.0.1
+     * android
+     * ios
+     */
+    static getVersionName() {
+        return NativeConstant.VersionName;
+    }
+
+
+    /**
+     * 获取版本号  => 1
+     * android
+     * ios
+     */
+    static getVersionCode() {
+        return NativeConstant.VersionCode;
+    }
+
+
     /**
      * 检验传入参数是否正确
      * @param content
@@ -69,7 +90,6 @@ export class NativeUtils {
         }
     }
 
-
     /**
      * 安装apk only android
      * apkFile apk路径
@@ -80,7 +100,6 @@ export class NativeUtils {
             return NativeUtils.logError('apkFilePath');
         }
         RNCuriosity.installApp(apkFilePath);
-
     }
 
     /**
@@ -139,9 +158,7 @@ export class NativeUtils {
      * @param callback
      */
     static unZipFile(filePath, callback) {
-        if (!filePath) {
-            return NativeUtils.logError('filePath');
-        }
+        if (!filePath) return NativeUtils.logError('filePath');
         RNCuriosity.unZipFile(filePath, callback);//Success   NotFile  没有该文件
     }
 
@@ -306,5 +323,79 @@ export class NativeUtils {
     static singleVibration(time) {
         RNCuriosity.singleVibration(time);
     }
+
+    /**
+     * 下载并解压bundle文件,此方法只可以下载和解压至固定位置，
+     * 固定位置
+     * android:/data/user/0/{packageName}/files/
+     * ios:/var/mobile/Containers/Data/Application/{186EE408-3B95-4A09-B8E2-E1C14B333E2B}/Library/
+     *
+     * @param url
+     * @param callbackPercent
+     * @param callbackUnzip
+     * @param androidExternalFiles  true 保存在外置储存  false保存在内部储存 默认false
+     */
+    static downloadBundleZipWithUnZip(url, callbackPercent, callbackUnzip, androidExternalFiles) {
+        if (androidExternalFiles == null) androidExternalFiles = false;
+        if (NativeConstant.IOS) {
+            const path = NativeConstant.LibraryDirectory + '/';
+            FetchBlob.downloadFile(url, path, 'bundle.zip', (percent) => {
+                return callbackPercent(percent);
+            }, () => {
+                NativeUtils.unZipFile(path + 'bundle.zip', (zip) => {
+                    return callbackUnzip(zip);
+                });
+            }, (fail) => {
+                return console.error('download Fail');
+            });
+        } else if (NativeConstant.Android) {
+            const path = (androidExternalFiles ? NativeConstant.ExternalFilesDir : NativeConstant.FilesDir) + '/';
+            FetchBlob.downloadFile(url, path, 'bundle.zip', (percent) => {
+                return callbackPercent(percent);
+            }, () => {
+                NativeUtils.unZipFile(path + 'bundle.zip', (zip) => {
+                    return callbackUnzip(zip);
+                });
+            }, (fail) => {
+                return console.error('download Fail');
+            });
+        }
+    }
+
+
+    /**
+     * 删除Bundle文件或目录
+     * android 固定地址 /data/user/0/{包名}/files/bundle/
+     *         固定地址 /data/user/0/{包名}/files/bundle.zip
+     * ios 固定路径 /var/mobile/Containers/Data/Application/{570EAD8E-C3F9-4A8D-9A17-ACD3355AC501}/Library/bundle.zip
+     *     固定路径 /var/mobile/Containers/Data/Application/{570EAD8E-C3F9-4A8D-9A17-ACD3355AC501}/Library/bundle/
+     */
+    static deleteBundle() {
+        if (NativeConstant.IOS) {
+            const library = NativeConstant.LibraryDirectory + '/';
+            NativeUtils.deleteFile(library + 'bundle');
+            NativeUtils.deleteFile(library + 'bundle.zip');
+        } else if (NativeConstant.Android) {
+            const filesDir = NativeConstant.FilesDir + '/';
+            NativeUtils.deleteFile(filesDir + 'bundle');
+            NativeUtils.deleteFile(filesDir + 'bundle.zip');
+        }
+    }
+
+    /**
+     * 清除本地缓存目录
+     */
+    static cleanCache() {
+        if (NativeConstant.IOS) {
+            const cache = NativeConstant.CachesDirectory + '/';
+            NativeUtils.deleteFolder(cache);
+        } else if (NativeConstant.Android) {
+            const ExternalCacheDir = NativeConstant.ExternalCacheDir + '/';
+            const CacheDir = NativeConstant.CacheDir + '/';
+            NativeUtils.deleteFile(ExternalCacheDir);
+            NativeUtils.deleteFile(CacheDir);
+        }
+    }
+
 
 }
