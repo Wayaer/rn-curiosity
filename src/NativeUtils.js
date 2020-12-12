@@ -5,7 +5,6 @@ import {FetchBlob} from './FetchBlob';
 const RNCuriosity = NativeModules.RNCuriosity;
 const SplashScreen = NativeModules.SplashScreen;
 
-
 export class NativeUtils {
     /**
      * 获取app版本名字 => '1.0.1

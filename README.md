@@ -37,6 +37,9 @@
 ## 支付宝支付 AliPay
 [参考AliPay文件](src/AliPay.js)
 
+## 渐变组件 LinearGradient
+[参考LinearGradient文件](src/LinearGradient.js)
+
 # 热更新
 
 ## 热更新工具类 UploadTools
