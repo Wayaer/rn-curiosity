@@ -1,6 +1,6 @@
 {
   "name": "rn-curiosity",
-  "version": "0.5.6",
+  "version": "1.0.0",
   "description": "React Native rn-curiosity API for iOS & Android",
   "main": "index.js",
   "pod": "RNCuriosity",
