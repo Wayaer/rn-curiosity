@@ -1,6 +1,6 @@
 import {NativeModules} from 'react-native';
-import {NativeConstant} from './NativeConstant';
-import {FetchBlob} from './FetchBlob';
+import {NativeConstant} from './constant';
+import {FetchBlob} from './fetch_blob';
 
 const RNCuriosity = NativeModules.RNCuriosity;
 const SplashScreen = NativeModules.SplashScreen;

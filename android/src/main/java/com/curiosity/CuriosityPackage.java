@@ -4,7 +4,7 @@ package com.curiosity;
 import androidx.annotation.NonNull;
 
 import com.curiosity.alipay.AliPayModule;
-import com.curiosity.lineargradient.LinearGradient;
+import com.curiosity.lineargradient.Linear_gradient;
 import com.curiosity.splashscreen.SplashScreenModule;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.JavaScriptModule;
@@ -32,7 +32,7 @@ public class CuriosityPackage implements ReactPackage {
     @NonNull
     @Override
     public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
-        return Arrays.<ViewManager>asList(new LinearGradient());
+        return Arrays.<ViewManager>asList(new Linear_gradient());
 
     }
 }

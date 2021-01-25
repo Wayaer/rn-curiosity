@@ -77,7 +77,7 @@ class NativeClass extends Component {
                 ...otherProps
             } = this.props;
             if ((colors && locations) && (colors.length !== locations.length)) {
-                console.warn('LinearGradient colors and locations props should be arrays of the same length');
+                console.warn('Linear_gradient colors and locations props should be arrays of the same length');
             }
             const flatStyle = StyleSheet.flatten(style) || {};
             const borderRadius = flatStyle.borderRadius || 0;
@@ -123,7 +123,7 @@ class NativeClass extends Component {
             } = this.props;
 
             if ((colors && locations) && (colors.length !== locations.length)) {
-                console.warn('LinearGradient colors and locations props should be arrays of the same length');
+                console.warn('Linear_gradient colors and locations props should be arrays of the same length');
             }
             return (
                 <NativeLinearGradient

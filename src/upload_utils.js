@@ -3,9 +3,9 @@
  * @param num
  * @returns {boolean}
  */
-import {NativeConstant} from "./NativeConstant";
+import {NativeConstant} from "./constant";
 
-class UploadTools {
+class UploadUtils {
     static checkNumber(num) {
         return typeof num === 'number';
     }

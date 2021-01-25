@@ -15,7 +15,14 @@
     "npmDeprecate": "npm deprecate rn-curiosity@0.0.0 Please update the version for rn-curiosity"
   },
   "dependencies": {
-    "rn-fetch-blob": "^0.12.0"
+    "rn-fetch-blob": "^0.12.0",
+    "@react-native-community/async-storage": "1.12.1",
+    "@react-native-community/netinfo": "5.9.10"
+  },
+  "peerDependencies": {
+    "rn-fetch-blob": ">=0.12.0",
+    "@react-native-community/async-storage": ">=1.12.1",
+    "@react-native-community/netinfo": ">=5.9.10"
   },
   "devDependencies": {
     "react-native": "^0.63.3"

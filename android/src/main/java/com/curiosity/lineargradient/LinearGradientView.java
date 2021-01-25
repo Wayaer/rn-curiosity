@@ -2,7 +2,7 @@ package com.curiosity.lineargradient;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.LinearGradient;
+import android.graphics.Linear_gradient;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
@@ -17,7 +17,7 @@ public class LinearGradientView extends View {
     private final Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Path mPathForBorderRadius;
     private RectF mTempRectForBorderRadius;
-    private LinearGradient mShader;
+    private Linear_gradient mShader;
 
     private float[] mLocations;
     private float[] mStartPos = {0, 0};
@@ -127,7 +127,7 @@ public class LinearGradientView extends View {
             };
         }
 
-        mShader = new LinearGradient(
+        mShader = new Linear_gradient(
                 startPos[0] * mSize[0],
                 startPos[1] * mSize[1],
                 endPos[0] * mSize[0],

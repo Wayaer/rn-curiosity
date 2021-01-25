@@ -1,4 +1,4 @@
-#import "LinearGradient.h"
+#import "Linear_gradient.h"
 
 #import <React/RCTConvert.h>
 #import <UIKit/UIKit.h>
@@ -6,7 +6,7 @@
 
 #import "LinearGradientLayer.h"
 
-@implementation LinearGradient
+@implementation Linear_gradient
 
 + (Class)layerClass
 {
@@ -74,7 +74,7 @@
 {
     return self.gradientLayer.useAngle;
 }
-    
+
 - (void)setUseAngle:(BOOL)useAngle
 {
     self.gradientLayer.useAngle = useAngle;
@@ -84,7 +84,7 @@
 {
     return self.gradientLayer.angleCenter;
 }
-    
+
 - (void)setAngleCenter:(CGPoint)angleCenter
 {
     self.gradientLayer.angleCenter = angleCenter;
@@ -94,7 +94,7 @@
 {
     return self.gradientLayer.angle;
 }
-    
+
 - (void)setAngle:(CGFloat)angle
 {
     self.gradientLayer.angle = angle;

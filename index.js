@@ -1,12 +1,12 @@
 'use strict';
 import RNFetchBlob from 'rn-fetch-blob';
 
-export * from './src/NativeConstant';
-export * from './src/LinearGradient';
-export * from './src/UploadTools';
-export * from './src/NativeUtils';
-export * from './src/FetchBlob';
-export * from './src/AliPay'
+export * from './src/constant';
+export * from './src/linear_gradient';
+export * from './src/upload_utils';
+export * from './src/native_utils';
+export * from './src/fetch_blob';
+export * from './src/ali_pay'
 export {
     /* curiosity */
     RNFetchBlob,

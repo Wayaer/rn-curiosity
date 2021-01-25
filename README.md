@@ -29,21 +29,29 @@
    
 ```
 ## 部分原生方法 NativeUtils
-[参考NativeUtils文件](src/NativeUtils.js)
+[参考NativeUtils文件](src/native_utils.js)
 
 ## 网络请求封装 FetchBlob
-[参考FetchBlob文件](src/FetchBlob.js)
+[参考FetchBlob文件](src/fetch_blob.js)
 
-## 支付宝支付 AliPay
-[参考AliPay文件](src/AliPay.js)
+## 本地存储 StorageTools
+调用方式
+```
+ Storage.xxx
+```
+[参考storage=文件](src/storage.js)
 
-## 渐变组件 LinearGradient
-[参考LinearGradient文件](src/LinearGradient.js)
+
+## 支付宝支付 Ali_pay
+[参考AliPay文件](src/ali_pay.js)
+
+## 渐变组件 Linear_gradient
+[参考LinearGradient文件](src/linear_gradient.js)
 
 # 热更新
 
 ## 热更新工具类 UploadTools
-[参考UploadTools文件](src/UploadTools.js)
+[参考UploadTools文件](src/upload_utils.js)
 
 ## JS调用热更新
 

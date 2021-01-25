@@ -30,10 +30,10 @@
 		142589E62546BD6E00C4F02E /* AppDelegateTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegateTest.m; sourceTree = "<group>"; };
 		142589E72546BD6E00C4F02E /* NativeTools.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NativeTools.m; sourceTree = "<group>"; };
 		142589E82546BD6E00C4F02E /* RNCuriosity.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNCuriosity.m; sourceTree = "<group>"; };
-		142589EA2546BD6E00C4F02E /* LinearGradient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinearGradient.m; sourceTree = "<group>"; };
+		142589EA2546BD6E00C4F02E /* Linear_gradient.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Linear_gradient.m; sourceTree = "<group>"; };
 		142589EB2546BD6E00C4F02E /* LinearGradientLayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinearGradientLayer.m; sourceTree = "<group>"; };
 		142589EC2546BD6E00C4F02E /* LinearGradientManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinearGradientManager.h; sourceTree = "<group>"; };
-		142589ED2546BD6E00C4F02E /* LinearGradient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinearGradient.h; sourceTree = "<group>"; };
+		142589ED2546BD6E00C4F02E /* Linear_gradient.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Linear_gradient.h; sourceTree = "<group>"; };
 		142589EE2546BD6E00C4F02E /* LinearGradientManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LinearGradientManager.m; sourceTree = "<group>"; };
 		142589EF2546BD6E00C4F02E /* LinearGradientLayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LinearGradientLayer.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -61,17 +61,17 @@
 			isa = PBXGroup;
 			children = (
 				142589DF2546BD6E00C4F02E /* NativeTools.h */,
-				142589E02546BD6E00C4F02E /* AliPay */,
+				142589E02546BD6E00C4F02E /* Ali_pay */,
 				142589E52546BD6E00C4F02E /* RNCuriosity.h */,
 				142589E62546BD6E00C4F02E /* AppDelegateTest.m */,
 				142589E72546BD6E00C4F02E /* NativeTools.m */,
 				142589E82546BD6E00C4F02E /* RNCuriosity.m */,
-				142589E92546BD6E00C4F02E /* LinearGradient */,
+				142589E92546BD6E00C4F02E /* Linear_gradient */,
 			);
 			path = RNCuriosity;
 			sourceTree = "<group>";
 		};
-		142589E02546BD6E00C4F02E /* AliPay */ = {
+		142589E02546BD6E00C4F02E /* Ali_pay */ = {
 			isa = PBXGroup;
 			children = (
 				142589E12546BD6E00C4F02E /* RCTAliPay.h */,
@@ -79,20 +79,20 @@
 				142589E32546BD6E00C4F02E /* APayAuthInfo.h */,
 				142589E42546BD6E00C4F02E /* RCTAliPay.m */,
 			);
-			path = AliPay;
+			path = Ali_pay;
 			sourceTree = "<group>";
 		};
-		142589E92546BD6E00C4F02E /* LinearGradient */ = {
+		142589E92546BD6E00C4F02E /* Linear_gradient */ = {
 			isa = PBXGroup;
 			children = (
-				142589EA2546BD6E00C4F02E /* LinearGradient.m */,
+				142589EA2546BD6E00C4F02E /* Linear_gradient.m */,
 				142589EB2546BD6E00C4F02E /* LinearGradientLayer.m */,
 				142589EC2546BD6E00C4F02E /* LinearGradientManager.h */,
-				142589ED2546BD6E00C4F02E /* LinearGradient.h */,
+				142589ED2546BD6E00C4F02E /* Linear_gradient.h */,
 				142589EE2546BD6E00C4F02E /* LinearGradientManager.m */,
 				142589EF2546BD6E00C4F02E /* LinearGradientLayer.h */,
 			);
-			path = LinearGradient;
+			path = Linear_gradient;
 			sourceTree = "<group>";
 		};
 		58B511D21A9E6C8500147676 = {
@@ -268,7 +268,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/RNCuriosity\"",
-					"$(SRCROOT)/AliPay/RCTAliPay\" \"$(SRCROOT)/LinearGradient/LinearGradientManager.m\"",
+					"$(SRCROOT)/Ali_pay/RCTAliPay\" \"$(SRCROOT)/Linear_gradient/LinearGradientManager.m\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RNCuriosity;
@@ -294,7 +294,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/RNCuriosity\"",
-					"$(SRCROOT)/AliPay/RCTAliPay\" \"$(SRCROOT)/LinearGradient/LinearGradientManager.m\"",
+					"$(SRCROOT)/Ali_pay/RCTAliPay\" \"$(SRCROOT)/Linear_gradient/LinearGradientManager.m\"",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = RNCuriosity;

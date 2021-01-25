@@ -5,9 +5,9 @@ import com.facebook.react.uimanager.SimpleViewManager;
 import com.facebook.react.uimanager.ThemedReactContext;
 import com.facebook.react.uimanager.annotations.ReactProp;
 
-public class LinearGradient extends SimpleViewManager<LinearGradientView> {
+public class Linear_gradient extends SimpleViewManager<LinearGradientView> {
 
-    public static final String REACT_CLASS = "LinearGradient";
+    public static final String REACT_CLASS = "Linear_gradient";
     public static final String PROP_COLORS = "colors";
     public static final String PROP_LOCATIONS = "locations";
     public static final String PROP_START_POS = "startPoint";

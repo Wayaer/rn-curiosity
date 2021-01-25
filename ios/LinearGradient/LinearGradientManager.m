@@ -1,5 +1,5 @@
 #import "LinearGradientManager.h"
-#import "LinearGradient.h"
+#import "Linear_gradient.h"
 #import <React/RCTBridge.h>
 
 @implementation LinearGradientManager
@@ -10,7 +10,7 @@ RCT_EXPORT_MODULE();
 
 - (UIView *)view
 {
-  return [[LinearGradient alloc] init];
+  return [[Linear_gradient alloc] init];
 }
 
 - (dispatch_queue_t)methodQueue
